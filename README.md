@@ -1,4 +1,3 @@
 # pizzajando_website
 
-123
-345
+Pizzajando Webside für Angewandte Programmierung im 2. Semster Media Systems an der HAW Hamburg.

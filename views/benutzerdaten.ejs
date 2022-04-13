@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet"  type="text/css" href="styles/style.css">
+    </head>
+    <body>
+        <h1>Liste der registrierten Benutzer</h1>
+        <table border="1">
+            <tr>
+                <th>Benutzername</th>
+                <th>Details</th>
+            </tr>
+            <% for(var i = 0; i < benutzerdaten.length; i++){ %>
+                <tr>
+                    <td><%= benutzerdaten[i].username %></td>
+                    <td>
+                        <a href="/zeigebenutzer/<%= i%>">Details zeigen...</a>
+                    </td>
+                </tr>
+            <% } %>
+        </table>
+    </body>
+</html>
