@@ -2,13 +2,28 @@
 <html>
   <head>
     <title>Speisekarte</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
   </head>
   <body>
     <h1>Pizzen</h1>
     <% for(var i = 0; i < pizzen.length; i++){ %>
-    <button class="<%= pizzen[i].name %>" name="<%= pizzen[i].name %>">
+    <button class="open<%= pizzen[i].name %>" name="open<%= pizzen[i].name %>">
       <%= pizzen[i].name %>
     </button>
+    <div
+      class="<%= pizzen[i].name %>Container"
+      id="<%= pizzen[i].name %>Container"
+    >
+      <div class="<%= pizzen[i].name %>" id="<%= pizzen[i].name %>">
+        <h1><%= pizzen[i].name %></h1>
+        <button
+          class="close<%= pizzen[i].name %>"
+          name="close<%= pizzen[i].name %>"
+        >
+          Close
+        </button>
+      </div>
+    </div>
     <% } %>
     <h1>Getränke</h1>
     <% for(var i = 0; i < drinks.length; i++){ %>
@@ -16,5 +31,6 @@
       <%= drinks[i].name %>
     </button>
     <% } %>
+    <script src="javascript/modals.js"></script>
   </body>
 </html>

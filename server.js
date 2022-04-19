@@ -58,8 +58,8 @@ app.get("/drinksTable", function (req, res) {
   res.render("drinksTable", { drinks: rows });
 });
 
-// getRequest openSpeisekarte
-app.post("/openSpeisekarte", function (req, res) {
+// getRequest speisekarte
+app.post("/speisekarte", function (req, res) {
   const pizzen_params = db.prepare("SELECT * FROM pizzen").all();
   const drinks_params = db.prepare("SELECT * FROM drinks").all();
   res.render("speisekarte", { pizzen: pizzen_params, drinks: drinks_params });

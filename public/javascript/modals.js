@@ -24,15 +24,15 @@ closeMeinAccount.addEventListener("click", () => {
   meinAccountContainer.classList.remove("showMeinAccount");
 });
 
-/* Register Modal
-const openRegister = document.querySelector(".openRegister");
-const closeRegister = document.querySelector(".closeRegister");
-const registerContainer = document.querySelector(".registerContainer");
+// Ware Modal
+const openWare = document.querySelector(".openWare");
+const closeWare = document.querySelector(".closeWare");
+const wareContainer = document.querySelector(".wareContainer");
 
-openRegister.addEventListener("click", () => {
-  registerContainer.classList.add("showRegister");
+openWare.addEventListener("click", () => {
+  wareContainer.classList.add("showWare");
 });
 
-closeRegister.addEventListener("click", () => {
-  registerContainer.classList.remove("showRegister");
-}); */
+closeWare.addEventListener("click", () => {
+  wareContainer.classList.remove("showWare");
+});
