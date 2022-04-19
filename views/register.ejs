@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+  </head>
+  <body>
+    <form action="/neuerBenutzer" class="button" method="post">
+      <p>Persönliche Daten</p>
+      <label for="email">E-Mail Adresse:</label><br />
+      <input type="text" id="email" name="email" required /><br />
+      <label for="firstname">Vorname:</label><br />
+      <input type="text" id="firstname" name="firstname" required /><br />
+      <label for="lastname">Nachname:</label><br />
+      <input type="text" id="lastname" name="lastname" required /><br />
+      <p>Adresse</p>
+      <label for="adress">Straße + Hausnummer:</label><br />
+      <input type="text" id="adress" name="adress" required /><br />
+      <label for="postcode">PLZ, Stadt</label><br />
+      <input type="text" id="postcode" name="postcode" required /><br />
+
+      <p>Passwort</p>
+      <label for="password">Passwort:</label><br />
+      <input type="text" id="password" name="password" required /><br />
+      <label for="passwordRepeat">Wiederholen:</label><br />
+      <input
+        type="text"
+        id="passwordRepeat"
+        name="passwordRepeat"
+        required
+      /><br /><br />
+      <input type="submit" value="Registrieren" />
+    </form>
+    <p><%= ausgabetext %></p>
+  </body>
+</html>

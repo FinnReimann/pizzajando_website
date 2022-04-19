@@ -1,4 +1,5 @@
-.modal-container {
+/* Warenkorb CSS */
+.warenkorbContainer {
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
@@ -13,12 +14,72 @@
   transition: opacity 0.3s ease;
 }
 
-.modal-container.show {
+.warenkorbContainer.showWarenkorb {
   pointer-events: auto;
   opacity: 1;
 }
 
-.modal {
+.warenkorb {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* MeinAccount CSS */
+.meinAccountContainer {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: opacity 0.3s ease;
+}
+
+.meinAccountContainer.showMeinAccount {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.meinAccount {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Register CSS */
+.registerContainer {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: opacity 0.3s ease;
+}
+
+.registerContainer.showRegister {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.Register {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

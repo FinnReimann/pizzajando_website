@@ -5,13 +5,48 @@
     <link rel="stylesheet" type="text/css" href="styles/style.css" />
   </head>
   <body>
-    <button class="open" name="close" value="open">Open Modal</button>
-    <div class="modal-container" id="modal-container">
-      <div class="modal" id="modal">
-        <h1>Hey</h1>
-        <button class="close" name="close" value="close">Close Modal</button>
+    <button class="openSpeisekarte" name="openSpeisekarte">Speisekarte</button>
+    <button class="openWarenkorb" name="openWarenkorb">Warenkorb</button>
+    <button class="openMeinAccount" name="openMeinAccount">MeinAccount</button>
+    <p><%= ausgabetext %></p>
+    <div class="warenkorbContainer" id="warenkorbContainer">
+      <div class="warenkorb" id="warenkorb">
+        <h1>Warenkorb</h1>
+        <button class="closeWarenkorb" name="closeWarenkorb">
+          Close Warenkorb
+        </button>
       </div>
     </div>
-    <script src="javascript/modal.js"></script>
+    <div class="meinAccountContainer" id="meinAccountContainer">
+      <div class="meinAccount" id="meinAccount">
+        <% if(loggedIn){ %>
+        <h1>MeinAccount</h1>
+        <button class="meineBestellunge" name="meineBestellungen">
+          Meine Bestellungen
+        </button>
+        <button class="accountdetails" name="accountdetails">
+          Accountdetails
+        </button>
+        <button class="ausloggen" name="ausloggen">Ausloggen</button>
+        <% } else { %>
+        <h1>Login</h1>
+        <form action="/startseite" class="button" method="post">
+          <label for="email">Email:</label><br />
+          <input type="text" id="email" name="email" /><br />
+          <label for="password">Passwort:</label><br />
+          <input type="password" id="password" name="password" /><br /><br />
+          <input type="submit" value="Login" />
+        </form>
+        <p>
+          Noch nicht Registriert?<br />
+          <a href="register">Jetzt Registrieren!</a>
+        </p>
+        <% } %>
+        <button class="closeMeinAccount" name="closeMeinAccount">
+          Close MeinAccount
+        </button>
+      </div>
+    </div>
+    <script src="javascript/modals.js"></script>
   </body>
 </html>

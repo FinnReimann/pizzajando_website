@@ -1,3 +1,6 @@
+// base variables
+let loggedIn = false;
+
 // Express initialisieren
 const express = require("express");
 const { use } = require("express/lib/application");
@@ -24,14 +27,56 @@ app.listen(3000, function () {
   console.log("listening to 3000");
 });
 
-// Startseite
+// getRequest Startseite
 app.get("/startseite", function (req, res) {
-  res.render("startseite");
+  res.render("startseite", { ausgabetext: "", loggedIn });
 });
 
-/* Modal 
-app.post("/open", function (req, res) {
-  const show_modal = !!req.body.modal; // Cast to boolean
-  res.render("startseite", { show_modal });
+// getRequest Register
+app.get("/register", function (req, res) {
+  res.render("register", { ausgabetext: "" });
 });
-*/
+
+// Login versuch
+app.post("/startseite", function (req, res) {
+  const param_username = req.body.username;
+  const param_password = req.body.password;
+  if (param_username == "" || param_password == "") {
+    res.render("startseite", {
+      ausgabetext: "Bitte alle Felder ausfüllen!",
+      loggedIn: false,
+    });
+  } else {
+    if (benutzerExistiert(param_username)) {
+      if (anmeldungErfolgreich(param_username, param_password)) {
+        loggedIn = true;
+        res.render("startseite", {
+          benutzer: getUser(param_username),
+          ausgabetext: "Willkommen zurück ",
+          loggedIn,
+        });
+      } else {
+        res.render("startseite", {
+          ausgabetext: "Passwort Falsch!",
+          loggedIn: false,
+        });
+      }
+    } else {
+      res.render("startseite", {
+        ausgabetext: "Benutzer nicht vorhanden!",
+        loggedIn: false,
+      });
+    }
+  }
+});
+
+// Funktion benutzerExistiert
+function benutzerExistiert(benutzerEmail) {
+  const rows = db.prepare("SELECT * FROM kontaktdaten").all();
+  for (element of rows) {
+    if (element.email == benutzerEmail) {
+      return true;
+    }
+  }
+  return false;
+}
