@@ -60,9 +60,9 @@ app.get("/drinksTable", function (req, res) {
 
 // getRequest openSpeisekarte
 app.post("/openSpeisekarte", function (req, res) {
-  const rows = db.prepare("SELECT * FROM pizzen").all();
-  //console.log(rows);
-  res.render("speisekarte", { pizzen: rows });
+  const pizzen_params = db.prepare("SELECT * FROM pizzen").all();
+  const drinks_params = db.prepare("SELECT * FROM drinks").all();
+  res.render("speisekarte", { pizzen: pizzen_params, drinks: drinks_params });
 });
 
 // Login versuch
@@ -72,27 +72,22 @@ app.post("/startseite", function (req, res) {
   if (param_username == "" || param_password == "") {
     res.render("startseite", {
       ausgabetext: "Bitte alle Felder ausfüllen!",
-      loggedIn: false,
     });
   } else {
     if (benutzerExistiert(param_username)) {
       if (anmeldungErfolgreich(param_username, param_password)) {
-        loggedIn = true;
         res.render("startseite", {
           benutzer: getUser(param_username),
           ausgabetext: "Willkommen zurück ",
-          loggedIn,
         });
       } else {
         res.render("startseite", {
           ausgabetext: "Passwort Falsch!",
-          loggedIn: false,
         });
       }
     } else {
       res.render("startseite", {
         ausgabetext: "Benutzer nicht vorhanden!",
-        loggedIn: false,
       });
     }
   }
