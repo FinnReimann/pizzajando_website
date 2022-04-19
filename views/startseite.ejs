@@ -2,15 +2,16 @@
 <html>
   <head>
     <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
   </head>
   <body>
-    <form action="/open" method="post">
-      <button name="modal" value="open">Open Modal</button>
-    </form>
-    <% if (show_modal) { %>
-    <div id="modal" style="display: block">
-      <h1>Hey</h1>
+    <button class="open" name="close" value="open">Open Modal</button>
+    <div class="modal-container" id="modal-container">
+      <div class="modal" id="modal">
+        <h1>Hey</h1>
+        <button class="close" name="close" value="close">Close Modal</button>
+      </div>
     </div>
-    <% } %>
+    <script src="javascript/modal.js"></script>
   </body>
 </html>

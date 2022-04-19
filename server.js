@@ -1,8 +1,12 @@
 // Express initialisieren
 const express = require("express");
+const { use } = require("express/lib/application");
 const res = require("express/lib/response");
 const { get } = require("express/lib/response");
 const app = express();
+
+// Views Freigeben
+app.use(express.static(__dirname + "/public"));
 
 // Body-Parser initialisieren
 app.use(express.urlencoded({ extended: true }));
@@ -22,11 +26,12 @@ app.listen(3000, function () {
 
 // Startseite
 app.get("/startseite", function (req, res) {
-  res.render("startseite", { show_modal: false });
+  res.render("startseite");
 });
 
-// Modal
+/* Modal 
 app.post("/open", function (req, res) {
   const show_modal = !!req.body.modal; // Cast to boolean
   res.render("startseite", { show_modal });
 });
+*/
