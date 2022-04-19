@@ -27,14 +27,35 @@ app.listen(3000, function () {
   console.log("listening to 3000");
 });
 
-// getRequest Startseite
+// getRequest startseite
 app.get("/startseite", function (req, res) {
   res.render("startseite", { ausgabetext: "", loggedIn });
 });
 
-// getRequest Register
+// getRequest register
 app.get("/register", function (req, res) {
   res.render("register", { ausgabetext: "" });
+});
+
+// getRequest kontaktdaten
+app.get("/kontaktdatenTable", function (req, res) {
+  const rows = db.prepare("SELECT * FROM kontaktdaten").all();
+  //console.log(rows);
+  res.render("kontaktdatenTable", { kontakte: rows });
+});
+
+// getRequest pizzen
+app.get("/pizzenTable", function (req, res) {
+  const rows = db.prepare("SELECT * FROM pizzen").all();
+  //console.log(rows);
+  res.render("pizzenTable", { pizzen: rows });
+});
+
+// getRequest openSpeisekarte
+app.post("/openSpeisekarte", function (req, res) {
+  const rows = db.prepare("SELECT * FROM pizzen").all();
+  //console.log(rows);
+  res.render("speisekarte", { pizzen: rows });
 });
 
 // Login versuch

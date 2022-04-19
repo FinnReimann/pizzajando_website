@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pizzen</title>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Preis</td>
+        <td>Zutaten</td>
+      </tr>
+      <% for(var i = 0; i < pizzen.length; i++){ %>
+      <tr>
+        <td><%= pizzen[i].id %></td>
+        <td><%= pizzen[i].name %></td>
+        <td><%= pizzen[i].preis %></td>
+        <td><%= pizzen[i].zutaten %></td>
+      </tr>
+      <% } %>
+    </table>
+  </body>
+</html>

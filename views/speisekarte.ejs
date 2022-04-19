@@ -3,5 +3,16 @@
   <head>
     <title>Speisekarte</title>
   </head>
-  <body></body>
+  <body>
+    <% for(var i = 0; i < pizzen.length; i++){ %>
+
+    <td><%= kontakte[i].id %></td>
+    <td><%= kontakte[i].email %></td>
+    <td><%= kontakte[i].firstname %></td>
+    <td><%= kontakte[i].lastname %></td>
+    <td><%= kontakte[i].adress %></td>
+    <td><%= kontakte[i].postcode %></td>
+    <td><%= kontakte[i].password %></td>
+    <% } %>
+  </body>
 </html>
