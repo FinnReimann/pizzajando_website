@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drinks</title>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Preis</td>
+      </tr>
+      <% for(var i = 0; i < drinks.length; i++){ %>
+      <tr>
+        <td><%= drinks[i].id %></td>
+        <td><%= drinks[i].name %></td>
+        <td><%= drinks[i].preis %></td>
+      </tr>
+      <% } %>
+    </table>
+  </body>
+</html>

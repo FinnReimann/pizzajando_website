@@ -4,15 +4,17 @@
     <title>Speisekarte</title>
   </head>
   <body>
+    <h1>Pizzen</h1>
     <% for(var i = 0; i < pizzen.length; i++){ %>
-
-    <td><%= kontakte[i].id %></td>
-    <td><%= kontakte[i].email %></td>
-    <td><%= kontakte[i].firstname %></td>
-    <td><%= kontakte[i].lastname %></td>
-    <td><%= kontakte[i].adress %></td>
-    <td><%= kontakte[i].postcode %></td>
-    <td><%= kontakte[i].password %></td>
+    <button class="<%= pizzen[i].name %>" name="<%= pizzen[i].name %>">
+      <%= pizzen[i].name %>
+    </button>
+    <% } %>
+    <h1>Getränke</h1>
+    <% for(var i = 0; i < drinks.length; i++){ %>
+    <button class="<%= pizzen[i].name %>" name="<%= pizzen[i].name %>">
+      <%= drinks[i].name %>
+    </button>
     <% } %>
   </body>
 </html>

@@ -51,6 +51,13 @@ app.get("/pizzenTable", function (req, res) {
   res.render("pizzenTable", { pizzen: rows });
 });
 
+// getRequest drinks
+app.get("/drinksTable", function (req, res) {
+  const rows = db.prepare("SELECT * FROM drinks").all();
+  //console.log(rows);
+  res.render("drinksTable", { drinks: rows });
+});
+
 // getRequest openSpeisekarte
 app.post("/openSpeisekarte", function (req, res) {
   const rows = db.prepare("SELECT * FROM pizzen").all();

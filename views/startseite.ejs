@@ -5,14 +5,12 @@
     <link rel="stylesheet" type="text/css" href="styles/style.css" />
   </head>
   <body>
-    <button
-      action="openSpeisekarte"
-      class="openSpeisekarte"
-      name="openSpeisekarte"
-      method="post"
-    >
-      Speisekarte
-    </button>
+    <form action="/openSpeisekarte" class="button" method="post">
+      <button>Speisekarte</button>
+    </form>
+    <form action="/openSpeisekarte" class="button" method="post">
+      <button>Hier Bestellen</button>
+    </form>
     <button class="openWarenkorb" name="openWarenkorb">Warenkorb</button>
     <button class="openMeinAccount" name="openMeinAccount">MeinAccount</button>
     <p><%= ausgabetext %></p>
