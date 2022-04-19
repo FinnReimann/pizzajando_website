@@ -1,5 +1,7 @@
 // Express initialisieren
 const express = require("express");
+const res = require("express/lib/response");
+const { get } = require("express/lib/response");
 const app = express();
 
 // Body-Parser initialisieren
@@ -16,4 +18,15 @@ const db = require("better-sqlite3")(DATABASE);
 // Server starten
 app.listen(3000, function () {
   console.log("listening to 3000");
+});
+
+// Startseite
+app.get("/startseite", function (req, res) {
+  res.render("startseite", { show_modal: false });
+});
+
+// Modal
+app.post("/open", function (req, res) {
+  const show_modal = !!req.body.modal; // Cast to boolean
+  res.render("startseite", { show_modal });
 });

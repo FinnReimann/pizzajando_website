@@ -3,5 +3,14 @@
   <head>
     <title>Startseite</title>
   </head>
-  <body></body>
+  <body>
+    <form action="/open" method="post">
+      <button name="modal" value="open">Open Modal</button>
+    </form>
+    <% if (show_modal) { %>
+    <div id="modal" style="display: block">
+      <h1>Hey</h1>
+    </div>
+    <% } %>
+  </body>
 </html>
