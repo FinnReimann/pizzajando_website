@@ -1,6 +1,3 @@
-// base variables
-let loggedIn = false;
-
 // Express initialisieren
 const express = require("express");
 const { use } = require("express/lib/application");
@@ -8,7 +5,7 @@ const res = require("express/lib/response");
 const { get } = require("express/lib/response");
 const app = express();
 
-// Views Freigeben
+// Public Freigeben
 app.use(express.static(__dirname + "/public"));
 
 // Body-Parser initialisieren
