@@ -19,6 +19,19 @@ app.set("view engine", "ejs");
 const DATABASE = "daten.db";
 const db = require("better-sqlite3")(DATABASE);
 
+// Session initialisieren
+const session = require("express-session");
+app.use(
+  session({
+    secret: "example",
+    saveUninitialized: false,
+    resave: false,
+  })
+);
+
+// Bcrypt initialisieren
+const bcrypt = require("bcrypt");
+
 // Server starten
 app.listen(3000, function () {
   console.log("listening to 3000");
