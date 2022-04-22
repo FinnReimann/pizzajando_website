@@ -84,6 +84,7 @@ app.post("/neuer_benutzer", function (req, res) {
   const param_postcode = req.body.register_postcode;
   const param_password = req.body.register_password;
   const param_password_repeat = req.body.register_password_repeat;
+
   // Prüfen ob Felder ausgefüllt sind
   if (
     param_email == "" ||
@@ -180,28 +181,28 @@ app.post("/login", function (req, res) {
 
 // Delete
 app.post("/delete", function (req, res) {
-  const param_email = req.body.email;
-  const param_password = req.body.password;
+  const param_email = req.body.delete_email;
+  const param_password = req.body.delete_password;
   const rows = db
-    .prepare("SELECT * FROM kontaktdaten WHERE username=?")
-    .all(param_username);
-  if (rows && rows.length == 1) {
-    const hash = rows[0].password;
-    const isValid = bcrypt.compareSync(param_password, hash);
-    if (isValid == true) {
-      req.session.authenticated = true;
-      req.session.user = param_username;
-      db.prepare("DELETE FROM kontaktdaten WHERE username=?").run(
-        param_username
-      );
-      res.render("admin", {
-        message: `${param_email} erfolgreich gelöscht!`,
-      });
-    } else {
-      res.render("admin", { message: "Passwort falsch" });
-    }
+    .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+    .all(param_email);
+  if (param_email == "" || param_password == "") {
+    res.render("admin", { message: "Bitte alle Felder ausfüllen!" });
   } else {
-    res.render("admin", { message: "Benutzer nicht vorhanden" });
+    if (rows && rows.length == 1) {
+      const hash = rows[0].password;
+      const isValid = bcrypt.compareSync(param_password, hash);
+      if (isValid == true) {
+        db.prepare("DELETE FROM kontaktdaten WHERE email=?").run(param_email);
+        res.render("admin", {
+          message: `${param_email} erfolgreich gelöscht!`,
+        });
+      } else {
+        res.render("admin", { message: "Passwort falsch!" });
+      }
+    } else {
+      res.render("admin", { message: "Benutzer nicht vorhanden!" });
+    }
   }
 });
 

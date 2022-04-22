@@ -13,7 +13,7 @@ warenkorb_close.addEventListener("click", () => {
 });
 
 window.addEventListener("mouseup", (event) => {
-  if (event.target != warenkorb_container) {
+  if (event.target == warenkorb_container) {
     warenkorb_container.classList.remove("warenkorb_show");
   }
 });
