@@ -11,45 +11,114 @@
     <form action="/speisekarte" class="button" method="post">
       <button>Hier Bestellen</button>
     </form>
-    <button class="openWarenkorb" name="openWarenkorb">Warenkorb</button>
-    <button class="openMeinAccount" name="openMeinAccount">MeinAccount</button>
-    <p><%= ausgabetext %></p>
-    <div class="warenkorbContainer" id="warenkorbContainer">
+    <button class="warenkorb_open" id="warenkorb_open">Warenkorb</button>
+    <button class="mein_account_open" id="mein_account_open">
+      MeinAccount
+    </button>
+    <p><%= message %></p>
+    <div class="warenkorb_container" id="warenkorb_container">
       <div class="warenkorb" id="warenkorb">
         <h1>Warenkorb</h1>
-        <button class="closeWarenkorb" name="closeWarenkorb">
-          Close Warenkorb
-        </button>
+        <button class="warenkorb_close" id="warenkorb_close">X</button>
       </div>
     </div>
-    <div class="meinAccountContainer" id="meinAccountContainer">
-      <div class="meinAccount" id="meinAccount">
-        <% if(false){ %>
+    <div class="mein_account_container" id="mein_account_container">
+      <div class="mein_account" id="mein_account">
+        <% if(session){ %>
         <h1>MeinAccount</h1>
-        <button class="meineBestellunge" name="meineBestellungen">
+        <button class="meine_bestellungen" id="meine_bestellungen">
           Meine Bestellungen
         </button>
-        <button class="accountdetails" name="accountdetails">
+        <button class="accountdetails" id="accountdetails">
           Accountdetails
         </button>
-        <button class="ausloggen" name="ausloggen">Ausloggen</button>
+        <button class="ausloggen" id="ausloggen">Ausloggen</button>
         <% } else { %>
         <h1>Login</h1>
-        <form action="/startseite" class="button" method="post">
-          <label for="email">Email:</label><br />
-          <input type="text" id="email" name="email" /><br />
-          <label for="password">Passwort:</label><br />
-          <input type="password" id="password" name="password" /><br /><br />
+        <form
+          action="/login"
+          class="login_button"
+          id="login_button"
+          method="post"
+        >
+          <label for="login_email">Email:</label><br />
+          <input type="text" id="login_email" name="login_email" /><br />
+          <label for="login_password">Passwort:</label><br />
+          <input
+            type="password"
+            class="login_password"
+            id="login_password"
+          /><br /><br />
           <input type="submit" value="Login" />
         </form>
         <p>
           Noch nicht Registriert?<br />
-          <a href="register">Jetzt Registrieren!</a>
+          <button class="register_open" id="register_open">
+            Jetzt Registrieren!
+          </button>
         </p>
         <% } %>
-        <button class="closeMeinAccount" name="closeMeinAccount">
-          Close MeinAccount
-        </button>
+        <button class="mein_account_close" id="mein_account_close">X</button>
+      </div>
+    </div>
+    <div class="register_container" id="register_container">
+      <div class="register" id="register">
+        <h1>Registrierung</h1>
+        <form
+          action="/neuer_benutzer"
+          class="register_button"
+          id="register_button"
+          method="post"
+        >
+          <p>Persönliche Daten</p>
+          <label for="register_email">E-Mail Adresse:</label><br />
+          <input
+            type="email"
+            class="register_email"
+            id="register_email"
+          /><br />
+          <label for="register_firstname">Vorname:</label><br />
+          <input
+            type="text"
+            class="register_firstname"
+            id="register_firstname"
+          /><br />
+          <label for="register_lastname">Nachname:</label><br />
+          <input
+            type="text"
+            class="register_lastname"
+            id="register_lastname"
+          /><br />
+          <p>Adresse</p>
+          <label for="register_adress">Straße, Hausnummer:</label><br />
+          <input
+            type="text"
+            class="register_adress"
+            id="register_adress"
+          /><br />
+          <label for="register_postcode">PLZ, Stadt</label><br />
+          <input
+            type="text"
+            id="register_postcode"
+            id="register_postcode"
+          /><br />
+          <p>Passwort</p>
+          <label for="register_password">Passwort:</label><br />
+          <input
+            type="text"
+            class="register_password"
+            id="register_password"
+          /><br />
+          <label for="register_password_repeat">Wiederholen:</label><br />
+          <input
+            type="text"
+            class="register_password_repeat"
+            id="register_password_repeat"
+          /><br /><br />
+          <input type="submit" value="Registrieren" />
+        </form>
+        <br />
+        <button class="register_close" id="register_close">X</button>
       </div>
     </div>
     <script src="javascript/modals.js"></script>
