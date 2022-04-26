@@ -23,6 +23,10 @@ const db = require("better-sqlite3")(DATABASE);
 const session = require("express-session");
 app.use(
   session({
+    cookie: {
+      maxAge: 1000 * 60, // 1 Min
+      sameSite: true,
+    },
     secret: "example",
     saveUninitialized: false,
     resave: false,
@@ -39,7 +43,7 @@ app.listen(3000, function () {
 
 // getRequest startseite
 app.get("/startseite", function (req, res) {
-  res.render("startseite", { message: "", session: req.session.user });
+  res.render("startseite", { message: "", session: req.session.authenticated });
 });
 
 // getRequest admin
@@ -93,18 +97,18 @@ app.post("/login", function (req, res) {
         req.session.user = param_email;
         res.render("startseite", {
           message: `Angemeldet mit ${param_email}`,
-          session: req.session.user,
+          session: req.session.authenticated,
         });
       } else {
         res.render("startseite", {
           message: "Passwort Falsch!",
-          session: req.session.user,
+          session: req.session.authenticated,
         });
       }
     } else {
       res.render("startseite", {
         message: "Benutzer nicht vorhanden!",
-        session: req.session.user,
+        session: req.session.authenticated,
       });
     }
   }
@@ -169,25 +173,25 @@ app.post("/user_register", function (req, res) {
         // Weiterleiten auf Startseite
         res.render("startseite", {
           message: "Du bist erfolgreich registriert!",
-          session: req.session.user,
+          session: req.session.req.session.authenticated,
         });
       } else {
         res.render("startseite", {
           message: "Passworteingabe verschieden!",
-          session: req.session.user,
+          session: req.session.req.session.authenticated,
         });
       }
     } else {
       res.render("startseite", {
         message: "Benutzer existiert bereits!",
-        session: req.session.user,
+        session: req.session.req.session.authenticated,
       });
     }
   }
 });
 
 // Logout
-app.get("/logout", function (req, res) {
+app.post("/logout", function (req, res) {
   req.session.destroy();
   res.redirect("/startseite");
 });
