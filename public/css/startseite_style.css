@@ -1,0 +1,89 @@
+/* Warenkorb CSS */
+.warenkorb_container {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: opacity 0.3s ease;
+}
+
+.warenkorb_container.warenkorb_show {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.warenkorb {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* MeinAccount CSS */
+.mein_account_container {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: opacity 0.3s ease;
+}
+
+.mein_account_container.mein_account_show {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.mein_account {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Register CSS */
+.register_container {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: opacity 0.3s ease;
+}
+
+.register_container.register_show {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.register {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  text-align: center;
+}

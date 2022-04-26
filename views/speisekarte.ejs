@@ -2,17 +2,15 @@
 <html>
   <head>
     <title>Speisekarte</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/speisekarte_style.css" />
   </head>
   <body>
     <h1>Pizzen</h1>
     <% for(var i = 0; i < pizzen.length; i++){ %>
-    <button
-      class="<%= pizzen[i].name %>_open"
-      name="<%= pizzen[i].name %>_open"
-    >
+    <button class="<%= pizzen[i].name %>_open" id="<%= pizzen[i].name %>_open">
       <%= pizzen[i].name %>
     </button>
+    <% } %> <% for(var i = 0; i < pizzen.length; i++){ %>
     <div
       class="<%= pizzen[i].name %>_container"
       id="<%= pizzen[i].name %>_container"
@@ -20,8 +18,8 @@
       <div class="<%= pizzen[i].name %>" id="<%= pizzen[i].name %>">
         <h1><%= pizzen[i].name %></h1>
         <button
-          class="<%= pizzen[i].name %>_open"
-          name="close<%= pizzen[i].name %>_open"
+          class="<%= pizzen[i].name %>_close"
+          id="<%= pizzen[i].name %>_close"
         >
           Close
         </button>
@@ -30,13 +28,23 @@
     <% } %>
     <h1>Getränke</h1>
     <% for(var i = 0; i < drinks.length; i++){ %>
-    <button
-      class="<%= drinks[i].name %>_open"
-      name="<%= drinks[i].name %>_open"
+    <button class="<%= drinks[i].name %>_open"><%= drinks[i].name %></button>
+    <% } %> <% } %> <% for(var i = 0; i < drinks.length; i++){ %>
+    <div
+      class="<%= drinks[i].name %>_container"
+      id="<%= drinks[i].name %>_container"
     >
-      <%= drinks[i].name %>
-    </button>
+      <div class="<%= drinks[i].name %>" id="<%= drinks[i].name %>">
+        <h1><%= drinks[i].name %></h1>
+        <button
+          class="<%= drinks[i].name %>_close"
+          id="<%= drinks[i].name %>_close"
+        >
+          Close
+        </button>
+      </div>
+    </div>
     <% } %>
-    <script src="javascript/modals.js"></script>
+    <script src="javascript/speisekarte_modals.js"></script>
   </body>
 </html>

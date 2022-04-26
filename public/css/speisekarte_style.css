@@ -1,5 +1,5 @@
-/* Warenkorb CSS */
-.warenkorb_container {
+/* Magerita CSS */
+.Magerita_container {
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
@@ -14,12 +14,12 @@
   transition: opacity 0.3s ease;
 }
 
-.warenkorb_container.warenkorb_show {
+.Magerita_container.pizza_show {
   pointer-events: auto;
   opacity: 1;
 }
 
-.warenkorb {
+.Magerita {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -28,8 +28,8 @@
   text-align: center;
 }
 
-/* MeinAccount CSS */
-.mein_account_container {
+/* Salami CSS */
+.Salami_container {
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
@@ -44,12 +44,12 @@
   transition: opacity 0.3s ease;
 }
 
-.mein_account_container.mein_account_show {
+.Salami_container.pizza_show {
   pointer-events: auto;
   opacity: 1;
 }
 
-.mein_account {
+.Salami {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -57,9 +57,8 @@
   max-width: 600px;
   text-align: center;
 }
-
-/* Register CSS */
-.register_container {
+/* Schinken CSS */
+.Schinken_container {
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
@@ -74,12 +73,12 @@
   transition: opacity 0.3s ease;
 }
 
-.register_container.register_show {
+.Schinken_container.pizza_show {
   pointer-events: auto;
   opacity: 1;
 }
 
-.register {
+.Schinken {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -87,9 +86,8 @@
   max-width: 600px;
   text-align: center;
 }
-
-/* Register CSS */
-.register_container {
+/* Thunfisch CSS */
+.Thunfisch_container {
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
@@ -104,12 +102,12 @@
   transition: opacity 0.3s ease;
 }
 
-.register_container.register_show {
+.Thunfisch_container.pizza_show {
   pointer-events: auto;
   opacity: 1;
 }
 
-.register {
+.Thunfisch {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

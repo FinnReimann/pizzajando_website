@@ -2,7 +2,6 @@
 const warenkorb_open = document.querySelector(".warenkorb_open");
 const warenkorb_close = document.querySelector(".warenkorb_close");
 const warenkorb_container = document.querySelector(".warenkorb_container");
-const warenkorb = document.querySelector(".warenkorb");
 
 warenkorb_open.addEventListener("click", () => {
   warenkorb_container.classList.add("warenkorb_show");
@@ -24,7 +23,6 @@ const mein_account_close = document.querySelector(".mein_account_close");
 const mein_account_container = document.querySelector(
   ".mein_account_container"
 );
-const mein_account = document.querySelector(".mein_account");
 
 mein_account_open.addEventListener("click", () => {
   mein_account_container.classList.add("mein_account_show");
@@ -44,7 +42,6 @@ window.addEventListener("mouseup", (event) => {
 const register_open = document.querySelector(".register_open");
 const register_close = document.querySelector(".register_close");
 const register_container = document.querySelector(".register_container");
-const register = document.querySelector(".register");
 
 register_open.addEventListener("click", () => {
   mein_account_container.classList.remove("mein_account_show");
