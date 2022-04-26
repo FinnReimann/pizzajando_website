@@ -9,12 +9,18 @@
         <td>ID</td>
         <td>Name</td>
         <td>Preis</td>
+        <td>Delete</td>
       </tr>
       <% for(var i = 0; i < drinks.length; i++){ %>
       <tr>
         <td><%= drinks[i].id %></td>
         <td><%= drinks[i].name %></td>
         <td><%= drinks[i].preis %></td>
+        <td>
+          <form action="/delete/<%= drinks[i].id %>" method="post">
+            <button type="submit">Löschen</button>
+          </form>
+        </td>
       </tr>
       <% } %>
     </table>

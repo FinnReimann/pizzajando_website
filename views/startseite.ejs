@@ -60,24 +60,48 @@
     <div class="register_container" id="register_container">
       <div class="register" id="register">
         <h1>Registrierung</h1>
-        <form action="/neuer_benutzer" id="register_button" method="post">
+        <form action="/user_register" id="register_button" method="post">
           <p>Persönliche Daten</p>
           <label for="register_email">E-Mail Adresse:</label><br />
           <input type="email" name="register_email" id="register_email" /><br />
           <label for="register_firstname">Vorname:</label><br />
-          <input type="text" id="register_firstname" /><br />
+          <input
+            type="text"
+            name="register_firstname"
+            id="register_firstname"
+          /><br />
           <label for="register_lastname">Nachname:</label><br />
-          <input type="text" id="register_lastname" /><br />
+          <input
+            type="text"
+            name="register_lastname"
+            id="register_lastname"
+          /><br />
           <p>Adresse</p>
           <label for="register_adress">Straße, Hausnummer:</label><br />
-          <input type="text" id="register_adress" /><br />
+          <input
+            type="text"
+            name="register_adress"
+            id="register_adress"
+          /><br />
           <label for="register_postcode">PLZ, Stadt</label><br />
-          <input type="text" id="register_postcode" /><br />
+          <input
+            type="text"
+            name="register_postcode"
+            id="register_postcode"
+          /><br />
           <p>Passwort</p>
           <label for="register_password">Passwort:</label><br />
-          <input type="password" id="register_password" /><br />
+          <input
+            type="password"
+            name="register_password"
+            id="register_password"
+          /><br />
           <label for="register_password_repeat">Wiederholen:</label><br />
-          <input type="password" id="register_password_repeat" /><br /><br />
+          <input
+            type="password"
+            name="register_password_repeat"
+            id="register_password_repeat"
+          /><br /><br />
           <input type="submit" value="Registrieren" />
         </form>
         <br />

@@ -44,28 +44,25 @@ app.get("/startseite", function (req, res) {
 
 // getRequest admin
 app.get("/admin", function (req, res) {
-  res.render("admin", { message: "" });
+  res.render("admin_main", { message: "" });
 });
 
 // getRequest kontaktdaten
-app.get("/kontaktdaten_table", function (req, res) {
+app.get("/admin_kontaktdaten", function (req, res) {
   const rows = db.prepare("SELECT * FROM kontaktdaten").all();
-  //console.log(rows);
-  res.render("kontaktdaten_table", { kontakte: rows });
+  res.render("admin_kontaktdaten", { kontakte: rows });
 });
 
 // getRequest pizzen
-app.get("/pizzen_table", function (req, res) {
+app.get("/admin_pizzen", function (req, res) {
   const rows = db.prepare("SELECT * FROM pizzen").all();
-  //console.log(rows);
-  res.render("pizzen_table", { pizzen: rows });
+  res.render("admin_pizzen", { pizzen: rows });
 });
 
 // getRequest drinks
-app.get("/drinks_table", function (req, res) {
+app.get("/admin_drinks", function (req, res) {
   const rows = db.prepare("SELECT * FROM drinks").all();
-  //console.log(rows);
-  res.render("drinks_table", { drinks: rows });
+  res.render("admin_drinks", { drinks: rows });
 });
 
 // getRequest speisekarte
@@ -75,8 +72,46 @@ app.post("/speisekarte", function (req, res) {
   res.render("speisekarte", { pizzen: pizzen_params, drinks: drinks_params });
 });
 
-// Register
-app.post("/neuer_benutzer", function (req, res) {
+// User Login
+app.post("/login", function (req, res) {
+  const param_email = req.body.login_email;
+  const param_password = req.body.login_password;
+  const rows = db
+    .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+    .all(param_email);
+  if (param_email == "" || param_password == "") {
+    res.render("startseite", {
+      message: "Bitte alle Felder ausfüllen!",
+      session: req.session.user,
+    });
+  } else {
+    if (rows && rows.length == 1) {
+      const hash = rows[0].password;
+      const isValid = bcrypt.compareSync(param_password, hash);
+      if (isValid == true) {
+        req.session.authenticated = true;
+        req.session.user = param_email;
+        res.render("startseite", {
+          message: `Angemeldet mit ${param_email}`,
+          session: req.session.user,
+        });
+      } else {
+        res.render("startseite", {
+          message: "Passwort Falsch!",
+          session: req.session.user,
+        });
+      }
+    } else {
+      res.render("startseite", {
+        message: "Benutzer nicht vorhanden!",
+        session: req.session.user,
+      });
+    }
+  }
+});
+
+// User Register
+app.post("/user_register", function (req, res) {
   const param_email = req.body.register_email;
   const param_firstname = req.body.register_firstname;
   const param_lastname = req.body.register_lastname;
@@ -84,6 +119,16 @@ app.post("/neuer_benutzer", function (req, res) {
   const param_postcode = req.body.register_postcode;
   const param_password = req.body.register_password;
   const param_password_repeat = req.body.register_password_repeat;
+
+  console.log(
+    param_email,
+    param_firstname,
+    param_lastname,
+    param_adress,
+    param_postcode,
+    param_password,
+    param_password_repeat
+  );
 
   // Prüfen ob Felder ausgefüllt sind
   if (
@@ -141,75 +186,66 @@ app.post("/neuer_benutzer", function (req, res) {
   }
 });
 
-// Login versuch
-app.post("/login", function (req, res) {
-  const param_email = req.body.login_email;
-  const param_password = req.body.login_password;
-  const rows = db
-    .prepare("SELECT * FROM kontaktdaten WHERE email=?")
-    .all(param_email);
-  if (param_email == "" || param_password == "") {
-    res.render("startseite", {
-      message: "Bitte alle Felder ausfüllen!",
-      session: req.session.user,
-    });
-  } else {
-    if (rows && rows.length == 1) {
-      const hash = rows[0].password;
-      const isValid = bcrypt.compareSync(param_password, hash);
-      if (isValid == true) {
-        req.session.authenticated = true;
-        req.session.user = param_email;
-        res.render("startseite", {
-          message: `Angemeldet mit ${param_email}`,
-          session: req.session.user,
-        });
-      } else {
-        res.render("startseite", {
-          message: "Passwort Falsch!",
-          session: req.session.user,
-        });
-      }
-    } else {
-      res.render("startseite", {
-        message: "Benutzer nicht vorhanden!",
-        session: req.session.user,
-      });
-    }
-  }
+// Logout
+app.get("/logout", function (req, res) {
+  req.session.destroy();
+  res.redirect("/startseite");
 });
 
-// Delete
-app.post("/delete", function (req, res) {
+/*
+// User Delete
+app.post("/user_delete", function (req, res) {
   const param_email = req.body.delete_email;
   const param_password = req.body.delete_password;
   const rows = db
     .prepare("SELECT * FROM kontaktdaten WHERE email=?")
     .all(param_email);
   if (param_email == "" || param_password == "") {
-    res.render("admin", { message: "Bitte alle Felder ausfüllen!" });
+    res.render("admin_kontaktdaten", { message: "Bitte alle Felder ausfüllen!" });
   } else {
     if (rows && rows.length == 1) {
       const hash = rows[0].password;
       const isValid = bcrypt.compareSync(param_password, hash);
       if (isValid == true) {
         db.prepare("DELETE FROM kontaktdaten WHERE email=?").run(param_email);
-        res.render("admin", {
+        res.render("admin_kontaktdaten", {
           message: `${param_email} erfolgreich gelöscht!`,
         });
       } else {
-        res.render("admin", { message: "Passwort falsch!" });
+        res.render("admin_kontaktdaten", { message: "Passwort falsch!" });
       }
     } else {
-      res.render("admin", { message: "Benutzer nicht vorhanden!" });
+      res.render("admin_kontaktdaten", { message: "Benutzer nicht vorhanden!" });
     }
   }
 });
 
-// Logout
-app.get("/logout", function (req, res) {
-  req.session.destroy();
+// User Update
+app.post("/onupdate/:id", function (req, res) {
+  const param_email = req.body.update_email;
+  const param_firstname = req.body.update_firstname;
+  const param_lastname = req.body.update_lastname;
+  const param_adress = req.body.update_adress;
+  const param_postcode = req.body.update_postcode;
+  const param_password = req.body.update_password_old;
+  const param_password_new = req.body.update_password_new;
+  const param_password_new_repeat = req.body.update_password_new_repeat;
 
-  // Weiterleiten
-  res.redirect("/startseite");
+  if (rows && rows.length == 1) {
+    const hash = rows[0].password;
+    const isValid = bcrypt.compareSync(param_password, hash);
+    if (isValid == true) {
+      req.session.authenticated = true;
+  const info = db
+    .prepare("UPDATE produkte SET email=?, firstname=?, lastname=?, adress=?, postcode=?, password=? WHERE id=?")
+    .run(param_name, param_preis, param_id);
+  res.redirect("/kontakdaten");
 });
+
+// Pizzen Delete
+app.post("/delete/:id", function (req, res) {
+  const info = db.prepare("DELETE FROM pizzen WHERE id=?").run(req.params.id);
+  console.log(info);
+  res.redirect("/pizzen_table");
+});
+*/

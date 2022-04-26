@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kontaktliste</title>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <td>ID</td>
+        <td>Email</td>
+        <td>Vorname</td>
+        <td>Nachname</td>
+        <td>Straße, Hausnummer</td>
+        <td>PLZ, Stadt</td>
+        <td>Passwort</td>
+      </tr>
+      <% for(var i = 0; i < kontakte.length; i++){ %>
+      <tr>
+        <td><%= kontakte[i].id %></td>
+        <td><%= kontakte[i].email %></td>
+        <td><%= kontakte[i].firstname %></td>
+        <td><%= kontakte[i].lastname %></td>
+        <td><%= kontakte[i].adress %></td>
+        <td><%= kontakte[i].postcode %></td>
+        <td><%= kontakte[i].password %></td>
+      </tr>
+      <% } %>
+    </table>
+    <br />
+    <h1>Benutzer Hinzufügen</h1>
+    <form action="/user_register" id="register_button" method="post">
+      <label for="register_email">E-Mail Adresse:</label><br />
+      <input type="email" name="register_email" id="register_email" /><br />
+      <label for="register_firstname">Vorname:</label><br />
+      <input type="text" id="register_firstname" /><br />
+      <label for="register_lastname">Nachname:</label><br />
+      <input type="text" id="register_lastname" /><br />
+      <label for="register_adress">Straße, Hausnummer:</label><br />
+      <input type="text" id="register_adress" /><br />
+      <label for="register_postcode">PLZ, Stadt</label><br />
+      <input type="text" id="register_postcode" /><br />
+      <label for="register_password">Passwort:</label><br />
+      <input type="password" id="register_password" /><br />
+      <label for="register_password_repeat">Wiederholen:</label><br />
+      <input type="password" id="register_password_repeat" /><br /><br />
+      <input type="submit" value="Hinzufügen" />
+    </form>
+    <br />
+    <h1>Benutzerdaten Updaten</h1>
+    <form action="/user_update" id="update_button" method="post">
+      <label for="update_email">E-Mail Adresse:</label><br />
+      <input type="email" name="update_email" id="update_email" /><br />
+      <label for="update_firstname">Vorname:</label><br />
+      <input type="text" id="update_firstname" /><br />
+      <label for="update_lastname">Nachname:</label><br />
+      <input type="text" id="update_lastname" /><br />
+      <label for="update_adress">Straße, Hausnummer:</label><br />
+      <input type="text" id="update_adress" /><br />
+      <label for="update_postcode">PLZ, Stadt</label><br />
+      <input type="text" id="update_postcode" /><br />
+      <label for="update_password_old">Altes Passwort:</label><br />
+      <input type="password" id="update_password_old" /><br />
+      <label for="update_password_new">Neues Passwort:</label><br />
+      <input type="password" id="update_password_new" /><br />
+      <label for="update_password_new_repeat">Wiederholen:</label><br />
+      <input type="password" id="update_password_new_repeat" /><br /><br />
+      <input type="submit" value="Updaten" />
+    </form>
+    <br />
+    <h1>Benutzer Löschen</h1>
+    <form action="/user_delete" class="delete" id="delete" method="post">
+      <label for="delete_email">Email:</label><br />
+      <input type="email" class="delete_email" id="delete_email" /><br />
+      <label for="delete_password">Passwort:</label><br />
+      <input
+        type="password"
+        class="delete_password"
+        id="delete_password"
+      /><br /><br />
+      <input type="submit" value="Löschen" />
+    </form>
+  </body>
+</html>
