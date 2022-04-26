@@ -1,5 +1,5 @@
-/* Magerita CSS */
-.Magerita_container {
+/* Pizzen CSS */
+.pizzen_container {
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
@@ -14,12 +14,12 @@
   transition: opacity 0.3s ease;
 }
 
-.Magerita_container.pizza_show {
+.pizzen_container.pizza_show {
   pointer-events: auto;
   opacity: 1;
 }
 
-.Magerita {
+.pizzen {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -28,8 +28,8 @@
   text-align: center;
 }
 
-/* Salami CSS */
-.Salami_container {
+/* Drinks CSS */
+.drinks_container {
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
@@ -44,70 +44,12 @@
   transition: opacity 0.3s ease;
 }
 
-.Salami_container.pizza_show {
+.drinks_container.drink_show {
   pointer-events: auto;
   opacity: 1;
 }
 
-.Salami {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
-  text-align: center;
-}
-/* Schinken CSS */
-.Schinken_container {
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  opacity: 0;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  transition: opacity 0.3s ease;
-}
-
-.Schinken_container.pizza_show {
-  pointer-events: auto;
-  opacity: 1;
-}
-
-.Schinken {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
-  text-align: center;
-}
-/* Thunfisch CSS */
-.Thunfisch_container {
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  opacity: 0;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  transition: opacity 0.3s ease;
-}
-
-.Thunfisch_container.pizza_show {
-  pointer-events: auto;
-  opacity: 1;
-}
-
-.Thunfisch {
+.drinks {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
