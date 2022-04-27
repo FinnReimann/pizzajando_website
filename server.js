@@ -69,11 +69,28 @@ app.get("/admin_drinks", function (req, res) {
   res.render("admin_drinks", { drinks: rows });
 });
 
-// getRequest speisekarte
+// postRequest speisekarte
 app.post("/speisekarte", function (req, res) {
   const pizzen_params = db.prepare("SELECT * FROM pizzen").all();
   const drinks_params = db.prepare("SELECT * FROM drinks").all();
   res.render("speisekarte", { pizzen: pizzen_params, drinks: drinks_params });
+});
+
+// postRequest accountdetails
+app.get("/accountdetails", function (req, res) {
+  console.log("Hello");
+  if (req.session.authenticated) {
+    param_email = req.session.user;
+    const rows = db
+      .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+      .all(param_email);
+    res.render("accountdetails", { message: "", data: rows });
+  } else {
+    res.render("startseite", {
+      message: "Bitte melden Sie sich an!",
+      session: req.session.authenticated,
+    });
+  }
 });
 
 // User Login
@@ -86,7 +103,7 @@ app.post("/login", function (req, res) {
   if (param_email == "" || param_password == "") {
     res.render("startseite", {
       message: "Bitte alle Felder ausfüllen!",
-      session: req.session.user,
+      session: req.session.authenticated,
     });
   } else {
     if (rows && rows.length == 1) {
