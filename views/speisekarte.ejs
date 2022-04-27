@@ -17,10 +17,10 @@
     <% } %> <% for(var i = 0; i < pizzen.length; i++){ %>
     <div class="pizzen_container" id="pizzen_container">
       <div class="pizzen" id="pizzen">
-        <h1><%= pizzen[i].name %></h1>
-        <p><%= pizzen[i].preis %></p>
-        <p><%= pizzen[i].zutaten %></p>
-        <button class="pizzen_add" id="pizzen_add">
+        <h1 class="pizzen_name"><%= pizzen[i].name %></h1>
+        <p class="pizzen_preis"><%= pizzen[i].preis %></p>
+        <p class="pizzen_zutaten"><%= pizzen[i].zutaten %></p>
+        <button class="product_add" id="product_add">
           Zum Warenkorb hinzufügen
         </button>
         <button class="pizzen_close" id="pizzen_close">X</button>
@@ -33,9 +33,9 @@
     <% } %> <% for(var i = 0; i < drinks.length; i++){ %>
     <div class="drinks_container" id="drinks_container">
       <div class="drinks" id="drinks">
-        <h1><%= drinks[i].name %></h1>
-        <p><%= drinks[i].preis %></p>
-        <button class="drinks_add" id="drinks_add">
+        <h1 class="drinks_name"><%= drinks[i].name %></h1>
+        <p class="drinks_preis"><%= drinks[i].preis %></p>
+        <button class="product_add" id="product_add">
           Zum Warenkorb hinzufügen
         </button>
         <button class="drinks_close" id="drinks_close">X</button>
