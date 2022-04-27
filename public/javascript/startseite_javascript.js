@@ -57,3 +57,12 @@ window.addEventListener("mouseup", (event) => {
     register_container.classList.remove("register_show");
   }
 });
+
+// Warenkorb Nummer
+function onLoadCartNumbers() {
+  let productNumbers = localStorage.getItem("cartNumbers");
+  if (productNumbers) {
+    document.querySelector(".cart span").textContent = productNumbers;
+  }
+}
+onLoadCartNumbers();

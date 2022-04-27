@@ -1,3 +1,5 @@
+// Modals
+
 /* Pizzen Modal */
 const pizzen_open = document.querySelectorAll(".pizzen_open");
 const pizzen_close = document.querySelectorAll(".pizzen_close");
@@ -37,3 +39,40 @@ for (let i = 0; i < drinks_close.length; i++) {
     }
   });
 }
+
+// nicht Modals
+
+/* Pizzen Hinzufügen */
+const pizzen_param = document.querySelectorAll(".pizzen_add");
+
+console.log(pizzen_param);
+
+for (let i = 0; i < pizzen_param.length; i++) {
+  pizzen_param[i].addEventListener("click", () => {
+    cartNumbers();
+  });
+}
+
+function onLoadCartNumbers() {
+  let productNumbers = localStorage.getItem("cartNumbers");
+  if (productNumbers) {
+    document.querySelector(".cart span").textContent = productNumbers;
+  }
+}
+
+function cartNumbers() {
+  let productNumbers = localStorage.getItem("cartNumbers");
+
+  productNumbers = parseInt(productNumbers);
+
+  if (productNumbers) {
+    localStorage.setItem("cartNumbers", productNumbers + 1);
+    document.querySelector(".warenkorb_open span").textContent =
+      productNumbers + 1;
+  } else {
+    localStorage.setItem("cartNumbers", 1);
+    document.querySelector(".cart span").textContent = 1;
+  }
+}
+
+onLoadCartNumbers();
