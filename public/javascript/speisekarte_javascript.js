@@ -42,12 +42,31 @@ for (let i = 0; i < drinks_close.length; i++) {
   });
 }
 
-// nicht Modals
+// Warenkorb Modal
+const warenkorb_open = document.querySelector(".warenkorb_open");
+const warenkorb_close = document.querySelector(".warenkorb_close");
+const warenkorb_container = document.querySelector(".warenkorb_container");
+
+warenkorb_open.addEventListener("click", () => {
+  warenkorb_container.classList.add("warenkorb_show");
+});
+
+warenkorb_close.addEventListener("click", () => {
+  warenkorb_container.classList.remove("warenkorb_show");
+});
+
+window.addEventListener("mouseup", (event) => {
+  if (event.target == warenkorb_container) {
+    warenkorb_container.classList.remove("warenkorb_show");
+  }
+});
+
+// Warenkorb Funktionen
 
 /* Produkte Definieren */
 let products = [];
 
-// Pizzen hinzufügen
+/* Pizzen zu Produkten hinzufügen */
 const pizzen_name = document.querySelectorAll(".pizzen_name");
 const pizzen_preis = document.querySelectorAll(".pizzen_preis");
 const pizzen_zutaten = document.querySelectorAll(".pizzen_zutaten");
@@ -57,12 +76,12 @@ for (let i = 0; i < pizzen.length; i++) {
     id: i,
     name: pizzen_name[i].textContent,
     zutaten: pizzen_zutaten[i].textContent,
-    price: parseFloat(pizzen_preis[i].textContent),
+    price: parseInt(pizzen_preis[i].textContent),
     inCart: 0,
   };
 }
 
-// Drinks hinzufügen
+/* Drinks zu Produkten hinzufügen */
 const drinks_name = document.querySelectorAll(".drinks_name");
 const drinks_preis = document.querySelectorAll(".drinks_preis");
 
@@ -70,7 +89,7 @@ for (let i = 0; i < drinks.length; i++) {
   products[i + pizzen.length] = {
     id: i + pizzen.length,
     name: drinks_name[i].textContent,
-    price: parseFloat(drinks_preis[i].textContent),
+    price: parseInt(drinks_preis[i].textContent),
     inCart: 0,
   };
 }
@@ -82,9 +101,11 @@ for (let i = 0; i < product_add.length; i++) {
   product_add[i].addEventListener("click", () => {
     cartNumbers(products[i]);
     totalCost(products[i]);
+    displayCart();
   });
 }
 
+/* Warenkorb Nummer holen Funktion */
 function onLoadCartNumbers() {
   let productNumbers = localStorage.getItem("cartNumbers");
   if (productNumbers) {
@@ -92,6 +113,7 @@ function onLoadCartNumbers() {
   }
 }
 
+/* Warenkorb Nummer setzen Funktion */
 function cartNumbers(product) {
   let productNumbers = localStorage.getItem("cartNumbers");
 
@@ -109,6 +131,7 @@ function cartNumbers(product) {
   setItems(product);
 }
 
+/* Waren in den Warenkorb Funktion */
 function setItems(product) {
   let cartItems = localStorage.getItem("productsInCart");
   cartItems = JSON.parse(cartItems);
@@ -131,15 +154,55 @@ function setItems(product) {
   localStorage.setItem("productsInCart", JSON.stringify(cartItems));
 }
 
+/* Kosten Berechnung Funktion */
 function totalCost(product) {
   let cartCost = localStorage.getItem("totalCost");
 
   if (cartCost != null) {
-    cartCost = parseFloat(cartCost);
+    cartCost = parseInt(cartCost);
     localStorage.setItem("totalCost", cartCost + product.price);
   } else {
     localStorage.setItem("totalCost", product.price);
   }
 }
 
+/* Display Warenkorb */
+function displayCart() {
+  let cartItems = localStorage.getItem("productsInCart");
+  cartItems = JSON.parse(cartItems);
+  let productContainer = document.querySelector(".products");
+  let cartCost = localStorage.getItem("totalCost");
+
+  if (cartItems && productContainer) {
+    productContainer.innerHTML = "";
+    Object.values(cartItems).map((item) => {
+      productContainer.innerHTML += `
+      <div class="product">
+        <span>${item.name}</span>
+      </div>
+      <div class="price">€${item.price},00</div>
+      <div class="quantity">
+        <span>${item.inCart}</span>
+      </div>
+      <div class="total">
+        €${item.inCart * item.price},00
+      </div>
+      `;
+    });
+
+    productContainer.innerHTML += `
+      <div class="basket_total_container">
+        <h4 class="basket_total_title">
+          Basket Total
+        </h4>
+        <h4 class="basket_total">
+          €${cartCost},00
+        </h4>
+      </div>
+    `;
+  }
+}
+
+/* Funktionsaufruf beim Laden der Seite */
 onLoadCartNumbers();
+displayCart();

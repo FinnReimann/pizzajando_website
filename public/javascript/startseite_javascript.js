@@ -65,4 +65,44 @@ function onLoadCartNumbers() {
     document.querySelector(".cart span").textContent = productNumbers;
   }
 }
+
+/* Display Warenkorb */
+function displayCart() {
+  let cartItems = localStorage.getItem("productsInCart");
+  cartItems = JSON.parse(cartItems);
+  let productContainer = document.querySelector(".products");
+  let cartCost = localStorage.getItem("totalCost");
+
+  if (cartItems && productContainer) {
+    productContainer.innerHTML = "";
+    Object.values(cartItems).map((item) => {
+      productContainer.innerHTML += `
+      <div class="product">
+        <span>${item.name}</span>
+      </div>
+      <div class="price">€${item.price},00</div>
+      <div class="quantity">
+        <span>${item.inCart}</span>
+      </div>
+      <div class="total">
+        €${item.inCart * item.price},00
+      </div>
+      `;
+    });
+
+    productContainer.innerHTML += `
+      <div class="basket_total_container">
+        <h4 class="basket_total_title">
+          Basket Total
+        </h4>
+        <h4 class="basket_total">
+          €${cartCost},00
+        </h4>
+      </div>
+    `;
+  }
+}
+
+/* Funktionsaufruf beim Laden der Seite */
 onLoadCartNumbers();
+displayCart();
