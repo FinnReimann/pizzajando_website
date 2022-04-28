@@ -5,6 +5,9 @@ const res = require("express/lib/response");
 const { get } = require("express/lib/response");
 const app = express();
 
+// Validator Initialisieren
+const validator = require("email-validator");
+
 // Public Freigeben
 app.use(express.static(__dirname + "/public"));
 
@@ -154,42 +157,49 @@ app.post("/user_register", function (req, res) {
       session: req.session.user,
     });
   } else {
-    // Prüfen ob die Email bereits genutzt wird
-    rows = db
-      .prepare("SELECT * FROM kontaktdaten WHERE email=?")
-      .all(param_email);
-    if (rows.length == 0) {
-      // Passwort mit Passwortwiederholung abgleichen
-      if (param_password == param_password_repeat) {
-        // Passwort verschlüsseln mit bcrypt
-        const hash = bcrypt.hashSync(param_password, 10);
-        const info = db
-          .prepare(
-            "INSERT INTO kontaktdaten(email, firstname, lastname, adress, postcode, password) VALUES (?, ?, ?, ?, ?, ?)"
-          )
-          .run(
-            param_email,
-            param_firstname,
-            param_lastname,
-            param_adress,
-            param_postcode,
-            hash
-          );
-        // Weiterleiten auf Startseite
-        res.render("startseite", {
-          message: "Du bist erfolgreich registriert!",
-          session: req.session.req.session.authenticated,
-        });
+    if (validator.validate(param_email)) {
+      // Prüfen ob die Email bereits genutzt wird
+      rows = db
+        .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+        .all(param_email);
+      if (rows.length == 0) {
+        // Passwort mit Passwortwiederholung abgleichen
+        if (param_password == param_password_repeat) {
+          // Passwort verschlüsseln mit bcrypt
+          const hash = bcrypt.hashSync(param_password, 10);
+          const info = db
+            .prepare(
+              "INSERT INTO kontaktdaten(email, firstname, lastname, adress, postcode, password) VALUES (?, ?, ?, ?, ?, ?)"
+            )
+            .run(
+              param_email,
+              param_firstname,
+              param_lastname,
+              param_adress,
+              param_postcode,
+              hash
+            );
+          // Weiterleiten auf Startseite
+          res.render("startseite", {
+            message: "Du bist erfolgreich registriert!",
+            session: req.session.authenticated,
+          });
+        } else {
+          res.render("startseite", {
+            message: "Passworteingabe verschieden!",
+            session: req.session.authenticated,
+          });
+        }
       } else {
         res.render("startseite", {
-          message: "Passworteingabe verschieden!",
-          session: req.session.req.session.authenticated,
+          message: "Benutzer existiert bereits!",
+          session: req.session.authenticated,
         });
       }
     } else {
       res.render("startseite", {
-        message: "Benutzer existiert bereits!",
-        session: req.session.req.session.authenticated,
+        message: "Kein anerkanntes Email Format!",
+        session: req.session.authenticated,
       });
     }
   }
@@ -224,30 +234,37 @@ app.post("/update_user", function (req, res) {
       data: rows,
     });
   } else {
-    if (rows && rows.length == 1) {
-      const info = db
-        .prepare(
-          "UPDATE kontaktdaten SET email=?, firstname=?, lastname=?, adress=?, postcode=? WHERE email=?"
-        )
-        .run(
-          param_email,
-          param_firstname,
-          param_lastname,
-          param_adress,
-          param_postcode,
-          param_user
-        );
-      rows = db
-        .prepare("SELECT * FROM kontaktdaten WHERE email=?")
-        .all(param_email);
-      req.session.user = param_email;
-      res.render("accountdetails", {
-        message: "Erfolgreich geupdatet!",
-        data: rows,
-      });
+    if (validator.validate(param_email)) {
+      if (rows && rows.length == 1) {
+        const info = db
+          .prepare(
+            "UPDATE kontaktdaten SET email=?, firstname=?, lastname=?, adress=?, postcode=? WHERE email=?"
+          )
+          .run(
+            param_email,
+            param_firstname,
+            param_lastname,
+            param_adress,
+            param_postcode,
+            param_user
+          );
+        rows = db
+          .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+          .all(param_email);
+        req.session.user = param_email;
+        res.render("accountdetails", {
+          message: "Erfolgreich geupdatet!",
+          data: rows,
+        });
+      } else {
+        res.render("accountdetails", {
+          message: "Benutzer nicht vorhanden!",
+          data: rows,
+        });
+      }
     } else {
       res.render("accountdetails", {
-        message: "Benutzer nicht vorhanden!",
+        message: "Kein anerkanntes Email Format!",
         data: rows,
       });
     }
@@ -356,35 +373,41 @@ app.post("/admin_user_register", function (req, res) {
       message: "Bitte alle Felder ausfüllen!",
     });
   } else {
-    rows = db
-      .prepare("SELECT * FROM kontaktdaten WHERE email=?")
-      .all(param_email);
-    if (rows.length == 0) {
-      if (param_password == param_password_repeat) {
-        const hash = bcrypt.hashSync(param_password, 10);
-        const info = db
-          .prepare(
-            "INSERT INTO kontaktdaten(email, firstname, lastname, adress, postcode, password) VALUES (?, ?, ?, ?, ?, ?)"
-          )
-          .run(
-            param_email,
-            param_firstname,
-            param_lastname,
-            param_adress,
-            param_postcode,
-            hash
-          );
-        res.render("admin_kontaktdaten", {
-          message: "Du bist erfolgreich registriert!",
-        });
+    if (validator.validate(param_email)) {
+      rows = db
+        .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+        .all(param_email);
+      if (rows.length == 0) {
+        if (param_password == param_password_repeat) {
+          const hash = bcrypt.hashSync(param_password, 10);
+          const info = db
+            .prepare(
+              "INSERT INTO kontaktdaten(email, firstname, lastname, adress, postcode, password) VALUES (?, ?, ?, ?, ?, ?)"
+            )
+            .run(
+              param_email,
+              param_firstname,
+              param_lastname,
+              param_adress,
+              param_postcode,
+              hash
+            );
+          res.render("admin_kontaktdaten", {
+            message: "Du bist erfolgreich registriert!",
+          });
+        } else {
+          res.render("admin_kontaktdaten", {
+            message: "Passworteingabe verschieden!",
+          });
+        }
       } else {
         res.render("admin_kontaktdaten", {
-          message: "Passworteingabe verschieden!",
+          message: "Benutzer existiert bereits!",
         });
       }
     } else {
       res.render("admin_kontaktdaten", {
-        message: "Benutzer existiert bereits!",
+        message: "Kein anerkanntes Email Format!",
       });
     }
   }
@@ -412,24 +435,30 @@ app.post("/admin_update_user", function (req, res) {
       message: "Bitte füllen sie alle Felder aus!",
     });
   } else {
-    const info = db
-      .prepare(
-        "UPDATE kontaktdaten SET email=?, firstname=?, lastname=?, adress=?, postcode=? WHERE email=?"
-      )
-      .run(
-        param_email,
-        param_firstname,
-        param_lastname,
-        param_adress,
-        param_postcode,
-        param_user
-      );
-    const rows = db
-      .prepare("SELECT * FROM kontaktdaten WHERE email=?")
-      .all(param_email);
-    res.render("admin_kontaktdaten", {
-      message: "Erfolgreich geupdatet!",
-    });
+    if (validator.validate(param_email)) {
+      const info = db
+        .prepare(
+          "UPDATE kontaktdaten SET email=?, firstname=?, lastname=?, adress=?, postcode=? WHERE email=?"
+        )
+        .run(
+          param_email,
+          param_firstname,
+          param_lastname,
+          param_adress,
+          param_postcode,
+          param_user
+        );
+      const rows = db
+        .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+        .all(param_email);
+      res.render("admin_kontaktdaten", {
+        message: "Erfolgreich geupdatet!",
+      });
+    } else {
+      res.render("startseite", {
+        message: "Kein anerkanntes Email Format!",
+      });
+    }
   }
 });
 
