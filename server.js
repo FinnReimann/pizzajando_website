@@ -77,9 +77,8 @@ app.post("/speisekarte", function (req, res) {
 });
 
 // postRequest accountdetails
-app.get("/accountdetails", function (req, res) {
-  console.log("Hello");
-  if (req.session.authenticated) {
+app.post("/accountdetails", function (req, res) {
+  if (/*req.session.authenticated*/ true) {
     param_email = req.session.user;
     const rows = db
       .prepare("SELECT * FROM kontaktdaten WHERE email=?")
@@ -140,17 +139,6 @@ app.post("/user_register", function (req, res) {
   const param_postcode = req.body.register_postcode;
   const param_password = req.body.register_password;
   const param_password_repeat = req.body.register_password_repeat;
-
-  console.log(
-    param_email,
-    param_firstname,
-    param_lastname,
-    param_adress,
-    param_postcode,
-    param_password,
-    param_password_repeat
-  );
-
   // Prüfen ob Felder ausgefüllt sind
   if (
     param_email == "" ||
@@ -213,16 +201,285 @@ app.post("/logout", function (req, res) {
   res.redirect("/startseite");
 });
 
-/*
-// User Delete
-app.post("/user_delete", function (req, res) {
+// Update User
+app.post("/update_user", function (req, res) {
+  const param_email = req.body.update_email;
+  const param_firstname = req.body.update_firstname;
+  const param_lastname = req.body.update_lastname;
+  const param_adress = req.body.update_adress;
+  const param_postcode = req.body.update_postcode;
+  const param_user = req.session.user;
+  const rows = db
+    .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+    .all(param_user);
+  if (
+    param_email == "" ||
+    param_firstname == "" ||
+    param_lastname == "" ||
+    param_adress == "" ||
+    param_postcode == ""
+  ) {
+    res.render("accountdetails", {
+      message: "Bitte füllen sie alle Felder aus!",
+      data: rows,
+    });
+  } else {
+    if (rows && rows.length == 1) {
+      const info = db
+        .prepare(
+          "UPDATE kontaktdaten SET email=?, firstname=?, lastname=?, adress=?, postcode=? WHERE email=?"
+        )
+        .run(
+          param_email,
+          param_firstname,
+          param_lastname,
+          param_adress,
+          param_postcode,
+          param_user
+        );
+      rows = db
+        .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+        .all(param_email);
+      req.session.user = param_email;
+      res.render("accountdetails", {
+        message: "Erfolgreich geupdatet!",
+        data: rows,
+      });
+    } else {
+      res.render("accountdetails", {
+        message: "Benutzer nicht vorhanden!",
+        data: rows,
+      });
+    }
+  }
+});
+
+// Update Password
+app.post("/update_password", function (req, res) {
+  const param_password = req.body.update_password;
+  const param_password_repeat = req.body.update_password_repeat;
+  const param_user = req.session.user;
+  const rows = db
+    .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+    .all(param_user);
+  if (param_password == "" || param_password_repeat == "") {
+    res.render("accountdetails", {
+      message: "Bitte alle Felder ausfüllen!",
+      data: rows,
+    });
+  } else {
+    if (param_password == param_password_repeat) {
+      // Passwort verschlüsseln mit bcrypt
+      const hash = bcrypt.hashSync(param_password, 10);
+      const info = db
+        .prepare("UPDATE kontaktdaten SET password=? WHERE email=?")
+        .run(hash, param_user);
+      rows = db
+        .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+        .all(param_email);
+      res.render("accountdetails", {
+        message: "Du bist erfolgreich registriert!",
+        data: rows,
+      });
+    } else {
+      res.render("accountdetails", {
+        message: "Passworteingabe verschieden!",
+        data: rows,
+      });
+    }
+  }
+});
+
+// Delete User
+app.post("/delete_user", function (req, res) {
+  const param_email = req.body.delete_email;
+  const param_password = req.body.delete_password;
+  const param_password_repeat = req.body.delete_password_repeat;
+  const rows = db
+    .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+    .all(param_email);
+  if (
+    param_email == "" ||
+    param_password == "" ||
+    param_password_repeat == ""
+  ) {
+    res.render("accountdetails", {
+      message: "Bitte alle Felder ausfüllen!",
+    });
+  } else {
+    if (param_password != param_password_repeat) {
+      res.render("accountdetails", {
+        message: "Passworteingabe unterschiedlich!",
+      });
+    } else {
+      if (rows && rows.length == 1) {
+        const hash = rows[0].password;
+        const isValid = bcrypt.compareSync(param_password, hash);
+        if (isValid == true) {
+          db.prepare("DELETE FROM kontaktdaten WHERE email=?").run(param_email);
+          res.render("startseite", {
+            message: `${param_email} erfolgreich gelöscht!`,
+          });
+        } else {
+          res.render("accountdetails", { message: "Passwort falsch!" });
+        }
+      } else {
+        res.render("accountdetails", {
+          message: "Benutzer nicht vorhanden!",
+        });
+      }
+    }
+  }
+});
+
+/* Admin */
+
+// Admin User Register
+app.post("/admin_user_register", function (req, res) {
+  const param_email = req.body.register_email;
+  const param_firstname = req.body.register_firstname;
+  const param_lastname = req.body.register_lastname;
+  const param_adress = req.body.register_adress;
+  const param_postcode = req.body.register_postcode;
+  const param_password = req.body.register_password;
+  const param_password_repeat = req.body.register_password_repeat;
+  if (
+    param_email == "" ||
+    param_firstname == "" ||
+    param_lastname == "" ||
+    param_adress == "" ||
+    param_postcode == "" ||
+    param_password == "" ||
+    param_password_repeat == ""
+  ) {
+    res.render("admin_kontaktdaten", {
+      message: "Bitte alle Felder ausfüllen!",
+    });
+  } else {
+    rows = db
+      .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+      .all(param_email);
+    if (rows.length == 0) {
+      if (param_password == param_password_repeat) {
+        const hash = bcrypt.hashSync(param_password, 10);
+        const info = db
+          .prepare(
+            "INSERT INTO kontaktdaten(email, firstname, lastname, adress, postcode, password) VALUES (?, ?, ?, ?, ?, ?)"
+          )
+          .run(
+            param_email,
+            param_firstname,
+            param_lastname,
+            param_adress,
+            param_postcode,
+            hash
+          );
+        res.render("admin_kontaktdaten", {
+          message: "Du bist erfolgreich registriert!",
+        });
+      } else {
+        res.render("admin_kontaktdaten", {
+          message: "Passworteingabe verschieden!",
+        });
+      }
+    } else {
+      res.render("admin_kontaktdaten", {
+        message: "Benutzer existiert bereits!",
+      });
+    }
+  }
+});
+
+// Admin Update User
+app.post("/admin_update_user", function (req, res) {
+  const param_email = req.body.update_email;
+  const param_firstname = req.body.update_firstname;
+  const param_lastname = req.body.update_lastname;
+  const param_adress = req.body.update_adress;
+  const param_postcode = req.body.update_postcode;
+  const param_user = req.session.user;
+  if (
+    param_email == "" ||
+    param_firstname == "" ||
+    param_lastname == "" ||
+    param_adress == "" ||
+    param_postcode == ""
+  ) {
+    const rows = db
+      .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+      .all(param_user);
+    res.render("admin_kontaktdaten", {
+      message: "Bitte füllen sie alle Felder aus!",
+    });
+  } else {
+    const info = db
+      .prepare(
+        "UPDATE kontaktdaten SET email=?, firstname=?, lastname=?, adress=?, postcode=? WHERE email=?"
+      )
+      .run(
+        param_email,
+        param_firstname,
+        param_lastname,
+        param_adress,
+        param_postcode,
+        param_user
+      );
+    const rows = db
+      .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+      .all(param_email);
+    res.render("admin_kontaktdaten", {
+      message: "Erfolgreich geupdatet!",
+    });
+  }
+});
+
+// Admin Update Password
+app.post("/admin_update_password", function (req, res) {
+  const param_password = req.body.update_password;
+  const param_password_repeat = req.body.update_password_repeat;
+  const param_user = req.body.update_email;
+  const rows = db
+    .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+    .all(param_user);
+  if (param_password == "" || param_password_repeat == "") {
+    res.render("accountdetails", {
+      message: "Bitte alle Felder ausfüllen!",
+      data: rows,
+    });
+  } else {
+    if (param_password == param_password_repeat) {
+      // Passwort verschlüsseln mit bcrypt
+      const hash = bcrypt.hashSync(param_password, 10);
+      const info = db
+        .prepare("UPDATE kontaktdaten SET password=? WHERE email=?")
+        .run(hash, param_user);
+      rows = db
+        .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+        .all(param_email);
+      res.render("accountdetails", {
+        message: "Du bist erfolgreich registriert!",
+        data: rows,
+      });
+    } else {
+      res.render("accountdetails", {
+        message: "Passworteingabe verschieden!",
+        data: rows,
+      });
+    }
+  }
+});
+
+// Admin Delete User
+app.post("/admin_delete_user", function (req, res) {
   const param_email = req.body.delete_email;
   const param_password = req.body.delete_password;
   const rows = db
     .prepare("SELECT * FROM kontaktdaten WHERE email=?")
     .all(param_email);
   if (param_email == "" || param_password == "") {
-    res.render("admin_kontaktdaten", { message: "Bitte alle Felder ausfüllen!" });
+    res.render("admin_kontaktdaten", {
+      message: "Bitte alle Felder ausfüllen!",
+    });
   } else {
     if (rows && rows.length == 1) {
       const hash = rows[0].password;
@@ -236,33 +493,14 @@ app.post("/user_delete", function (req, res) {
         res.render("admin_kontaktdaten", { message: "Passwort falsch!" });
       }
     } else {
-      res.render("admin_kontaktdaten", { message: "Benutzer nicht vorhanden!" });
+      res.render("admin_kontaktdaten", {
+        message: "Benutzer nicht vorhanden!",
+      });
     }
   }
 });
 
-// User Update
-app.post("/onupdate/:id", function (req, res) {
-  const param_email = req.body.update_email;
-  const param_firstname = req.body.update_firstname;
-  const param_lastname = req.body.update_lastname;
-  const param_adress = req.body.update_adress;
-  const param_postcode = req.body.update_postcode;
-  const param_password = req.body.update_password_old;
-  const param_password_new = req.body.update_password_new;
-  const param_password_new_repeat = req.body.update_password_new_repeat;
-
-  if (rows && rows.length == 1) {
-    const hash = rows[0].password;
-    const isValid = bcrypt.compareSync(param_password, hash);
-    if (isValid == true) {
-      req.session.authenticated = true;
-  const info = db
-    .prepare("UPDATE produkte SET email=?, firstname=?, lastname=?, adress=?, postcode=?, password=? WHERE id=?")
-    .run(param_name, param_preis, param_id);
-  res.redirect("/kontakdaten");
-});
-
+/*
 // Pizzen Delete
 app.post("/delete/:id", function (req, res) {
   const info = db.prepare("DELETE FROM pizzen WHERE id=?").run(req.params.id);

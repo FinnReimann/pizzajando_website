@@ -18,7 +18,7 @@
         Warenkorb <span>0</span>
       </button>
     </p>
-    <br /><br />
+    <br />
     <button class="mein_account_open" id="mein_account_open">
       MeinAccount
     </button>
@@ -46,11 +46,11 @@
         <button class="meine_bestellungen" id="meine_bestellungen">
           Meine Bestellungen
         </button>
-        <from action="/accountdetails" class="button" method="post">
+        <form action="/accountdetails" class="button" method="post">
           <button>Accountdetails</button>
-        </from>
+        </form>
         <form action="/logout" class="button" method="post">
-          <button>Ausloggen</button>
+          <button class="logout" value="logout">Ausloggen</button>
         </form>
         <% } else { %>
         <h1>Login</h1>

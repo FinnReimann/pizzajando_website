@@ -28,8 +28,8 @@
     </table>
     <br />
     <h1>Benutzer Hinzufügen</h1>
-    <form action="/user_register" id="register_button" method="post">
-      <label for="register_email">E-Mail Adresse:</label><br />
+    <form action="/admin_user_register" id="register_button" method="post">
+      <label for="register_email">E-Mail:</label><br />
       <input type="email" name="register_email" id="register_email" /><br />
       <label for="register_firstname">Vorname:</label><br />
       <input type="text" id="register_firstname" /><br />
@@ -47,8 +47,9 @@
     </form>
     <br />
     <h1>Benutzerdaten Updaten</h1>
-    <form action="/user_update" id="update_button" method="post">
-      <label for="update_email">E-Mail Adresse:</label><br />
+    <p>Benutzerdaten</p>
+    <form action="/admin_update_user" class="button" method="post">
+      <label for="update_email">E-Mail:</label><br />
       <input type="email" name="update_email" id="update_email" /><br />
       <label for="update_firstname">Vorname:</label><br />
       <input type="text" id="update_firstname" /><br />
@@ -57,18 +58,23 @@
       <label for="update_adress">Straße, Hausnummer:</label><br />
       <input type="text" id="update_adress" /><br />
       <label for="update_postcode">PLZ, Stadt</label><br />
-      <input type="text" id="update_postcode" /><br />
-      <label for="update_password_old">Altes Passwort:</label><br />
-      <input type="password" id="update_password_old" /><br />
-      <label for="update_password_new">Neues Passwort:</label><br />
-      <input type="password" id="update_password_new" /><br />
-      <label for="update_password_new_repeat">Wiederholen:</label><br />
-      <input type="password" id="update_password_new_repeat" /><br /><br />
-      <input type="submit" value="Updaten" />
+      <input type="text" id="update_postcode" /><br /><br />
+      <input type="submit" value="Daten Updaten" />
+    </form>
+    <br />
+    <p>Passwort</p>
+    <form action="/admin_update_password" class="button" method="post">
+      <label for="update_email">E-Mail:</label><br />
+      <input type="email" name="update_email" id="update_email" /><br />
+      <label for="update_password">Neues Passwort:</label><br />
+      <input type="password" id="update_password" /><br />
+      <label for="update_password_repeat">Wiederholen:</label><br />
+      <input type="password" id="update_password_repeat" /><br /><br />
+      <input type="submit" value="Passwort ändern" />
     </form>
     <br />
     <h1>Benutzer Löschen</h1>
-    <form action="/user_delete" class="delete" id="delete" method="post">
+    <form action="/admin_user_delete" class="button" method="post">
       <label for="delete_email">Email:</label><br />
       <input type="email" class="delete_email" id="delete_email" /><br />
       <label for="delete_password">Passwort:</label><br />
