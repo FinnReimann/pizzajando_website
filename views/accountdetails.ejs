@@ -9,6 +9,35 @@
     <title>Accountdetails</title>
   </head>
   <body>
+    <form action="/startseite" class="button" method="post">
+      <button>Startseite</button>
+    </form>
+    <br />
+    <form action="/speisekarte" class="button" method="post">
+      <button>Speisekarte</button>
+    </form>
+    <br />
+    <p class="cart">
+      <button class="warenkorb_open" id="warenkorb_open">
+        Warenkorb <span>0</span>
+      </button>
+    </p>
+    <div class="warenkorb_container" id="warenkorb_container">
+      <div class="warenkorb" id="warenkorb">
+        <h1>Warenkorb</h1>
+        <div class="product_container">
+          <div class="product_header">
+            <h5 class="product_title">PRODUKT</h5>
+            <h5 class="price">PREIS</h5>
+            <h5 class="quantity">QUANTITY</h5>
+            <h5 class="total">TOTAL</h5>
+          </div>
+          <div class="products"></div>
+        </div>
+        <br />
+        <button class="warenkorb_close" id="warenkorb_close">X</button>
+      </div>
+    </div>
     <form action="/update_user" class="button" method="post">
       <p>Persönliche Daten</p>
       <label for="update_email">E-Mail:</label><br />
@@ -83,5 +112,7 @@
       <input type="submit" value="Löschen" />
     </form>
     <p><%= message %></p>
+    <br />
+    <script src="javascript/accountdetails_javascript.js"></script>
   </body>
 </html>

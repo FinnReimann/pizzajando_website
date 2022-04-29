@@ -49,6 +49,11 @@ app.get("/startseite", function (req, res) {
   res.render("startseite", { message: "", session: req.session.authenticated });
 });
 
+// getRequest startseite
+app.post("/startseite", function (req, res) {
+  res.render("startseite", { message: "", session: req.session.authenticated });
+});
+
 // getRequest admin_main
 app.get("/admin", function (req, res) {
   res.render("admin_main", { message: "" });
@@ -81,7 +86,7 @@ app.post("/speisekarte", function (req, res) {
 
 // postRequest accountdetails
 app.post("/accountdetails", function (req, res) {
-  if (/*req.session.authenticated*/ true) {
+  if (req.session.authenticated) {
     param_email = req.session.user;
     const rows = db
       .prepare("SELECT * FROM kontaktdaten WHERE email=?")
