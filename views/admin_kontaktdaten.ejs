@@ -32,17 +32,37 @@
       <label for="register_email">E-Mail:</label><br />
       <input type="email" name="register_email" id="register_email" /><br />
       <label for="register_firstname">Vorname:</label><br />
-      <input type="text" id="register_firstname" /><br />
+      <input
+        type="text"
+        name="register_firstname"
+        id="register_firstname"
+      /><br />
       <label for="register_lastname">Nachname:</label><br />
-      <input type="text" id="register_lastname" /><br />
+      <input
+        type="text"
+        name="register_lastname"
+        id="register_lastname"
+      /><br />
       <label for="register_adress">Straße, Hausnummer:</label><br />
-      <input type="text" id="register_adress" /><br />
+      <input type="text" name="register_adress" id="register_adress" /><br />
       <label for="register_postcode">PLZ, Stadt</label><br />
-      <input type="text" id="register_postcode" /><br />
+      <input
+        type="text"
+        name="register_postcode"
+        id="register_postcode"
+      /><br />
       <label for="register_password">Passwort:</label><br />
-      <input type="password" id="register_password" /><br />
+      <input
+        type="password"
+        name="register_password"
+        id="register_password"
+      /><br />
       <label for="register_password_repeat">Wiederholen:</label><br />
-      <input type="password" id="register_password_repeat" /><br /><br />
+      <input
+        type="password"
+        name="register_password_repeat"
+        id="register_password_repeat"
+      /><br /><br />
       <input type="submit" value="Hinzufügen" />
     </form>
     <br />
@@ -52,13 +72,17 @@
       <label for="update_email">E-Mail:</label><br />
       <input type="email" name="update_email" id="update_email" /><br />
       <label for="update_firstname">Vorname:</label><br />
-      <input type="text" id="update_firstname" /><br />
+      <input type="text" name="update_firstname" id="update_firstname" /><br />
       <label for="update_lastname">Nachname:</label><br />
-      <input type="text" id="update_lastname" /><br />
+      <input type="text" name="update_lastname" id="update_lastname" /><br />
       <label for="update_adress">Straße, Hausnummer:</label><br />
-      <input type="text" id="update_adress" /><br />
+      <input type="text" name="update_adress" id="update_adress" /><br />
       <label for="update_postcode">PLZ, Stadt</label><br />
-      <input type="text" id="update_postcode" /><br /><br />
+      <input
+        type="text"
+        name="update_postcode"
+        id="update_postcode"
+      /><br /><br />
       <input type="submit" value="Daten Updaten" />
     </form>
     <br />
@@ -67,23 +91,32 @@
       <label for="update_email">E-Mail:</label><br />
       <input type="email" name="update_email" id="update_email" /><br />
       <label for="update_password">Neues Passwort:</label><br />
-      <input type="password" id="update_password" /><br />
+      <input
+        type="password"
+        name="update_password"
+        id="update_password"
+      /><br />
       <label for="update_password_repeat">Wiederholen:</label><br />
-      <input type="password" id="update_password_repeat" /><br /><br />
+      <input
+        type="password"
+        name="update_password_repeat"
+        id="update_password_repeat"
+      /><br /><br />
       <input type="submit" value="Passwort ändern" />
     </form>
     <br />
     <h1>Benutzer Löschen</h1>
     <form action="/admin_user_delete" class="button" method="post">
-      <label for="delete_email">Email:</label><br />
-      <input type="email" class="delete_email" id="delete_email" /><br />
+      <label for="delete_email">E-Mail:</label><br />
+      <input type="email" name="delete_email" id="delete_email" /><br />
       <label for="delete_password">Passwort:</label><br />
       <input
         type="password"
-        class="delete_password"
+        name="delete_password"
         id="delete_password"
       /><br /><br />
       <input type="submit" value="Löschen" />
     </form>
+    <%= message %>
   </body>
 </html>
