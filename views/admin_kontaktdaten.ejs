@@ -13,6 +13,7 @@
         <td>Straße, Hausnummer</td>
         <td>PLZ, Stadt</td>
         <td>Passwort</td>
+        <td>Delete</td>
       </tr>
       <% for(var i = 0; i < kontakte.length; i++){ %>
       <tr>
@@ -23,11 +24,16 @@
         <td><%= kontakte[i].adress %></td>
         <td><%= kontakte[i].postcode %></td>
         <td><%= kontakte[i].password %></td>
+        <td>
+          <form action="/delete_user/<%= kontakte[i].id %>" method="post">
+            <button type="submit">Löschen</button>
+          </form>
+        </td>
       </tr>
       <% } %>
     </table>
     <br />
-    <h1>Benutzer Hinzufügen</h1>
+    <h2>Benutzer Hinzufügen</h2>
     <form action="/admin_user_register" id="register_button" method="post">
       <label for="register_email">E-Mail:</label><br />
       <input type="email" name="register_email" id="register_email" /><br />
@@ -66,8 +72,8 @@
       <input type="submit" value="Hinzufügen" />
     </form>
     <br />
-    <h1>Benutzerdaten Updaten</h1>
-    <p>Benutzerdaten</p>
+    <h2>Benutzerdaten Updaten</h2>
+    <h3>Benutzerdaten</h3>
     <form action="/admin_update_user" class="button" method="post">
       <label for="update_email">E-Mail:</label><br />
       <input type="email" name="update_email" id="update_email" /><br />
@@ -78,15 +84,12 @@
       <label for="update_adress">Straße, Hausnummer:</label><br />
       <input type="text" name="update_adress" id="update_adress" /><br />
       <label for="update_postcode">PLZ, Stadt</label><br />
-      <input
-        type="text"
-        name="update_postcode"
-        id="update_postcode"
-      /><br /><br />
+      <input type="text" name="update_postcode" id="update_postcode" />
+      <br /><br />
       <input type="submit" value="Daten Updaten" />
     </form>
     <br />
-    <p>Passwort</p>
+    <h3>Passwort</h3>
     <form action="/admin_update_password" class="button" method="post">
       <label for="update_email">E-Mail:</label><br />
       <input type="email" name="update_email" id="update_email" /><br />
@@ -105,18 +108,6 @@
       <input type="submit" value="Passwort ändern" />
     </form>
     <br />
-    <h1>Benutzer Löschen</h1>
-    <form action="/admin_user_delete" class="button" method="post">
-      <label for="delete_email">E-Mail:</label><br />
-      <input type="email" name="delete_email" id="delete_email" /><br />
-      <label for="delete_password">Passwort:</label><br />
-      <input
-        type="password"
-        name="delete_password"
-        id="delete_password"
-      /><br /><br />
-      <input type="submit" value="Löschen" />
-    </form>
     <%= message %>
   </body>
 </html>

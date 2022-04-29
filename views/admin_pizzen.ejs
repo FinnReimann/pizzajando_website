@@ -19,12 +19,39 @@
         <td><%= pizzen[i].preis %></td>
         <td><%= pizzen[i].zutaten %></td>
         <td>
-          <form action="/delete/<%= pizzen[i].id %>" method="post">
+          <form action="/delete_pizza/<%= pizzen[i].id %>" method="post">
             <button type="submit">Löschen</button>
           </form>
         </td>
       </tr>
       <% } %>
     </table>
+    <br />
+    <h2>Pizza Hinzufügen</h2>
+    <form action="/pizzen_add" class="button" method="post">
+      <label for="pizzen_name">Name:</label><br />
+      <input type="text" name="pizzen_name" id="pizzen_name" /><br />
+      <label for="pizzen_preis">Preis:</label><br />
+      <input type="text" name="pizzen_preis" id="pizzen_preis" /><br />
+      <label for="pizzen_zutaten">Zutaten:</label><br />
+      <input type="text" name="pizzen_zutaten" id="pizzen_zutaten" />
+      <br /><br />
+      <input type="submit" value="Hinzufügen" />
+    </form>
+    <h2>Pizza Updaten</h2>
+    <form action="/pizzen_update" class="button" method="post">
+      <label for="pizzen_id">Pizzen ID:</label><br />
+      <input type="number" min="0" name="pizzen_id" id="pizzen_id" /><br />
+      <label for="pizzen_name">Name:</label><br />
+      <input type="text" name="pizzen_name" id="pizzen_name" /><br />
+      <label for="pizzen_preis">Preis:</label><br />
+      <input type="text" name="pizzen_preis" id="pizzen_preis" /><br />
+      <label for="pizzen_zutaten">Zutaten:</label><br />
+      <input type="text" name="pizzen_zutaten" id="pizzen_zutaten" />
+      <br /><br />
+      <input type="submit" value="Updaten" />
+    </form>
+    <br />
+    <%= message %>
   </body>
 </html>

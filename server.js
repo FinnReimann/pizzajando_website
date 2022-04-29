@@ -12,23 +12,15 @@ const validator = require("email-validator");
 const DATABASE = "daten.db";
 const db = require("better-sqlite3")(DATABASE);
 
-// Session initialisieren
-const session = require("express-session");
-
 // Bcrypt initialisieren
 const bcrypt = require("bcrypt");
-
-// Public Freigeben
-app.use(express.static(__dirname + "/public"));
-
-// Body-Parser initialisieren
-app.use(express.urlencoded({ extended: true }));
 
 // EJS initialisieren
 app.engine("ejs", require("ejs").__express);
 app.set("view engine", "ejs");
 
-// Session
+// Session initialisieren
+const session = require("express-session");
 app.use(
   session({
     cookie: {
@@ -41,6 +33,12 @@ app.use(
   })
 );
 
+// Public Freigeben
+app.use(express.static(__dirname + "/public"));
+
+// Body-Parser initialisieren
+app.use(express.urlencoded({ extended: true }));
+
 // Server starten
 app.listen(3000, function () {
   console.log("listening to 3000");
@@ -51,27 +49,27 @@ app.get("/startseite", function (req, res) {
   res.render("startseite", { message: "", session: req.session.authenticated });
 });
 
-// getRequest admin
+// getRequest admin_main
 app.get("/admin", function (req, res) {
   res.render("admin_main", { message: "" });
 });
 
-// getRequest kontaktdaten
+// getRequest admin_kontaktdaten
 app.get("/admin_kontaktdaten", function (req, res) {
   const rows = db.prepare("SELECT * FROM kontaktdaten").all();
-  res.render("admin_kontaktdaten", { kontakte: rows });
+  res.render("admin_kontaktdaten", { message: "", kontakte: rows });
 });
 
-// getRequest pizzen
+// getRequest admin_pizzen
 app.get("/admin_pizzen", function (req, res) {
   const rows = db.prepare("SELECT * FROM pizzen").all();
-  res.render("admin_pizzen", { pizzen: rows });
+  res.render("admin_pizzen", { message: "", pizzen: rows });
 });
 
-// getRequest drinks
+// getRequest admin_drinks
 app.get("/admin_drinks", function (req, res) {
   const rows = db.prepare("SELECT * FROM drinks").all();
-  res.render("admin_drinks", { drinks: rows });
+  res.render("admin_drinks", { message: "", drinks: rows });
 });
 
 // postRequest speisekarte
@@ -558,11 +556,166 @@ app.post("/admin_user_delete", function (req, res) {
   }
 });
 
-/*
-// Pizzen Delete
-app.post("/delete/:id", function (req, res) {
-  const info = db.prepare("DELETE FROM pizzen WHERE id=?").run(req.params.id);
-  console.log(info);
-  res.redirect("/pizzen_table");
+app.post("/delete_user/:id", function (req, res) {
+  const info = db
+    .prepare("DELETE FROM kontaktdaten WHERE id=?")
+    .run(req.params.id);
+  const rows = db.prepare("SELECT * FROM kontaktdaten").all();
+  res.render("admin_kontaktdaten", {
+    message: "Kontakt erfolgreich gelöscht",
+    kontakte: rows,
+  });
 });
-*/
+
+// Admin Pizzen Delete
+app.post("/delete_pizza/:id", function (req, res) {
+  const info = db.prepare("DELETE FROM pizzen WHERE id=?").run(req.params.id);
+  const rows = db.prepare("SELECT * FROM pizzen").all();
+  res.render("admin_pizzen", {
+    message: "Pizza erfolgreich gelöscht!",
+    pizzen: rows,
+  });
+});
+
+// Admin Pizzen Hinzufügen
+app.post("/pizzen_add", function (req, res) {
+  const param_name = req.body.pizzen_name;
+  const param_preis = parseFloat(req.body.pizzen_preis);
+  const param_zutaten = req.body.pizzen_zutaten;
+  let rows = db.prepare("SELECT * FROM pizzen").all();
+
+  if (param_name == "" || param_preis == "" || param_zutaten == "") {
+    res.render("admin_pizzen", {
+      message: "Bitte alle Felder ausfüllen!",
+      pizzen: rows,
+    });
+  } else {
+    const row = db.prepare("SELECT * FROM pizzen WHERE name=?").all(param_name);
+    if (row.length == 0) {
+      const info = db
+        .prepare("INSERT INTO pizzen (name, preis, zutaten) VALUES(?, ?, ?)")
+        .run(param_name, param_preis, param_zutaten);
+      rows = db.prepare("SELECT * FROM pizzen").all();
+      res.render("admin_pizzen", {
+        message: "Pizza erfolgreich hinzugefügt!",
+        pizzen: rows,
+      });
+    } else {
+      res.render("admin_pizzen", {
+        message: "Pizza bereits vorhanden!",
+        pizzen: rows,
+      });
+    }
+  }
+});
+
+// Admin Pizzen Updaten
+app.post("/pizzen_update", function (req, res) {
+  const param_id = req.body.pizzen_id;
+  const param_name = req.body.pizzen_name;
+  const param_preis = parseFloat(req.body.pizzen_preis);
+  const param_zutaten = req.body.pizzen_zutaten;
+  let rows = db.prepare("SELECT * FROM pizzen").all();
+
+  if (
+    param_id == "" ||
+    param_name == "" ||
+    param_preis == "" ||
+    param_zutaten == ""
+  ) {
+    res.render("admin_pizzen", {
+      message: "Bitte alle Felder ausfüllen!",
+      pizzen: rows,
+    });
+  } else {
+    const row = db.prepare("SELECT * FROM pizzen WHERE id=?").all(param_id);
+    if (row && row.length == 1) {
+      const info = db
+        .prepare("UPDATE pizzen SET name=?, preis=?, zutaten=? WHERE id=?")
+        .run(param_name, param_preis, param_zutaten, param_id);
+      rows = db.prepare("SELECT * FROM pizzen").all();
+      res.render("admin_pizzen", {
+        message: "Pizza erfolgreich geupdatet!",
+        pizzen: rows,
+      });
+    } else {
+      res.render("admin_pizzen", {
+        message: "Pizza mit dieser ID nicht vorhanden!",
+        pizzen: rows,
+      });
+    }
+  }
+});
+
+// Admin Pizzen Delete
+app.post("/delete_drink/:id", function (req, res) {
+  const info = db.prepare("DELETE FROM drinks WHERE id=?").run(req.params.id);
+  const rows = db.prepare("SELECT * FROM drinks").all();
+  res.render("admin_drinks", {
+    message: "Drink erfolgreich gelöscht!",
+    drinks: rows,
+  });
+});
+
+// Admin Drink Hinzufügen
+app.post("/drinks_add", function (req, res) {
+  const param_name = req.body.drinks_name;
+  const param_preis = parseFloat(req.body.drinks_preis);
+  let rows = db.prepare("SELECT * FROM drinks").all();
+
+  if (param_name == "" || param_preis == "") {
+    res.render("admin_drinks", {
+      message: "Bitte alle Felder ausfüllen!",
+      drinks: rows,
+    });
+  } else {
+    const row = db.prepare("SELECT * FROM drinks WHERE name=?").all(param_name);
+    if (row.length == 0) {
+      const info = db
+        .prepare("INSERT INTO drinks (name, preis) VALUES(?, ?)")
+        .run(param_name, param_preis);
+      rows = db.prepare("SELECT * FROM drinks").all();
+      res.render("admin_drinks", {
+        message: "Drink erfolgreich hinzugefügt!",
+        drinks: rows,
+      });
+    } else {
+      res.render("admin_drinks", {
+        message: "Drink bereits vorhanden!",
+        drinks: rows,
+      });
+    }
+  }
+});
+
+// Admin Drinks Updaten
+app.post("/drinks_update", function (req, res) {
+  const param_id = req.body.drinks_id;
+  const param_name = req.body.drinks_name;
+  const param_preis = parseFloat(req.body.drinks_preis);
+  let rows = db.prepare("SELECT * FROM drinks").all();
+
+  if (param_id == "" || param_name == "" || param_preis == "") {
+    res.render("admin_drinks", {
+      message: "Bitte alle Felder ausfüllen!",
+      drinks: rows,
+    });
+  } else {
+    const row = db.prepare("SELECT * FROM drinks WHERE id=?").all(param_id);
+    if (row && row.length == 1) {
+      const info = db
+        .prepare("UPDATE drinks SET name=?, preis=? WHERE id=?")
+        .run(param_name, param_preis, param_id);
+      rows = db.prepare("SELECT * FROM drinks").all();
+      res.render("admin_drinks", {
+        message: "Drink erfolgreich geupdatet!",
+        drinks: rows,
+      });
+    } else {
+      res.render("admin_drinks", {
+        message: "Drink mit dieser ID nicht vorhanden!",
+        drinks: rows,
+      });
+    }
+  }
+});

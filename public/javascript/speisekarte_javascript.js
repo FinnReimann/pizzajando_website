@@ -76,7 +76,7 @@ for (let i = 0; i < pizzen.length; i++) {
     id: i,
     name: pizzen_name[i].textContent,
     zutaten: pizzen_zutaten[i].textContent,
-    price: parseInt(pizzen_preis[i].textContent),
+    price: parseFloat(pizzen_preis[i].textContent),
     inCart: 0,
   };
 }
@@ -89,7 +89,7 @@ for (let i = 0; i < drinks.length; i++) {
   products[i + pizzen.length] = {
     id: i + pizzen.length,
     name: drinks_name[i].textContent,
-    price: parseInt(drinks_preis[i].textContent),
+    price: parseFloat(drinks_preis[i].textContent),
     inCart: 0,
   };
 }
@@ -159,7 +159,7 @@ function totalCost(product) {
   let cartCost = localStorage.getItem("totalCost");
 
   if (cartCost != null) {
-    cartCost = parseInt(cartCost);
+    cartCost = parseFloat(cartCost);
     localStorage.setItem("totalCost", cartCost + product.price);
   } else {
     localStorage.setItem("totalCost", product.price);
@@ -180,12 +180,12 @@ function displayCart() {
       <div class="product">
         <span>${item.name}</span>
       </div>
-      <div class="price">€${item.price},00</div>
+      <div class="price">€${item.price}</div>
       <div class="quantity">
         <span>${item.inCart}</span>
       </div>
       <div class="total">
-        €${item.inCart * item.price},00
+        €${(item.inCart * item.price).toFixed(2)}
       </div>
       `;
     });
@@ -196,7 +196,7 @@ function displayCart() {
           Basket Total
         </h4>
         <h4 class="basket_total">
-          €${cartCost},00
+          €${(cartCost * 1).toFixed(2)}
         </h4>
       </div>
     `;
