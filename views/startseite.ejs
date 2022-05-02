@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>Startseite</title>
-    <link rel="stylesheet" type="text/css" href="css/startseite_style.css" />
+    <link rel="stylesheet" type="text/css" href="css/modals.css" />
+    <link rel="stylesheet" type="text/css" href="css/warenkorb.css" />
   </head>
   <body>
     <form action="/startseite" class="button" method="post">
@@ -135,6 +136,24 @@
         <button class="register_close" id="register_close">X</button>
       </div>
     </div>
-    <script src="javascript/startseite_javascript.js"></script>
+    <% for(var i = 0; i < pizzen.length; i++){ %>
+    <div class="pizzen_container" id="pizzen_container">
+      <div class="pizzen" id="pizzen">
+        <h1 class="pizzen_name"><%= pizzen[i].name %></h1>
+        <p class="pizzen_preis"><%= pizzen[i].price %></p>
+        <p class="pizzen_zutaten"><%= pizzen[i].ingredients %></p>
+      </div>
+    </div>
+    <% } %> <% for(var i = 0; i < drinks.length; i++){ %>
+    <div class="drinks_container" id="drinks_container">
+      <div class="drinks" id="drinks">
+        <h1 class="drinks_name"><%= drinks[i].name %></h1>
+        <p class="drinks_preis"><%= drinks[i].price %></p>
+      </div>
+    </div>
+    <% } %>
+    <script src="javascript/modals.js"></script>
+    <script src="javascript/speisekarte.js"></script>
+    <script src="javascript/warenkorb.js"></script>
   </body>
 </html>

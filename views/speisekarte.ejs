@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>Speisekarte</title>
-    <link rel="stylesheet" type="text/css" href="css/speisekarte_style.css" />
+    <link rel="stylesheet" type="text/css" href="css/modals.css" />
+    <link rel="stylesheet" type="text/css" href="css/warenkorb.css" />
   </head>
   <body>
     <form action="/startseite" class="button" method="post">
@@ -22,8 +23,8 @@
     <div class="pizzen_container" id="pizzen_container">
       <div class="pizzen" id="pizzen">
         <h1 class="pizzen_name"><%= pizzen[i].name %></h1>
-        <p class="pizzen_preis"><%= pizzen[i].preis %></p>
-        <p class="pizzen_zutaten"><%= pizzen[i].zutaten %></p>
+        <p class="pizzen_preis"><%= pizzen[i].price %></p>
+        <p class="pizzen_zutaten"><%= pizzen[i].ingredients %></p>
         <button class="product_add" id="product_add">
           Zum Warenkorb hinzufügen
         </button>
@@ -38,7 +39,7 @@
     <div class="drinks_container" id="drinks_container">
       <div class="drinks" id="drinks">
         <h1 class="drinks_name"><%= drinks[i].name %></h1>
-        <p class="drinks_preis"><%= drinks[i].preis %></p>
+        <p class="drinks_preis"><%= drinks[i].price %></p>
         <button class="product_add" id="product_add">
           Zum Warenkorb hinzufügen
         </button>
@@ -62,6 +63,8 @@
         <button class="warenkorb_close" id="warenkorb_close">X</button>
       </div>
     </div>
-    <script src="javascript/speisekarte_javascript.js"></script>
+    <script src="javascript/modals.js"></script>
+    <script src="javascript/speisekarte.js"></script>
+    <script src="javascript/warenkorb.js"></script>
   </body>
 </html>

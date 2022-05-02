@@ -16,8 +16,8 @@
       <tr>
         <td><%= pizzen[i].id %></td>
         <td><%= pizzen[i].name %></td>
-        <td><%= pizzen[i].preis %></td>
-        <td><%= pizzen[i].zutaten %></td>
+        <td><%= pizzen[i].price %></td>
+        <td><%= pizzen[i].ingredients %></td>
         <td>
           <form action="/delete_pizza/<%= pizzen[i].id %>" method="post">
             <button type="submit">Löschen</button>

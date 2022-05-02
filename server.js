@@ -27,7 +27,7 @@ app.use(
       maxAge: 1000 * 60 * 60, // 1 Hour
       sameSite: true,
     },
-    secret: "example",
+    secret: "p4ssw0rtv3rschlu3ssl3r",
     saveUninitialized: false,
     resave: false,
   })
@@ -44,14 +44,28 @@ app.listen(3000, function () {
   console.log("listening to 3000");
 });
 
+// Variablen
+const pizzen_params = db.prepare("SELECT * FROM pizzen").all();
+const drinks_params = db.prepare("SELECT * FROM drinks").all();
+
 // getRequest startseite
 app.get("/startseite", function (req, res) {
-  res.render("startseite", { message: "", session: req.session.authenticated });
+  res.render("startseite", {
+    message: "",
+    session: req.session.authenticated,
+    pizzen: pizzen_params,
+    drinks: drinks_params,
+  });
 });
 
 // getRequest startseite
 app.post("/startseite", function (req, res) {
-  res.render("startseite", { message: "", session: req.session.authenticated });
+  res.render("startseite", {
+    message: "",
+    session: req.session.authenticated,
+    pizzen: pizzen_params,
+    drinks: drinks_params,
+  });
 });
 
 // getRequest admin_main
@@ -79,8 +93,6 @@ app.get("/admin_drinks", function (req, res) {
 
 // postRequest speisekarte
 app.post("/speisekarte", function (req, res) {
-  const pizzen_params = db.prepare("SELECT * FROM pizzen").all();
-  const drinks_params = db.prepare("SELECT * FROM drinks").all();
   res.render("speisekarte", { pizzen: pizzen_params, drinks: drinks_params });
 });
 
@@ -91,11 +103,18 @@ app.post("/accountdetails", function (req, res) {
     const rows = db
       .prepare("SELECT * FROM kontaktdaten WHERE email=?")
       .all(param_email);
-    res.render("accountdetails", { message: "", data: rows });
+    res.render("accountdetails", {
+      message: "",
+      data: rows,
+      pizzen: pizzen_params,
+      drinks: drinks_params,
+    });
   } else {
     res.render("startseite", {
       message: "Bitte melden Sie sich an!",
       session: req.session.authenticated,
+      pizzen: pizzen_params,
+      drinks: drinks_params,
     });
   }
 });
@@ -111,9 +130,11 @@ app.post("/login", function (req, res) {
     res.render("startseite", {
       message: "Bitte alle Felder ausfüllen!",
       session: req.session.authenticated,
+      pizzen: pizzen_params,
+      drinks: drinks_params,
     });
   } else {
-    if (rows && rows.length == 1) {
+    if (rows.length == 1) {
       const hash = rows[0].password;
       const isValid = bcrypt.compareSync(param_password, hash);
       if (isValid == true) {
@@ -122,17 +143,23 @@ app.post("/login", function (req, res) {
         res.render("startseite", {
           message: `Angemeldet mit ${param_email}`,
           session: req.session.authenticated,
+          pizzen: pizzen_params,
+          drinks: drinks_params,
         });
       } else {
         res.render("startseite", {
           message: "Passwort Falsch!",
           session: req.session.authenticated,
+          pizzen: pizzen_params,
+          drinks: drinks_params,
         });
       }
     } else {
       res.render("startseite", {
         message: "Benutzer nicht vorhanden!",
         session: req.session.authenticated,
+        pizzen: pizzen_params,
+        drinks: drinks_params,
       });
     }
   }
@@ -160,6 +187,8 @@ app.post("/user_register", function (req, res) {
     res.render("startseite", {
       message: "Bitte alle Felder ausfüllen!",
       session: req.session.user,
+      pizzen: pizzen_params,
+      drinks: drinks_params,
     });
   } else {
     if (validator.validate(param_email)) {
@@ -188,23 +217,31 @@ app.post("/user_register", function (req, res) {
           res.render("startseite", {
             message: "Du bist erfolgreich registriert!",
             session: req.session.authenticated,
+            pizzen: pizzen_params,
+            drinks: drinks_params,
           });
         } else {
           res.render("startseite", {
             message: "Passworteingabe verschieden!",
             session: req.session.authenticated,
+            pizzen: pizzen_params,
+            drinks: drinks_params,
           });
         }
       } else {
         res.render("startseite", {
           message: "Benutzer existiert bereits!",
           session: req.session.authenticated,
+          pizzen: pizzen_params,
+          drinks: drinks_params,
         });
       }
     } else {
       res.render("startseite", {
         message: "Kein anerkanntes Email Format!",
         session: req.session.authenticated,
+        pizzen: pizzen_params,
+        drinks: drinks_params,
       });
     }
   }
@@ -237,10 +274,12 @@ app.post("/update_user", function (req, res) {
     res.render("accountdetails", {
       message: "Bitte füllen sie alle Felder aus!",
       data: rows,
+      pizzen: pizzen_params,
+      drinks: drinks_params,
     });
   } else {
     if (validator.validate(param_email)) {
-      if (rows && rows.length == 1) {
+      if (rows.length == 1) {
         const info = db
           .prepare(
             "UPDATE kontaktdaten SET email=?, firstname=?, lastname=?, adress=?, postcode=? WHERE email=?"
@@ -260,17 +299,23 @@ app.post("/update_user", function (req, res) {
         res.render("accountdetails", {
           message: "Erfolgreich geupdatet!",
           data: rows,
+          pizzen: pizzen_params,
+          drinks: drinks_params,
         });
       } else {
         res.render("accountdetails", {
           message: "Benutzer nicht vorhanden!",
           data: rows,
+          pizzen: pizzen_params,
+          drinks: drinks_params,
         });
       }
     } else {
       res.render("accountdetails", {
         message: "Kein anerkanntes Email Format!",
         data: rows,
+        pizzen: pizzen_params,
+        drinks: drinks_params,
       });
     }
   }
@@ -288,6 +333,8 @@ app.post("/update_password", function (req, res) {
     res.render("accountdetails", {
       message: "Bitte alle Felder ausfüllen!",
       data: rows,
+      pizzen: pizzen_params,
+      drinks: drinks_params,
     });
   } else {
     if (param_password == param_password_repeat) {
@@ -302,11 +349,15 @@ app.post("/update_password", function (req, res) {
       res.render("accountdetails", {
         message: "Du bist erfolgreich registriert!",
         data: rows,
+        pizzen: pizzen_params,
+        drinks: drinks_params,
       });
     } else {
       res.render("accountdetails", {
         message: "Passworteingabe verschieden!",
         data: rows,
+        pizzen: pizzen_params,
+        drinks: drinks_params,
       });
     }
   }
@@ -332,22 +383,36 @@ app.post("/delete_user", function (req, res) {
     if (param_password != param_password_repeat) {
       res.render("accountdetails", {
         message: "Passworteingabe unterschiedlich!",
+        data: row,
+        pizzen: pizzen_params,
+        drinks: drinks_params,
       });
     } else {
-      if (row && row.length == 1) {
+      if (row.length == 1) {
         const hash = row[0].password;
         const isValid = bcrypt.compareSync(param_password, hash);
         if (isValid == true) {
           db.prepare("DELETE FROM kontaktdaten WHERE email=?").run(param_email);
           res.render("startseite", {
             message: `${param_email} erfolgreich gelöscht!`,
+            data: row,
+            pizzen: pizzen_params,
+            drinks: drinks_params,
           });
         } else {
-          res.render("accountdetails", { message: "Passwort falsch!" });
+          res.render("accountdetails", {
+            message: "Passwort falsch!",
+            data: row,
+            pizzen: pizzen_params,
+            drinks: drinks_params,
+          });
         }
       } else {
         res.render("accountdetails", {
           message: "Benutzer nicht vorhanden!",
+          data: row,
+          pizzen: pizzen_params,
+          drinks: drinks_params,
         });
       }
     }
@@ -448,7 +513,7 @@ app.post("/admin_update_user", function (req, res) {
     const row = db
       .prepare("SELECT * FROM kontaktdaten WHERE email=?")
       .all(param_email);
-    if (row && row.length == 1) {
+    if (row.length == 1) {
       const info = db
         .prepare(
           "UPDATE kontaktdaten SET firstname=?, lastname=?, adress=?, postcode=? WHERE email=?"
@@ -493,7 +558,7 @@ app.post("/admin_update_password", function (req, res) {
     const row = db
       .prepare("SELECT * FROM kontaktdaten WHERE email=?")
       .all(param_email);
-    if (row && row.length == 1) {
+    if (row.length == 1) {
       if (param_password == param_password_repeat) {
         // Passwort verschlüsseln mit bcrypt
         const hash = bcrypt.hashSync(param_password, 10);
@@ -534,7 +599,7 @@ app.post("/admin_user_delete", function (req, res) {
     const row = db
       .prepare("SELECT * FROM kontaktdaten WHERE email=?")
       .all(param_email);
-    if (row && row.length == 1) {
+    if (row.length == 1) {
       const hash = rows[0].password;
       const isValid = bcrypt.compareSync(param_password, hash);
       if (isValid == true) {
@@ -598,7 +663,9 @@ app.post("/pizzen_add", function (req, res) {
     const row = db.prepare("SELECT * FROM pizzen WHERE name=?").all(param_name);
     if (row.length == 0) {
       const info = db
-        .prepare("INSERT INTO pizzen (name, preis, zutaten) VALUES(?, ?, ?)")
+        .prepare(
+          "INSERT INTO pizzen (name, price, ingredients) VALUES(?, ?, ?)"
+        )
         .run(param_name, param_preis, param_zutaten);
       rows = db.prepare("SELECT * FROM pizzen").all();
       res.render("admin_pizzen", {
@@ -634,9 +701,9 @@ app.post("/pizzen_update", function (req, res) {
     });
   } else {
     const row = db.prepare("SELECT * FROM pizzen WHERE id=?").all(param_id);
-    if (row && row.length == 1) {
+    if (row.length == 1) {
       const info = db
-        .prepare("UPDATE pizzen SET name=?, preis=?, zutaten=? WHERE id=?")
+        .prepare("UPDATE pizzen SET name=?, price=?, ingredients=? WHERE id=?")
         .run(param_name, param_preis, param_zutaten, param_id);
       rows = db.prepare("SELECT * FROM pizzen").all();
       res.render("admin_pizzen", {
@@ -677,7 +744,7 @@ app.post("/drinks_add", function (req, res) {
     const row = db.prepare("SELECT * FROM drinks WHERE name=?").all(param_name);
     if (row.length == 0) {
       const info = db
-        .prepare("INSERT INTO drinks (name, preis) VALUES(?, ?)")
+        .prepare("INSERT INTO drinks (name, price) VALUES(?, ?)")
         .run(param_name, param_preis);
       rows = db.prepare("SELECT * FROM drinks").all();
       res.render("admin_drinks", {
@@ -707,7 +774,7 @@ app.post("/drinks_update", function (req, res) {
     });
   } else {
     const row = db.prepare("SELECT * FROM drinks WHERE id=?").all(param_id);
-    if (row && row.length == 1) {
+    if (row.length == 1) {
       const info = db
         .prepare("UPDATE drinks SET name=?, preis=? WHERE id=?")
         .run(param_name, param_preis, param_id);
