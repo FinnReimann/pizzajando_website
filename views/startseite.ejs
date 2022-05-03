@@ -4,10 +4,14 @@
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="css/modals.css" />
     <link rel="stylesheet" type="text/css" href="css/warenkorb.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
   <body>
     <form action="/startseite" class="button" method="post">
-      <button>Startseite</button>
+      <button>PIZZAJANDO</button>
     </form>
     <br />
     <form action="/speisekarte" class="button" method="post">
@@ -18,15 +22,14 @@
       <button>Hier Bestellen</button>
     </form>
     <br />
-    <p class="cart">
-      <button class="warenkorb_open" id="warenkorb_open">
-        Warenkorb <span>0</span>
-      </button>
-    </p>
+    <div class="cart">
+      <i class="material-icons" id="warenkorb_open">shopping_cart</i>
+      <div>
+        <span class="cart_items">0</span>
+      </div>
+    </div>
     <br />
-    <button class="mein_account_open" id="mein_account_open">
-      MeinAccount
-    </button>
+    <i class="material-icons" id="mein_account_open"> dehaze </i>
     <p><%= message %></p>
     <div class="warenkorb_container" id="warenkorb_container">
       <div class="warenkorb" id="warenkorb">
@@ -41,7 +44,7 @@
           <div class="products"></div>
         </div>
         <br />
-        <button class="warenkorb_close" id="warenkorb_close">X</button>
+        <i class="material-icons" id="warenkorb_close">close</i>
       </div>
     </div>
     <div class="mein_account_container" id="mein_account_container">
@@ -82,7 +85,7 @@
           </button>
         </p>
         <% } %>
-        <button class="mein_account_close" id="mein_account_close">X</button>
+        <i class="material-icons" id="mein_account_close">close</i>
       </div>
     </div>
     <div class="register_container" id="register_container">
@@ -133,7 +136,7 @@
           <input type="submit" value="Registrieren" />
         </form>
         <br />
-        <button class="register_close" id="register_close">X</button>
+        <i class="material-icons" id="register_close">close</i>
       </div>
     </div>
     <% for(var i = 0; i < pizzen.length; i++){ %>
@@ -153,7 +156,6 @@
     </div>
     <% } %>
     <script src="javascript/modals.js"></script>
-    <script src="javascript/speisekarte.js"></script>
     <script src="javascript/warenkorb.js"></script>
   </body>
 </html>

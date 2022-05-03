@@ -93,7 +93,11 @@ app.get("/admin_drinks", function (req, res) {
 
 // postRequest speisekarte
 app.post("/speisekarte", function (req, res) {
-  res.render("speisekarte", { pizzen: pizzen_params, drinks: drinks_params });
+  res.render("speisekarte", {
+    session: req.session.authenticated,
+    pizzen: pizzen_params,
+    drinks: drinks_params,
+  });
 });
 
 // postRequest accountdetails
@@ -106,6 +110,7 @@ app.post("/accountdetails", function (req, res) {
     res.render("accountdetails", {
       message: "",
       data: rows,
+      session: req.session.authenticated,
       pizzen: pizzen_params,
       drinks: drinks_params,
     });
@@ -186,7 +191,7 @@ app.post("/user_register", function (req, res) {
   ) {
     res.render("startseite", {
       message: "Bitte alle Felder ausfüllen!",
-      session: req.session.user,
+      session: req.session.authenticated,
       pizzen: pizzen_params,
       drinks: drinks_params,
     });
@@ -274,6 +279,7 @@ app.post("/update_user", function (req, res) {
     res.render("accountdetails", {
       message: "Bitte füllen sie alle Felder aus!",
       data: rows,
+      session: req.session.authenticated,
       pizzen: pizzen_params,
       drinks: drinks_params,
     });
@@ -299,6 +305,7 @@ app.post("/update_user", function (req, res) {
         res.render("accountdetails", {
           message: "Erfolgreich geupdatet!",
           data: rows,
+          session: req.session.authenticated,
           pizzen: pizzen_params,
           drinks: drinks_params,
         });
@@ -306,6 +313,7 @@ app.post("/update_user", function (req, res) {
         res.render("accountdetails", {
           message: "Benutzer nicht vorhanden!",
           data: rows,
+          session: req.session.authenticated,
           pizzen: pizzen_params,
           drinks: drinks_params,
         });
@@ -314,6 +322,7 @@ app.post("/update_user", function (req, res) {
       res.render("accountdetails", {
         message: "Kein anerkanntes Email Format!",
         data: rows,
+        session: req.session.authenticated,
         pizzen: pizzen_params,
         drinks: drinks_params,
       });
@@ -333,6 +342,7 @@ app.post("/update_password", function (req, res) {
     res.render("accountdetails", {
       message: "Bitte alle Felder ausfüllen!",
       data: rows,
+      session: req.session.authenticated,
       pizzen: pizzen_params,
       drinks: drinks_params,
     });
@@ -349,6 +359,7 @@ app.post("/update_password", function (req, res) {
       res.render("accountdetails", {
         message: "Du bist erfolgreich registriert!",
         data: rows,
+        session: req.session.authenticated,
         pizzen: pizzen_params,
         drinks: drinks_params,
       });
@@ -356,6 +367,7 @@ app.post("/update_password", function (req, res) {
       res.render("accountdetails", {
         message: "Passworteingabe verschieden!",
         data: rows,
+        session: req.session.authenticated,
         pizzen: pizzen_params,
         drinks: drinks_params,
       });
@@ -384,6 +396,7 @@ app.post("/delete_user", function (req, res) {
       res.render("accountdetails", {
         message: "Passworteingabe unterschiedlich!",
         data: row,
+        session: req.session.authenticated,
         pizzen: pizzen_params,
         drinks: drinks_params,
       });
@@ -396,6 +409,7 @@ app.post("/delete_user", function (req, res) {
           res.render("startseite", {
             message: `${param_email} erfolgreich gelöscht!`,
             data: row,
+            session: req.session.authenticated,
             pizzen: pizzen_params,
             drinks: drinks_params,
           });
@@ -403,6 +417,7 @@ app.post("/delete_user", function (req, res) {
           res.render("accountdetails", {
             message: "Passwort falsch!",
             data: row,
+            session: req.session.authenticated,
             pizzen: pizzen_params,
             drinks: drinks_params,
           });
@@ -411,6 +426,7 @@ app.post("/delete_user", function (req, res) {
         res.render("accountdetails", {
           message: "Benutzer nicht vorhanden!",
           data: row,
+          session: req.session.authenticated,
           pizzen: pizzen_params,
           drinks: drinks_params,
         });

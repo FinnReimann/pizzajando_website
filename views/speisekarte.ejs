@@ -4,17 +4,24 @@
     <title>Speisekarte</title>
     <link rel="stylesheet" type="text/css" href="css/modals.css" />
     <link rel="stylesheet" type="text/css" href="css/warenkorb.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
   <body>
     <form action="/startseite" class="button" method="post">
-      <button>Startseite</button>
+      <button>PIZZAJANDO</button>
     </form>
     <br />
-    <p class="cart">
-      <button class="warenkorb_open" id="warenkorb_open">
-        Warenkorb <span>0</span>
-      </button>
-    </p>
+    <div class="cart">
+      <i class="material-icons" id="warenkorb_open">shopping_cart</i>
+      <div>
+        <span class="cart_items">0</span>
+      </div>
+    </div>
+    <br />
+    <i class="material-icons" id="mein_account_open"> dehaze </i>
     <br />
     <h1>Pizzen</h1>
     <% for(var i = 0; i < pizzen.length; i++){ %>
@@ -25,10 +32,8 @@
         <h1 class="pizzen_name"><%= pizzen[i].name %></h1>
         <p class="pizzen_preis"><%= pizzen[i].price %></p>
         <p class="pizzen_zutaten"><%= pizzen[i].ingredients %></p>
-        <button class="product_add" id="product_add">
-          Zum Warenkorb hinzufügen
-        </button>
-        <button class="pizzen_close" id="pizzen_close">X</button>
+        <i class="material-icons" id="product_add">add</i>
+        <i class="material-icons" id="pizzen_close">close</i>
       </div>
     </div>
     <% } %>
@@ -40,13 +45,52 @@
       <div class="drinks" id="drinks">
         <h1 class="drinks_name"><%= drinks[i].name %></h1>
         <p class="drinks_preis"><%= drinks[i].price %></p>
-        <button class="product_add" id="product_add">
-          Zum Warenkorb hinzufügen
-        </button>
-        <button class="drinks_close" id="drinks_close">X</button>
+        <i class="material-icons" id="product_add">add</i>
+        <i class="material-icons" id="drinks_close">close</i>
       </div>
     </div>
     <% } %>
+    <div class="mein_account_container" id="mein_account_container">
+      <div class="mein_account" id="mein_account">
+        <% if(session){ %>
+        <h1>MeinAccount</h1>
+        <button class="meine_bestellungen" id="meine_bestellungen">
+          Meine Bestellungen
+        </button>
+        <form action="/accountdetails" class="button" method="post">
+          <button>Accountdetails</button>
+        </form>
+        <form action="/logout" class="button" method="post">
+          <button class="logout" value="logout">Ausloggen</button>
+        </form>
+        <% } else { %>
+        <h1>Login</h1>
+        <form
+          action="/login"
+          class="login_button"
+          id="login_button"
+          method="post"
+        >
+          <label for="login_email">Email:</label><br />
+          <input type="text" name="login_email" id="login_email" /><br />
+          <label for="login_password">Passwort:</label><br />
+          <input
+            type="password"
+            name="login_password"
+            id="login_password"
+          /><br /><br />
+          <input type="submit" value="Login" />
+        </form>
+        <p>
+          Noch nicht Registriert?<br />
+          <button class="register_open" id="register_open">
+            Jetzt Registrieren!
+          </button>
+        </p>
+        <% } %>
+        <i class="material-icons" id="mein_account_close">close</i>
+      </div>
+    </div>
     <div class="warenkorb_container" id="warenkorb_container">
       <div class="warenkorb" id="warenkorb">
         <h1>Warenkorb</h1>
@@ -60,11 +104,10 @@
           <div class="products"></div>
         </div>
         <br />
-        <button class="warenkorb_close" id="warenkorb_close">X</button>
+        <i class="material-icons" id="warenkorb_close">close</i>
       </div>
     </div>
     <script src="javascript/modals.js"></script>
-    <script src="javascript/speisekarte.js"></script>
     <script src="javascript/warenkorb.js"></script>
   </body>
 </html>

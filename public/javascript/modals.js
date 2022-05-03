@@ -1,9 +1,9 @@
 // Modals
 
 /* MeinAccount Modal */
-if (document.querySelector(".mein_account_open")) {
-  const mein_account_open = document.querySelector(".mein_account_open");
-  const mein_account_close = document.querySelector(".mein_account_close");
+if (document.querySelector("#mein_account_open")) {
+  const mein_account_open = document.querySelector("#mein_account_open");
+  const mein_account_close = document.querySelector("#mein_account_close");
   const mein_account_container = document.querySelector(
     ".mein_account_container"
   );
@@ -26,7 +26,7 @@ if (document.querySelector(".mein_account_open")) {
 /* Register Modal */
 if (document.querySelector(".register_open")) {
   const register_open = document.querySelector(".register_open");
-  const register_close = document.querySelector(".register_close");
+  const register_close = document.querySelector("#register_close");
   const register_container = document.querySelector(".register_container");
 
   register_open.addEventListener("click", () => {
@@ -46,9 +46,9 @@ if (document.querySelector(".register_open")) {
 }
 
 /* Warenkorb Modal */
-if (document.querySelector(".warenkorb_open")) {
-  const warenkorb_open = document.querySelector(".warenkorb_open");
-  const warenkorb_close = document.querySelector(".warenkorb_close");
+if (document.querySelector("#warenkorb_open")) {
+  const warenkorb_open = document.querySelector("#warenkorb_open");
+  const warenkorb_close = document.querySelector("#warenkorb_close");
   const warenkorb_container = document.querySelector(".warenkorb_container");
 
   warenkorb_open.addEventListener("click", () => {
@@ -69,7 +69,7 @@ if (document.querySelector(".warenkorb_open")) {
 /* Pizzen Modal */
 if (document.querySelectorAll(".pizzen_open")) {
   const pizzen_open = document.querySelectorAll(".pizzen_open");
-  const pizzen_close = document.querySelectorAll(".pizzen_close");
+  const pizzen_close = document.querySelectorAll("#pizzen_close");
   const pizzen_container = document.querySelectorAll(".pizzen_container");
 
   for (let i = 0; i < pizzen_close.length; i++) {
@@ -90,7 +90,7 @@ if (document.querySelectorAll(".pizzen_open")) {
 /* Drinks Modal */
 if (document.querySelectorAll(".drinks_open")) {
   const drinks_open = document.querySelectorAll(".drinks_open");
-  const drinks_close = document.querySelectorAll(".drinks_close");
+  const drinks_close = document.querySelectorAll("#drinks_close");
   const drinks_container = document.querySelectorAll(".drinks_container");
 
   for (let i = 0; i < drinks_close.length; i++) {
