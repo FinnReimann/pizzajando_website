@@ -1,5 +1,3 @@
-// Modals
-
 /* MeinAccount Modal */
 if (document.querySelector("#mein_account_open")) {
   const mein_account_open = document.querySelector("#mein_account_open");
@@ -72,7 +70,7 @@ if (document.querySelectorAll(".pizzen_open")) {
   const pizzen_close = document.querySelectorAll("#pizzen_close");
   const pizzen_container = document.querySelectorAll(".pizzen_container");
 
-  for (let i = 0; i < pizzen_close.length; i++) {
+  for (let i = 0; i < pizzen_open.length; i++) {
     pizzen_open[i].addEventListener("click", () => {
       pizzen_container[i].classList.add("pizza_show");
     });
@@ -93,7 +91,7 @@ if (document.querySelectorAll(".drinks_open")) {
   const drinks_close = document.querySelectorAll("#drinks_close");
   const drinks_container = document.querySelectorAll(".drinks_container");
 
-  for (let i = 0; i < drinks_close.length; i++) {
+  for (let i = 0; i < drinks_open.length; i++) {
     drinks_open[i].addEventListener("click", () => {
       drinks_container[i].classList.add("drink_show");
     });

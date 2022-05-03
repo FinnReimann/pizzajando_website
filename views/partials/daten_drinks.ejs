@@ -1,0 +1,10 @@
+<% for(var i = 0; i < drinks.length; i++){ %>
+<div class="drinks_container" id="drinks_container">
+  <div class="drinks" id="drinks">
+    <h1 class="drinks_name"><%= drinks[i].name %></h1>
+    <p class="drinks_preis"><%= drinks[i].price %></p>
+    <i class="material-icons" id="product_add">add</i>
+    <i class="material-icons" id="drinks_close">close</i>
+  </div>
+</div>
+<% } %>
