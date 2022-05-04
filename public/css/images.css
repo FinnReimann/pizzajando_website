@@ -1,0 +1,27 @@
+.pizzen_show_container {
+  width: 100%;
+  max-width: 650px;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 auto;
+}
+
+.drinks_show_container {
+  width: 100%;
+  max-width: 650px;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 auto;
+}
+
+.pizzen_open img {
+  max-width: 50%;
+  max-height: auto;
+  flex-wrap: wrap;
+}
+
+.drinks_open img {
+  max-width: 50%;
+  max-height: auto;
+  flex-wrap: wrap;
+}

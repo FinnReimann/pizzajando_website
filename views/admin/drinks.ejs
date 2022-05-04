@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drinks</title>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Preis</td>
+        <td>Delete</td>
+      </tr>
+      <% for(var i = 0; i < drinks.length; i++){ %>
+      <tr>
+        <td><%= drinks[i].id %></td>
+        <td><%= drinks[i].name %></td>
+        <td><%= drinks[i].price %></td>
+        <td>
+          <form action="/drinks_delete/<%= drinks[i].id %>" method="post">
+            <button type="submit">Löschen</button>
+          </form>
+        </td>
+      </tr>
+      <% } %>
+    </table>
+    <br />
+    <h2>Drink Hinzufügen</h2>
+    <form action="/drinks_add" class="button" method="post">
+      <label for="drinks_name">Name:</label><br />
+      <input type="text" name="drinks_name" id="drinks_name" /><br />
+      <label for="drinks_preis">Preis:</label><br />
+      <input type="text" name="drinks_preis" id="drinks_preis" /><br />
+      <br />
+      <input type="submit" value="Hinzufügen" />
+    </form>
+    <h2>Drink Updaten</h2>
+    <form action="/drinks_update" class="button" method="post">
+      <label for="drinks_id">Drink ID:</label><br />
+      <input type="number" min="1" max="<%= drinks.length %>" name="drinks_id" id="drinks_id" /><br />
+      <label for="drinks_name">Name:</label><br />
+      <input type="text" name="drinks_name" id="drinks_name" /><br />
+      <label for="drinks_preis">Preis:</label><br />
+      <input type="text" name="drinks_preis" id="drinks_preis" /><br />
+      <br />
+      <input type="submit" value="Updaten" />
+    </form>
+    <br />
+    <%= message %>
+  </body>
+  </body>
+</html>

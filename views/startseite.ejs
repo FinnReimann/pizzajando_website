@@ -2,9 +2,18 @@
 <html>
   <head>
     <title>Startseite</title>
-    <link rel="stylesheet" type="text/css" href="css/startseite_style.css" />
+    <link rel="stylesheet" type="text/css" href="css/modals.css" />
+    <link rel="stylesheet" type="text/css" href="css/warenkorb.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
   <body>
+    <form action="/startseite" class="button" method="post">
+      <button>PIZZAJANDO</button>
+    </form>
+    <br />
     <form action="/speisekarte" class="button" method="post">
       <button>Speisekarte</button>
     </form>
@@ -13,124 +22,23 @@
       <button>Hier Bestellen</button>
     </form>
     <br />
-    <p class="cart">
-      <button class="warenkorb_open" id="warenkorb_open">
-        Warenkorb <span>0</span>
-      </button>
-    </p>
+    <div class="cart">
+      <i class="material-icons" id="warenkorb_open">shopping_cart</i>
+      <div>
+        <span class="cart_items">0</span>
+      </div>
+    </div>
     <br />
-    <button class="mein_account_open" id="mein_account_open">
-      MeinAccount
-    </button>
+    <i class="material-icons" id="mein_account_open">dehaze</i>
     <p><%= message %></p>
-    <div class="warenkorb_container" id="warenkorb_container">
-      <div class="warenkorb" id="warenkorb">
-        <h1>Warenkorb</h1>
-        <div class="product_container">
-          <div class="product_header">
-            <h5 class="product_title">PRODUKT</h5>
-            <h5 class="price">PREIS</h5>
-            <h5 class="quantity">QUANTITY</h5>
-            <h5 class="total">TOTAL</h5>
-          </div>
-          <div class="products"></div>
-        </div>
-        <br />
-        <button class="warenkorb_close" id="warenkorb_close">X</button>
-      </div>
-    </div>
-    <div class="mein_account_container" id="mein_account_container">
-      <div class="mein_account" id="mein_account">
-        <% if(session){ %>
-        <h1>MeinAccount</h1>
-        <button class="meine_bestellungen" id="meine_bestellungen">
-          Meine Bestellungen
-        </button>
-        <form action="/accountdetails" class="button" method="post">
-          <button>Accountdetails</button>
-        </form>
-        <form action="/logout" class="button" method="post">
-          <button class="logout" value="logout">Ausloggen</button>
-        </form>
-        <% } else { %>
-        <h1>Login</h1>
-        <form
-          action="/login"
-          class="login_button"
-          id="login_button"
-          method="post"
-        >
-          <label for="login_email">Email:</label><br />
-          <input type="text" name="login_email" id="login_email" /><br />
-          <label for="login_password">Passwort:</label><br />
-          <input
-            type="password"
-            name="login_password"
-            id="login_password"
-          /><br /><br />
-          <input type="submit" value="Login" />
-        </form>
-        <p>
-          Noch nicht Registriert?<br />
-          <button class="register_open" id="register_open">
-            Jetzt Registrieren!
-          </button>
-        </p>
-        <% } %>
-        <button class="mein_account_close" id="mein_account_close">X</button>
-      </div>
-    </div>
-    <div class="register_container" id="register_container">
-      <div class="register" id="register">
-        <h1>Registrierung</h1>
-        <form action="/user_register" id="register_button" method="post">
-          <p>Persönliche Daten</p>
-          <label for="register_email">E-Mail Adresse:</label><br />
-          <input type="email" name="register_email" id="register_email" /><br />
-          <label for="register_firstname">Vorname:</label><br />
-          <input
-            type="text"
-            name="register_firstname"
-            id="register_firstname"
-          /><br />
-          <label for="register_lastname">Nachname:</label><br />
-          <input
-            type="text"
-            name="register_lastname"
-            id="register_lastname"
-          /><br />
-          <p>Adresse</p>
-          <label for="register_adress">Straße, Hausnummer:</label><br />
-          <input
-            type="text"
-            name="register_adress"
-            id="register_adress"
-          /><br />
-          <label for="register_postcode">PLZ, Stadt</label><br />
-          <input
-            type="text"
-            name="register_postcode"
-            id="register_postcode"
-          /><br />
-          <p>Passwort</p>
-          <label for="register_password">Passwort:</label><br />
-          <input
-            type="password"
-            name="register_password"
-            id="register_password"
-          /><br />
-          <label for="register_password_repeat">Wiederholen:</label><br />
-          <input
-            type="password"
-            name="register_password_repeat"
-            id="register_password_repeat"
-          /><br /><br />
-          <input type="submit" value="Registrieren" />
-        </form>
-        <br />
-        <button class="register_close" id="register_close">X</button>
-      </div>
-    </div>
-    <script src="javascript/startseite_javascript.js"></script>
+    <%- include('./partials/warenkorb.ejs') %><%-
+    include('./partials/mein_account.ejs') %><%-
+    include('./partials/register.ejs') %><%-
+    include('./partials/meine_bestellungen.ejs') %><%-
+    include('./partials/bestellinformationen.ejs') %><%-
+    include('./partials/daten_pizzen.ejs') %><%-
+    include('./partials/daten_drinks.ejs') %>
+    <script src="javascript/modals.js"></script>
+    <script src="javascript/warenkorb.js"></script>
   </body>
 </html>

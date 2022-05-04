@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Bestellungen</title>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <td>ID</td>
+        <td>User</td>
+        <td>Produkt</td>
+        <td>Menge</td>
+        <td>Preis</td>
+        <td>Status</td>
+        <td>Delete</td>
+      </tr>
+      <% for(var i = 0; i < bestellungen.length; i++){ %>
+      <tr>
+        <td><%= bestellungen[i].id %></td>
+        <td><%= bestellungen[i].user %></td>
+        <td><%= bestellungen[i].product %></td>
+        <td><%= bestellungen[i].quantity %></td>
+        <td><%= bestellungen[i].price %></td>
+        <td><%= bestellungen[i].status %></td>
+        <td>
+          <form
+            action="/bestellungen_delete/<%= bestellungen[i].id %>"
+            method="post"
+          >
+            <button type="submit">Löschen</button>
+          </form>
+        </td>
+      </tr>
+      <% } %>
+    </table>
+    <br />
+    <h2>Status Updaten</h2>
+    <form action="/bestellungen_status_update" class="button" method="post">
+      <label for="bestellungen_id">Bestellung ID:</label><br /><%
+      if(bestellungen.length){ %><input
+        type="number"
+        name="bestellungen_id"
+        id="bestellungen_id"
+        min="1"
+        max="bestellungen.length"
+      />
+      <% } else {%>
+      <input
+        type="number"
+        name="bestellungen_id"
+        id="bestellungen_id"
+        min="0"
+        max="0"
+      />
+      <% } %>
+      <br />
+      <label for="bestellungen_status">Status:</label><br />
+      <input
+        type="text"
+        name="bestellungen_status"
+        id="bestellungen_status"
+      /><br /><br />
+      <input type="submit" value="Updaten" />
+    </form>
+    <br />
+    <%= message %>
+  </body>
+</html>

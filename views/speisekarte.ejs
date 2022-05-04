@@ -2,62 +2,51 @@
 <html>
   <head>
     <title>Speisekarte</title>
-    <link rel="stylesheet" type="text/css" href="css/speisekarte_style.css" />
+    <link rel="stylesheet" type="text/css" href="css/modals.css" />
+    <link rel="stylesheet" type="text/css" href="css/warenkorb.css" />
+    <link rel="stylesheet" type="text/css" href="css/images.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
   <body>
-    <p class="cart">
-      <button class="warenkorb_open" id="warenkorb_open">
-        Warenkorb <span>0</span>
-      </button>
-    </p>
+    <form action="/startseite" class="button" method="post">
+      <button>PIZZAJANDO</button>
+    </form>
+    <br />
+    <div class="cart">
+      <i class="material-icons" id="warenkorb_open">shopping_cart</i>
+      <div>
+        <span class="cart_items">0</span>
+      </div>
+    </div>
+    <br />
+    <i class="material-icons" id="mein_account_open"> dehaze </i>
     <br />
     <h1>Pizzen</h1>
-    <% for(var i = 0; i < pizzen.length; i++){ %>
-    <button class="pizzen_open" id="pizzen_open"><%= pizzen[i].name %></button>
-    <% } %> <% for(var i = 0; i < pizzen.length; i++){ %>
-    <div class="pizzen_container" id="pizzen_container">
-      <div class="pizzen" id="pizzen">
-        <h1 class="pizzen_name"><%= pizzen[i].name %></h1>
-        <p class="pizzen_preis"><%= pizzen[i].preis %></p>
-        <p class="pizzen_zutaten"><%= pizzen[i].zutaten %></p>
-        <button class="product_add" id="product_add">
-          Zum Warenkorb hinzufügen
-        </button>
-        <button class="pizzen_close" id="pizzen_close">X</button>
-      </div>
+    <div class="pizzen_show_container" id="pizzen_show_container">
+      <% for(var i = 0; i < pizzen.length; i++){ %>
+      <a class="pizzen_open" id="pizzen_open"
+        ><img src="images/pizza.jpg" /><%= pizzen[i].name %>
+      </a>
+      <% } %>
     </div>
-    <% } %>
+    <%- include('./partials/daten_pizzen.ejs') %>
     <h1>Getränke</h1>
-    <% for(var i = 0; i < drinks.length; i++){ %>
-    <button class="drinks_open"><%= drinks[i].name %></button>
-    <% } %> <% for(var i = 0; i < drinks.length; i++){ %>
-    <div class="drinks_container" id="drinks_container">
-      <div class="drinks" id="drinks">
-        <h1 class="drinks_name"><%= drinks[i].name %></h1>
-        <p class="drinks_preis"><%= drinks[i].preis %></p>
-        <button class="product_add" id="product_add">
-          Zum Warenkorb hinzufügen
-        </button>
-        <button class="drinks_close" id="drinks_close">X</button>
-      </div>
+    <br />
+    <div class="drinks_show_container" id="drinks_show_container">
+      <% for(var i = 0; i < drinks.length; i++){ %>
+      <a class="drinks_open" id="drinks_open">
+        <img src="images/drink.jpg" /><%= drinks[i].name %>
+      </a>
+      <% } %>
     </div>
-    <% } %>
-    <div class="warenkorb_container" id="warenkorb_container">
-      <div class="warenkorb" id="warenkorb">
-        <h1>Warenkorb</h1>
-        <div class="product_container">
-          <div class="product_header">
-            <h5 class="product_title">PRODUKT</h5>
-            <h5 class="price">PREIS</h5>
-            <h5 class="quantity">QUANTITY</h5>
-            <h5 class="total">TOTAL</h5>
-          </div>
-          <div class="products"></div>
-        </div>
-        <br />
-        <button class="warenkorb_close" id="warenkorb_close">X</button>
-      </div>
-    </div>
-    <script src="javascript/speisekarte_javascript.js"></script>
+    <%- include('./partials/daten_drinks.ejs') %> <%-
+    include('./partials/warenkorb.ejs') %> <%-
+    include('./partials/mein_account.ejs') %> <%-
+    include('./partials/bestellinformationen.ejs') %>
+    <script src="javascript/modals.js"></script>
+    <script src="javascript/warenkorb.js"></script>
   </body>
 </html>

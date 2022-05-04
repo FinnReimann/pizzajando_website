@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="css/modals.css" />
+    <link rel="stylesheet" type="text/css" href="css/warenkorb.css" />
     <link
       rel="stylesheet"
-      type="text/css"
-      href="css/accountdetails_style.css"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
     <title>Accountdetails</title>
   </head>
   <body>
+    <form action="/startseite" class="button" method="post">
+      <button>PIZZAJANDO</button>
+    </form>
+    <br />
+    <form action="/speisekarte" class="button" method="post">
+      <button>Speisekarte</button>
+    </form>
+    <br />
+    <div class="cart">
+      <i class="material-icons" id="warenkorb_open">shopping_cart</i>
+      <div>
+        <span class="cart_items">0</span>
+      </div>
+    </div>
+    <br />
+    <i class="material-icons" id="mein_account_open"> dehaze </i>
+    <br />
     <form action="/update_user" class="button" method="post">
       <p>Persönliche Daten</p>
       <label for="update_email">E-Mail:</label><br />
@@ -74,7 +92,7 @@
         class="delete_password"
         id="delete_password"
       /><br />
-      <label for="delete_password_repeat">Passwort:</label><br />
+      <label for="delete_password_repeat">Wiederholen:</label><br />
       <input
         type="password"
         class="delete_password_repeat"
@@ -83,5 +101,12 @@
       <input type="submit" value="Löschen" />
     </form>
     <p><%= message %></p>
+    <%- include('./partials/warenkorb.ejs') %><%-
+    include('./partials/mein_account.ejs') %><%-
+    include('./partials/bestellinformationen.ejs') %><%-
+    include('./partials/daten_pizzen.ejs') %><%-
+    include('./partials/daten_drinks.ejs') %>
+    <script src="javascript/modals.js"></script>
+    <script src="javascript/warenkorb.js"></script>
   </body>
 </html>
