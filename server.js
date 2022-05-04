@@ -1,25 +1,25 @@
-// Express initialisieren
+/* Express initialisieren */
 const express = require("express");
 const { use } = require("express/lib/application");
 const res = require("express/lib/response");
 const { get } = require("express/lib/response");
 const app = express();
 
-// Validator Initialisieren
+/* Validator Initialisieren */
 const validator = require("email-validator");
 
-// Datenbank initialisieren
+/* Datenbank initialisieren */
 const DATABASE = "daten.db";
 const db = require("better-sqlite3")(DATABASE);
 
-// Bcrypt initialisieren
+/* Bcrypt initialisieren */
 const bcrypt = require("bcrypt");
 
-// EJS initialisieren
+/* EJS initialisieren */
 app.engine("ejs", require("ejs").__express);
 app.set("view engine", "ejs");
 
-// Session initialisieren
+/* Session initialisieren */
 const session = require("express-session");
 app.use(
   session({
@@ -33,22 +33,22 @@ app.use(
   })
 );
 
-// Public Freigeben
+/* Public Freigeben */
 app.use(express.static(__dirname + "/public"));
 
-// Body-Parser initialisieren
+/* Body-Parser initialisieren */
 app.use(express.urlencoded({ extended: true }));
 
-// Server starten
+/* Server starten  */
 app.listen(3000, function () {
   console.log("listening to 3000");
 });
 
-// Variablen
+/* Variablen */
 const pizzen_params = db.prepare("SELECT * FROM pizzen").all();
 const drinks_params = db.prepare("SELECT * FROM drinks").all();
 
-// getRequest startseite
+/* getRequest startseite */
 app.get("/startseite", function (req, res) {
   res.render("startseite", {
     message: "",
@@ -58,7 +58,7 @@ app.get("/startseite", function (req, res) {
   });
 });
 
-// getRequest startseite
+/* getRequest startseite */
 app.post("/startseite", function (req, res) {
   res.render("startseite", {
     message: "",
@@ -68,30 +68,36 @@ app.post("/startseite", function (req, res) {
   });
 });
 
-// getRequest admin_main
+/* getRequest admin_main */
 app.get("/admin", function (req, res) {
-  res.render("admin_main", { message: "" });
+  res.render("admin/admain", { message: "" });
 });
 
-// getRequest admin_kontaktdaten
+/* getRequest admin_kontaktdaten */
 app.get("/admin_kontaktdaten", function (req, res) {
   const rows = db.prepare("SELECT * FROM kontaktdaten").all();
-  res.render("admin_kontaktdaten", { message: "", kontakte: rows });
+  res.render("admin/kontaktdaten", { message: "", kontakte: rows });
 });
 
-// getRequest admin_pizzen
+/* getRequest admin_pizzen */
 app.get("/admin_pizzen", function (req, res) {
   const rows = db.prepare("SELECT * FROM pizzen").all();
-  res.render("admin_pizzen", { message: "", pizzen: rows });
+  res.render("admin/pizzen", { message: "", pizzen: rows });
 });
 
-// getRequest admin_drinks
+/* getRequest admin_drinks */
 app.get("/admin_drinks", function (req, res) {
   const rows = db.prepare("SELECT * FROM drinks").all();
-  res.render("admin_drinks", { message: "", drinks: rows });
+  res.render("admin/drinks", { message: "", drinks: rows });
 });
 
-// postRequest speisekarte
+/* getRequest admin_bestellungen */
+app.get("/admin_bestellungen", function (req, res) {
+  const rows = db.prepare("SELECT * FROM bestellungen").all();
+  res.render("admin/bestellungen", { message: "", bestellungen: rows });
+});
+
+/* postRequest speisekarte */
 app.post("/speisekarte", function (req, res) {
   res.render("speisekarte", {
     session: req.session.authenticated,
@@ -100,7 +106,7 @@ app.post("/speisekarte", function (req, res) {
   });
 });
 
-// postRequest accountdetails
+/* postRequest accountdetails */
 app.post("/accountdetails", function (req, res) {
   if (req.session.authenticated) {
     param_email = req.session.user;
@@ -124,7 +130,7 @@ app.post("/accountdetails", function (req, res) {
   }
 });
 
-// User Login
+/* User Login */
 app.post("/login", function (req, res) {
   const param_email = req.body.login_email;
   const param_password = req.body.login_password;
@@ -170,7 +176,7 @@ app.post("/login", function (req, res) {
   }
 });
 
-// User Register
+/* User Register */
 app.post("/user_register", function (req, res) {
   const param_email = req.body.register_email;
   const param_firstname = req.body.register_firstname;
@@ -252,13 +258,13 @@ app.post("/user_register", function (req, res) {
   }
 });
 
-// Logout
+/* Logout */
 app.post("/logout", function (req, res) {
   req.session.destroy();
   res.redirect("/startseite");
 });
 
-// Update User
+/* Update User */
 app.post("/update_user", function (req, res) {
   const param_email = req.body.update_email;
   const param_firstname = req.body.update_firstname;
@@ -330,7 +336,7 @@ app.post("/update_user", function (req, res) {
   }
 });
 
-// Update Password
+/* Update Password */
 app.post("/update_password", function (req, res) {
   const param_password = req.body.update_password;
   const param_password_repeat = req.body.update_password_repeat;
@@ -375,7 +381,7 @@ app.post("/update_password", function (req, res) {
   }
 });
 
-// Delete User
+/* Delete User */
 app.post("/delete_user", function (req, res) {
   const param_email = req.body.delete_email;
   const param_password = req.body.delete_password;
@@ -435,9 +441,21 @@ app.post("/delete_user", function (req, res) {
   }
 });
 
-/* Admin */
+/* Admin Befehle */
 
-// Admin User Register
+/* Admin User Delete */
+app.post("/user_delete/:id", function (req, res) {
+  const info = db
+    .prepare("DELETE FROM kontaktdaten WHERE id=?")
+    .run(req.params.id);
+  const rows = db.prepare("SELECT * FROM kontaktdaten").all();
+  res.render("admin/kontaktdaten", {
+    message: "Kontakt erfolgreich gelöscht",
+    kontakte: rows,
+  });
+});
+
+/* Admin User Register */
 app.post("/admin_user_register", function (req, res) {
   const param_email = req.body.register_email;
   const param_firstname = req.body.register_firstname;
@@ -456,7 +474,7 @@ app.post("/admin_user_register", function (req, res) {
     param_password == "" ||
     param_password_repeat == ""
   ) {
-    res.render("admin_kontaktdaten", {
+    res.render("admin/kontaktdaten", {
       message: "Bitte alle Felder ausfüllen!",
       kontakte: rows,
     });
@@ -481,24 +499,24 @@ app.post("/admin_user_register", function (req, res) {
               hash
             );
           rows = db.prepare("SELECT * FROM kontaktdaten").all();
-          res.render("admin_kontaktdaten", {
+          res.render("admin/kontaktdaten", {
             message: "Erfolgreich registriert!",
             kontakte: rows,
           });
         } else {
-          res.render("admin_kontaktdaten", {
+          res.render("admin/kontaktdaten", {
             message: "Passworteingabe verschieden!",
             kontakte: rows,
           });
         }
       } else {
-        res.render("admin_kontaktdaten", {
+        res.render("admin/kontaktdaten", {
           message: "Benutzer existiert bereits!",
           kontakte: rows,
         });
       }
     } else {
-      res.render("admin_kontaktdaten", {
+      res.render("admin/kontaktdaten", {
         message: "Kein anerkanntes Email Format!",
         kontakte: rows,
       });
@@ -506,7 +524,7 @@ app.post("/admin_user_register", function (req, res) {
   }
 });
 
-// Admin Update User
+/* Admin Update User */
 app.post("/admin_update_user", function (req, res) {
   const param_email = req.body.update_email;
   const param_firstname = req.body.update_firstname;
@@ -521,7 +539,7 @@ app.post("/admin_update_user", function (req, res) {
     param_adress == "" ||
     param_postcode == ""
   ) {
-    res.render("admin_kontaktdaten", {
+    res.render("admin/kontaktdaten", {
       message: "Bitte füllen sie alle Felder aus!",
       kontakte: rows,
     });
@@ -542,12 +560,12 @@ app.post("/admin_update_user", function (req, res) {
           param_email
         );
       rows = db.prepare("SELECT * FROM kontaktdaten").all();
-      res.render("admin_kontaktdaten", {
+      res.render("admin/kontaktdaten", {
         message: "Erfolgreich geupdatet!",
         kontakte: rows,
       });
     } else {
-      res.render("admin_kontaktdaten", {
+      res.render("admin/kontaktdaten", {
         message: "E-Mail nicht verwendet!",
         kontakte: rows,
       });
@@ -555,7 +573,7 @@ app.post("/admin_update_user", function (req, res) {
   }
 });
 
-// Admin Update Password
+/* Admin Update Password */
 app.post("/admin_update_password", function (req, res) {
   const param_email = req.body.update_email;
   const param_password = req.body.update_password;
@@ -566,7 +584,7 @@ app.post("/admin_update_password", function (req, res) {
     param_password == "" ||
     param_password_repeat == ""
   ) {
-    res.render("admin_kontaktdaten", {
+    res.render("admin/kontaktdaten", {
       message: "Bitte alle Felder ausfüllen!",
       kontakte: rows,
     });
@@ -582,18 +600,18 @@ app.post("/admin_update_password", function (req, res) {
           .prepare("UPDATE kontaktdaten SET password=? WHERE email=?")
           .run(hash, param_email);
         rows = db.prepare("SELECT * FROM kontaktdaten").all();
-        res.render("admin_kontaktdaten", {
+        res.render("admin/kontaktdaten", {
           message: "Passwort erfolgreich geupdatet!",
           kontakte: rows,
         });
       } else {
-        res.render("admin_kontaktdaten", {
+        res.render("admin/kontaktdaten", {
           message: "Passworteingabe verschieden!",
           kontakte: rows,
         });
       }
     } else {
-      res.render("admin_kontaktdaten", {
+      res.render("admin/kontaktdaten", {
         message: "E-Mail nicht verwendet!",
         kontakte: rows,
       });
@@ -601,69 +619,17 @@ app.post("/admin_update_password", function (req, res) {
   }
 });
 
-// Admin Delete User
-app.post("/admin_user_delete", function (req, res) {
-  const param_email = req.body.delete_email;
-  const param_password = req.body.delete_password;
-  let rows = db.prepare("SELECT * FROM kontaktdaten").all();
-  if (param_email == "" || param_password == "") {
-    res.render("admin_kontaktdaten", {
-      message: "Bitte alle Felder ausfüllen!",
-      kontakte: rows,
-    });
-  } else {
-    const row = db
-      .prepare("SELECT * FROM kontaktdaten WHERE email=?")
-      .all(param_email);
-    if (row.length == 1) {
-      const hash = rows[0].password;
-      const isValid = bcrypt.compareSync(param_password, hash);
-      if (isValid == true) {
-        const info = db
-          .prepare("DELETE FROM kontaktdaten WHERE email=?")
-          .run(param_email);
-        rows = db.prepare("SELECT * FROM kontaktdaten").all();
-        res.render("admin_kontaktdaten", {
-          message: `${param_email} erfolgreich gelöscht!`,
-          kontakte: rows,
-        });
-      } else {
-        res.render("admin_kontaktdaten", {
-          message: "Passwort falsch!",
-          kontakte: rows,
-        });
-      }
-    } else {
-      res.render("admin_kontaktdaten", {
-        message: "Benutzer nicht vorhanden!",
-        kontakte: rows,
-      });
-    }
-  }
-});
-
-app.post("/delete_user/:id", function (req, res) {
-  const info = db
-    .prepare("DELETE FROM kontaktdaten WHERE id=?")
-    .run(req.params.id);
-  const rows = db.prepare("SELECT * FROM kontaktdaten").all();
-  res.render("admin_kontaktdaten", {
-    message: "Kontakt erfolgreich gelöscht",
-    kontakte: rows,
-  });
-});
-
-// Admin Pizzen Delete
-app.post("/delete_pizza/:id", function (req, res) {
+/* Admin Pizzen Delete */
+app.post("/pizzen_delete/:id", function (req, res) {
   const info = db.prepare("DELETE FROM pizzen WHERE id=?").run(req.params.id);
   const rows = db.prepare("SELECT * FROM pizzen").all();
-  res.render("admin_pizzen", {
+  res.render("admin/pizzen", {
     message: "Pizza erfolgreich gelöscht!",
     pizzen: rows,
   });
 });
 
-// Admin Pizzen Hinzufügen
+/* Admin Pizzen Hinzufügen */
 app.post("/pizzen_add", function (req, res) {
   const param_name = req.body.pizzen_name;
   const param_preis = parseFloat(req.body.pizzen_preis);
@@ -671,7 +637,7 @@ app.post("/pizzen_add", function (req, res) {
   let rows = db.prepare("SELECT * FROM pizzen").all();
 
   if (param_name == "" || param_preis == "" || param_zutaten == "") {
-    res.render("admin_pizzen", {
+    res.render("admin/pizzen", {
       message: "Bitte alle Felder ausfüllen!",
       pizzen: rows,
     });
@@ -684,12 +650,12 @@ app.post("/pizzen_add", function (req, res) {
         )
         .run(param_name, param_preis, param_zutaten);
       rows = db.prepare("SELECT * FROM pizzen").all();
-      res.render("admin_pizzen", {
+      res.render("admin/pizzen", {
         message: "Pizza erfolgreich hinzugefügt!",
         pizzen: rows,
       });
     } else {
-      res.render("admin_pizzen", {
+      res.render("admin/pizzen", {
         message: "Pizza bereits vorhanden!",
         pizzen: rows,
       });
@@ -697,7 +663,7 @@ app.post("/pizzen_add", function (req, res) {
   }
 });
 
-// Admin Pizzen Updaten
+/* Admin Pizzen Updaten */
 app.post("/pizzen_update", function (req, res) {
   const param_id = req.body.pizzen_id;
   const param_name = req.body.pizzen_name;
@@ -711,7 +677,7 @@ app.post("/pizzen_update", function (req, res) {
     param_preis == "" ||
     param_zutaten == ""
   ) {
-    res.render("admin_pizzen", {
+    res.render("admin/pizzen", {
       message: "Bitte alle Felder ausfüllen!",
       pizzen: rows,
     });
@@ -722,12 +688,12 @@ app.post("/pizzen_update", function (req, res) {
         .prepare("UPDATE pizzen SET name=?, price=?, ingredients=? WHERE id=?")
         .run(param_name, param_preis, param_zutaten, param_id);
       rows = db.prepare("SELECT * FROM pizzen").all();
-      res.render("admin_pizzen", {
+      res.render("admin/pizzen", {
         message: "Pizza erfolgreich geupdatet!",
         pizzen: rows,
       });
     } else {
-      res.render("admin_pizzen", {
+      res.render("admin/pizzen", {
         message: "Pizza mit dieser ID nicht vorhanden!",
         pizzen: rows,
       });
@@ -735,24 +701,24 @@ app.post("/pizzen_update", function (req, res) {
   }
 });
 
-// Admin Pizzen Delete
-app.post("/delete_drink/:id", function (req, res) {
+/* Admin Drinks Delete */
+app.post("/drinks_delete/:id", function (req, res) {
   const info = db.prepare("DELETE FROM drinks WHERE id=?").run(req.params.id);
   const rows = db.prepare("SELECT * FROM drinks").all();
-  res.render("admin_drinks", {
+  res.render("admin/drinks", {
     message: "Drink erfolgreich gelöscht!",
     drinks: rows,
   });
 });
 
-// Admin Drink Hinzufügen
+/* Admin Drinks Hinzufügen */
 app.post("/drinks_add", function (req, res) {
   const param_name = req.body.drinks_name;
   const param_preis = parseFloat(req.body.drinks_preis);
   let rows = db.prepare("SELECT * FROM drinks").all();
 
   if (param_name == "" || param_preis == "") {
-    res.render("admin_drinks", {
+    res.render("admin/drinks", {
       message: "Bitte alle Felder ausfüllen!",
       drinks: rows,
     });
@@ -763,12 +729,12 @@ app.post("/drinks_add", function (req, res) {
         .prepare("INSERT INTO drinks (name, price) VALUES(?, ?)")
         .run(param_name, param_preis);
       rows = db.prepare("SELECT * FROM drinks").all();
-      res.render("admin_drinks", {
+      res.render("admin/drinks", {
         message: "Drink erfolgreich hinzugefügt!",
         drinks: rows,
       });
     } else {
-      res.render("admin_drinks", {
+      res.render("admin/drinks", {
         message: "Drink bereits vorhanden!",
         drinks: rows,
       });
@@ -776,7 +742,7 @@ app.post("/drinks_add", function (req, res) {
   }
 });
 
-// Admin Drinks Updaten
+/* Admin Drinks Updaten */
 app.post("/drinks_update", function (req, res) {
   const param_id = req.body.drinks_id;
   const param_name = req.body.drinks_name;
@@ -784,7 +750,7 @@ app.post("/drinks_update", function (req, res) {
   let rows = db.prepare("SELECT * FROM drinks").all();
 
   if (param_id == "" || param_name == "" || param_preis == "") {
-    res.render("admin_drinks", {
+    res.render("admin/drinks", {
       message: "Bitte alle Felder ausfüllen!",
       drinks: rows,
     });
@@ -795,14 +761,60 @@ app.post("/drinks_update", function (req, res) {
         .prepare("UPDATE drinks SET name=?, preis=? WHERE id=?")
         .run(param_name, param_preis, param_id);
       rows = db.prepare("SELECT * FROM drinks").all();
-      res.render("admin_drinks", {
+      res.render("admin/drinks", {
         message: "Drink erfolgreich geupdatet!",
         drinks: rows,
       });
     } else {
-      res.render("admin_drinks", {
+      res.render("admin/drinks", {
         message: "Drink mit dieser ID nicht vorhanden!",
         drinks: rows,
+      });
+    }
+  }
+});
+
+/* Admin Bestellung Delete */
+app.post("/bestellungen_delete/:id", function (req, res) {
+  const info = db
+    .prepare("DELETE FROM bestellungen WHERE id=?")
+    .run(req.params.id);
+  const rows = db.prepare("SELECT * FROM bestellungen").all();
+  res.render("admin/bestellungen", {
+    message: "Bestellung erfolgreich gelöscht!",
+    bestellungen: rows,
+  });
+});
+
+/* Admin Bestellung Status Updaten */
+app.post("/bestellungen_status_update", function (req, res) {
+  const param_id = req.body.bestellungen_id;
+  const param_status = req.body.bestellungen_status;
+
+  let rows = db.prepare("SELECT * FROM bestellungen").all();
+
+  if (param_id == "" || param_status == "") {
+    res.render("admin/bestellungen", {
+      message: "Bitte alle Felder ausfüllen!",
+      bestellungen: rows,
+    });
+  } else {
+    const row = db
+      .prepare("SELECT * FROM bestellungen WHERE id=?")
+      .all(param_id);
+    if (row.length == 1) {
+      const info = db
+        .prepare("UPDATE bestellungen SET status=? WHERE id=?")
+        .run(param_status, param_id);
+      rows = db.prepare("SELECT * FROM bestellungen").all();
+      res.render("admin/bestellungen", {
+        message: "Bestellung erfolgreich geupdatet!",
+        bestellungen: rows,
+      });
+    } else {
+      res.render("admin/bestellungen", {
+        message: "Bestellungen mit dieser ID nicht vorhanden!",
+        bestellungen: rows,
       });
     }
   }

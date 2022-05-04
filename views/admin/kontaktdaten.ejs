@@ -25,7 +25,7 @@
         <td><%= kontakte[i].postcode %></td>
         <td><%= kontakte[i].password %></td>
         <td>
-          <form action="/delete_user/<%= kontakte[i].id %>" method="post">
+          <form action="/user_delete/<%= kontakte[i].id %>" method="post">
             <button type="submit">Löschen</button>
           </form>
         </td>

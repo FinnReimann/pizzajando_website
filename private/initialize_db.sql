@@ -1,6 +1,7 @@
-DROP TABLE kontaktdaten;
-DROP TABLE pizzen;
-DROP TABLE drinks;
+--DROP TABLE kontaktdaten;
+--DROP TABLE pizzen;
+--DROP TABLE drinks;
+--DROP TABLE bestellungen;
 
 CREATE TABLE IF NOT EXISTS kontaktdaten (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,6 +26,17 @@ CREATE TABLE IF NOT EXISTS drinks (
     price INTEGER NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS bestellungen (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    price INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    user INTEGER NOT NULL,
+    FOREIGN KEY(user) REFERENCES kontaktdaten(id)
+);
+
+/* 
 INSERT INTO pizzen ( name, price, ingredients ) VALUES ( "Margherita", 8.99, "Tomatensauce & Mozzarella");
 INSERT INTO pizzen ( name, price, ingredients ) VALUES ( "Salami", 9.99, "Salami, Tomatensauce & Mozzarella");
 INSERT INTO pizzen ( name, price, ingredients ) VALUES ( "Schinken", 9.99, "Schinken, Tomatensauce & Mozzarella");
@@ -32,3 +44,6 @@ INSERT INTO pizzen ( name, price, ingredients ) VALUES ( "Schinken", 9.99, "Schi
 INSERT INTO drinks (name, price) VALUES ("Cola", 5.99);
 INSERT INTO drinks (name, price) VALUES ("Fanta", 5.99);
 INSERT INTO drinks (name, price) VALUES ("Sprite", 5.99);
+*/
+
+--.read private/initialize_db.sql

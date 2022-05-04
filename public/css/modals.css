@@ -1,125 +1,10 @@
-/* Warenkorb Modal */
-.warenkorb_container {
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  opacity: 0;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  transition: opacity 0.3s ease;
-}
-
-.warenkorb_container.warenkorb_show {
-  pointer-events: auto;
-  opacity: 1;
-}
-
-.warenkorb {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
-  min-width: 600px;
-  text-align: center;
-}
-
-/* MeinAccount Modal */
-.mein_account_container {
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  opacity: 0;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  transition: opacity 0.3s ease;
-}
-
-.mein_account_container.mein_account_show {
-  pointer-events: auto;
-  opacity: 1;
-}
-
-.mein_account {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
-  text-align: center;
-}
-
-/* Register Modal */
-.register_container {
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  opacity: 0;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  transition: opacity 0.3s ease;
-}
-
-.register_container.register_show {
-  pointer-events: auto;
-  opacity: 1;
-}
-
-.register {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
-  text-align: center;
-}
-
-/* Pizzen Modal */
-.pizzen_container {
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  opacity: 0;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  transition: opacity 0.3s ease;
-}
-
-.pizzen_container.pizza_show {
-  pointer-events: auto;
-  opacity: 1;
-}
-
-.pizzen {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
-  text-align: center;
-}
-
-/* Drinks Modal */
+/* Allgemein Modal Container */
+.warenkorb_container,
+.mein_account_container,
+.register_container,
+.meine_bestellungen_container,
+.bestellinformationen_container,
+.pizzen_container,
 .drinks_container {
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
@@ -135,11 +20,79 @@
   transition: opacity 0.3s ease;
 }
 
-.drinks_container.drink_show {
+.warenkorb_container.show,
+.mein_account_container.show,
+.register_container.show,
+.meine_bestellungen_container.show,
+.bestellinformationen_container.show,
+.pizzen_container.show,
+.drinks_container.show {
   pointer-events: auto;
   opacity: 1;
 }
 
+/* Warenkorb Modal */
+.warenkorb {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  min-width: 600px;
+  text-align: center;
+}
+
+/* MeinAccount Modal */
+.mein_account {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Register Modal */
+.register {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Meine Bestellungen Modal */
+.meine_bestellungen {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Bestellinformationen Modal */
+.bestellinformationen {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Pizzen Modal */
+.pizzen {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Drinks Modal */
 .drinks {
   background-color: #fff;
   border-radius: 5px;

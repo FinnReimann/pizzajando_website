@@ -92,7 +92,7 @@
         class="delete_password"
         id="delete_password"
       /><br />
-      <label for="delete_password_repeat">Passwort:</label><br />
+      <label for="delete_password_repeat">Wiederholen:</label><br />
       <input
         type="password"
         class="delete_password_repeat"
@@ -101,9 +101,10 @@
       <input type="submit" value="Löschen" />
     </form>
     <p><%= message %></p>
-    <%- include('./partials/warenkorb.ejs') %> <%-
-    include('./partials/mein_account.ejs') %> <%-
-    include('./partials/daten_pizzen.ejs') %> <%-
+    <%- include('./partials/warenkorb.ejs') %><%-
+    include('./partials/mein_account.ejs') %><%-
+    include('./partials/bestellinformationen.ejs') %><%-
+    include('./partials/daten_pizzen.ejs') %><%-
     include('./partials/daten_drinks.ejs') %>
     <script src="javascript/modals.js"></script>
     <script src="javascript/warenkorb.js"></script>

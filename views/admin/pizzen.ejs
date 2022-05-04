@@ -19,7 +19,7 @@
         <td><%= pizzen[i].price %></td>
         <td><%= pizzen[i].ingredients %></td>
         <td>
-          <form action="/delete_pizza/<%= pizzen[i].id %>" method="post">
+          <form action="/pizzen_delete/<%= pizzen[i].id %>" method="post">
             <button type="submit">Löschen</button>
           </form>
         </td>
@@ -41,7 +41,13 @@
     <h2>Pizza Updaten</h2>
     <form action="/pizzen_update" class="button" method="post">
       <label for="pizzen_id">Pizzen ID:</label><br />
-      <input type="number" min="0" name="pizzen_id" id="pizzen_id" /><br />
+      <input
+        type="number"
+        min="1"
+        max="<%= pizzen.length %>"
+        name="pizzen_id"
+        id="pizzen_id"
+      /><br />
       <label for="pizzen_name">Name:</label><br />
       <input type="text" name="pizzen_name" id="pizzen_name" /><br />
       <label for="pizzen_preis">Preis:</label><br />

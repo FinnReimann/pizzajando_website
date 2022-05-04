@@ -17,7 +17,7 @@
         <td><%= drinks[i].name %></td>
         <td><%= drinks[i].price %></td>
         <td>
-          <form action="/delete_drink/<%= drinks[i].id %>" method="post">
+          <form action="/drinks_delete/<%= drinks[i].id %>" method="post">
             <button type="submit">Löschen</button>
           </form>
         </td>
@@ -31,18 +31,18 @@
       <input type="text" name="drinks_name" id="drinks_name" /><br />
       <label for="drinks_preis">Preis:</label><br />
       <input type="text" name="drinks_preis" id="drinks_preis" /><br />
-      <br /><br />
+      <br />
       <input type="submit" value="Hinzufügen" />
     </form>
     <h2>Drink Updaten</h2>
     <form action="/drinks_update" class="button" method="post">
       <label for="drinks_id">Drink ID:</label><br />
-      <input type="number" min="0" name="drinks_id" id="drinks_id" /><br />
+      <input type="number" min="1" max="<%= drinks.length %>" name="drinks_id" id="drinks_id" /><br />
       <label for="drinks_name">Name:</label><br />
       <input type="text" name="drinks_name" id="drinks_name" /><br />
       <label for="drinks_preis">Preis:</label><br />
       <input type="text" name="drinks_preis" id="drinks_preis" /><br />
-      <br /><br />
+      <br />
       <input type="submit" value="Updaten" />
     </form>
     <br />
