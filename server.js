@@ -537,3 +537,8 @@ app.post("/delete/:id", function (req, res) {
   res.redirect("/pizzen_table");
 });
 */
+
+//Layout
+app.get("/layout", function(req, res){
+  res.render("layout");
+});
