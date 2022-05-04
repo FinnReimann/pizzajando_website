@@ -31,14 +31,18 @@
     <br />
     <i class="material-icons" id="mein_account_open">dehaze</i>
     <p><%= message %></p>
+    <!-- Header -->
     <%- include('./partials/warenkorb.ejs') %><%-
     include('./partials/mein_account.ejs') %><%-
     include('./partials/register.ejs') %><%-
     include('./partials/meine_bestellungen.ejs') %><%-
-    include('./partials/bestellinformationen.ejs') %><%-
-    include('./partials/daten_pizzen.ejs') %><%-
+    include('./partials/kasse.ejs') %>
+    <!-- Daten -->
+    <%- include('./partials/daten_pizzen.ejs') %> <%-
     include('./partials/daten_drinks.ejs') %>
+    <!-- Scripts -->
     <script src="javascript/modals.js"></script>
     <script src="javascript/warenkorb.js"></script>
+    <script src="javascript/kasse.js"></script>
   </body>
 </html>

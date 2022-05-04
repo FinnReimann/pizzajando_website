@@ -3,7 +3,7 @@
 .mein_account_container,
 .register_container,
 .meine_bestellungen_container,
-.bestellinformationen_container,
+.kasse_container,
 .pizzen_container,
 .drinks_container {
   background-color: rgba(0, 0, 0, 0.3);
@@ -24,7 +24,7 @@
 .mein_account_container.show,
 .register_container.show,
 .meine_bestellungen_container.show,
-.bestellinformationen_container.show,
+.kasse_container.show,
 .pizzen_container.show,
 .drinks_container.show {
   pointer-events: auto;
@@ -73,12 +73,13 @@
 }
 
 /* Bestellinformationen Modal */
-.bestellinformationen {
+.kasse {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 30px 50px;
   max-width: 600px;
+  min-width: 600px;
   text-align: center;
 }
 

@@ -136,30 +136,25 @@ if (document.querySelectorAll(".drinks_open")) {
   }
 }
 
-/* Bestellinformationen Modal */
-if (document.querySelector(".bestellinformationen_open")) {
-  const bestellinformationen_open = document.querySelector(
-    ".bestellinformationen_open"
-  );
-  const bestellinformationen_close = document.querySelector(
-    "#bestellinformationen_close"
-  );
-  const bestellinformationen_container = document.querySelector(
-    ".bestellinformationen_container"
-  );
+/* Kasse Modal */
+if (document.querySelector(".kasse_open")) {
+  const kasse_open = document.querySelector(".kasse_open");
+  const kasse_close = document.querySelector("#kasse_close");
+  const kasse_container = document.querySelector(".kasse_container");
 
-  bestellinformationen_open.addEventListener("click", () => {
-    warenkorb_container.classList.remove("warenkorb_show");
-    bestellinformationen_container.classList.add("show");
+  kasse_open.addEventListener("click", () => {
+    warenkorb_container.classList.remove("show");
+    kasse_container.classList.add("show");
+    displayCheckout();
   });
 
-  bestellinformationen_close.addEventListener("click", () => {
-    bestellinformationen_container.classList.remove("show");
+  kasse_close.addEventListener("click", () => {
+    kasse_container.classList.remove("show");
   });
 
   window.addEventListener("mouseup", (event) => {
-    if (event.target == bestellinformationen_container) {
-      bestellinformationen_container.classList.remove("show");
+    if (event.target == kasse_container) {
+      kasse_container.classList.remove("show");
     }
   });
 }

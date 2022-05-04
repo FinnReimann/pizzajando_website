@@ -819,12 +819,8 @@ app.post("/bestellungen_status_update", function (req, res) {
     }
   }
 });
-<<<<<<< HEAD
-*/
 
 //Layout
-app.get("/layout", function(req, res){
+app.get("/layout", function (req, res) {
   res.render("layout");
 });
-=======
->>>>>>> b711268877f64ba4b4354e50c3acc85a2e00eb40
