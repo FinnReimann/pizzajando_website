@@ -3,6 +3,7 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: Roboto;
 }
 .header-bg{
     transform: scaleY(-1);
@@ -28,23 +29,21 @@ body{
 }
 
 .header-nav li{
-    display: inline;
+    display: inline-flex;
     list-style: none;
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin-left: 40px;
+    transform: scale(1.4);
+}
+
+.header-nav{
+    display: inline-flex;
+    color: white;
 }
 
 .header-nav p{
-    display: inline;
-}
-.header-nav p a{
-    display: inline;
-    text-decoration: none;
-    font-size: 25px;
-    font-family: Roboto;
-    color: white;
-    margin-left: 30px;
+    display: inline-flex;
 }
 
 header a:hover{
@@ -54,4 +53,34 @@ header a:hover{
 
 header a{
     transition: 0.2s;
+}
+
+.header-nav .cart{
+    transition: 0.2s;
+}
+
+.header-nav .cart:hover{
+    cursor: pointer;
+    transition: 0.2s;
+    text-shadow: 0 0 5px #fff;
+}
+
+.header-nav .cart{
+    transition: 0.2s;
+}
+
+.header-nav .cart:hover{
+    cursor: pointer;
+    transition: 0.2s;
+    text-shadow: 0 0 5px #fff;
+}
+
+.header-nav .account{
+    transition: 0.2s;
+}
+
+.header-nav .account:hover{
+    cursor: pointer;
+    transition: 0.2s;
+    text-shadow: 0 0 5px #fff;
 }

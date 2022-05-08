@@ -1,4 +1,7 @@
 /* Allgemein Modal Container */
+body{
+  font-family: Roboto;
+}
 .warenkorb_container,
 .mein_account_container,
 .register_container,
