@@ -49,7 +49,7 @@ const pizzen_params = db.prepare("SELECT * FROM pizzen").all();
 const drinks_params = db.prepare("SELECT * FROM drinks").all();
 
 /* getRequest startseite */
-app.get("/startseite", function (req, res) {
+app.get("/", function (req, res) {
   res.render("startseite", {
     message: "",
     session: req.session.authenticated,
@@ -59,7 +59,7 @@ app.get("/startseite", function (req, res) {
 });
 
 /* getRequest startseite */
-app.post("/startseite", function (req, res) {
+app.post("/", function (req, res) {
   res.render("startseite", {
     message: "",
     session: req.session.authenticated,
