@@ -1,4 +1,9 @@
 /* Allgemein Modal Container */
+body{
+  font-family: Roboto;
+  z-index: 3;
+}
+
 .warenkorb_container,
 .mein_account_container,
 .register_container,
@@ -18,6 +23,7 @@
   height: 100vh;
   width: 100vw;
   transition: opacity 0.3s ease;
+  z-index: 3;
 }
 
 .warenkorb_container.show,
@@ -29,6 +35,7 @@
 .drinks_container.show {
   pointer-events: auto;
   opacity: 1;
+  z-index: 3;
 }
 
 /* Warenkorb Modal */
