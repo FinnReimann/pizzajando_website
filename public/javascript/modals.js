@@ -130,7 +130,7 @@ if (document.querySelectorAll(".drinks_open")) {
 
     window.addEventListener("mouseup", (event) => {
       if (event.target == drinks_container[i]) {
-        drinks_container[i].classList.remove("how");
+        drinks_container[i].classList.remove("show");
       }
     });
   }
