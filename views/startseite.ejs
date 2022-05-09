@@ -27,7 +27,6 @@
                 <li
                   <div class="account">
                     <i class="material-icons" id="mein_account_open">dehaze</i>
-                    <p><%= message %></p>
                   </div>
                 </li>
             </ul> 
@@ -47,6 +46,9 @@
     <script src="javascript/kasse.js"></script>
   </header>
   <body>
-    <img class = "banner-img" src="\images\banner.jpg" alt="Banner">
+    <p class = "error-message"><%= message %></p>
+    <form action="/speisekarte" class="button" method="post">
+      <button>Hier Bestellen</button>
+    </form>
   </body>
 </html>

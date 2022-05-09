@@ -14,7 +14,7 @@ body{
 .header-bg{
     transform: scaleY(-1);
     position: relative;
-    top: -50px;
+    margin-top: -3%;
     z-index: 2;
 }
 
@@ -80,9 +80,8 @@ header a{
     text-shadow: 0 0 5px #fff;
 }
 
-
-
 .material-icons:hover{
     cursor: pointer;
 }
+
 
