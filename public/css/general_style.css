@@ -12,10 +12,12 @@ body{
 }
 
 .header-bg{
-    transform: scaleY(-1);
-    position: relative;
-    margin-top: -3%;
+    
+    position: absolute;
+    top: 0px;
     z-index: 2;
+    filter: drop-shadow(0 0 30px rgb(0 0 0 / 0.4));
+    width: 100%;
 }
 
 .header-logo a{
@@ -26,7 +28,7 @@ body{
     color: white;
     position: absolute;
     top: 5%;
-    left: 10%;
+    left: 12%;
     z-index: 2;
 }
 
@@ -84,4 +86,32 @@ header a{
     cursor: pointer;
 }
 
+form button{
+    align-items: center;
+}
 
+.bestell-button{
+    position: absolute;
+    display: block;
+    top: 50%;
+    text-align: center;
+    align-items: center;
+    font-family: Roboto;
+    font-weight: 300;
+    font-size: 3vw;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    background: none;
+    color: white;
+    text-shadow: 0 0 30px rgb(0 0 0);
+    box-shadow: 0 0 30px rgb(0 0 0 / 0.4);
+    transition: 0.4s;
+}
+
+.bestell-button:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: 0.3s;
+}

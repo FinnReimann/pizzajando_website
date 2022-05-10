@@ -11,8 +11,9 @@
     <!--Design-->
     <link rel="stylesheet" type="text/css" href="css/general_style.css" />
   </head>
+  <body>
   <header>
-    <svg class = "header-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill=#ff8000 fill-opacity="1" d="M0,160L60,144C120,128,240,96,360,112C480,128,600,192,720,202.7C840,213,960,171,1080,165.3C1200,160,1320,192,1380,208L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    <svg class = "header-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill=#ff8000 fill-opacity="1" d="M0,64L48,90.7C96,117,192,171,288,181.3C384,192,480,160,576,138.7C672,117,768,107,864,101.3C960,96,1056,96,1152,106.7C1248,117,1344,139,1392,149.3L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
         <div class = "header-logo">
             <a href="/">Pizzajando</a>
         </div>
@@ -45,10 +46,9 @@
     <script src="javascript/warenkorb.js"></script>
     <script src="javascript/kasse.js"></script>
   </header>
-  <body>
     <p class = "error-message"><%= message %></p>
     <form action="/speisekarte" class="button" method="post">
-      <button>Hier Bestellen</button>
+      <button class = "bestell-button">Hier Bestellen</button>
     </form>
   </body>
 </html>
