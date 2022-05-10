@@ -1,13 +1,11 @@
 /* Display Warenkorb */
 function displayCheckout() {
-  console.log("läuft");
   let cartItems = localStorage.getItem("productsInCart");
   cartItems = JSON.parse(cartItems);
   let productContainer = document.querySelector(".kasse_products");
   let cartCost = localStorage.getItem("totalCost");
 
   if (cartItems && productContainer) {
-    console.log("läuft weiter");
     productContainer.innerHTML = "";
     Object.values(cartItems).map((item) => {
       productContainer.innerHTML += `
