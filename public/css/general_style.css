@@ -86,16 +86,13 @@ header a{
     cursor: pointer;
 }
 
-form button{
-    align-items: center;
-}
-
 .bestell-button{
     position: absolute;
-    display: block;
+    text-decoration: none;
     top: 50%;
-    text-align: center;
-    align-items: center;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     font-family: Roboto;
     font-weight: 300;
     font-size: 3vw;
@@ -112,6 +109,7 @@ form button{
 .bestell-button:hover{
     background-color: rgba(255, 255, 255, 0.2);
     cursor: pointer;
-    transform: scale(1.05);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1.05);
     transition: 0.3s;
 }
