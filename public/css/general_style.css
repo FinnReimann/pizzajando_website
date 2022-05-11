@@ -108,3 +108,7 @@ header a{
     transform: translate(-50%, -50%) scale(1.05);
     transition: 0.3s;
 }
+
+.error-message{
+    z-index: 6;
+}

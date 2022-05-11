@@ -33,38 +33,29 @@
                 </li>
             </ul> 
         </div>
-      <!-- Header -->
-    <%- include('./partials/warenkorb.ejs') %><%-
-    include('./partials/mein_account.ejs') %><%-
-    include('./partials/register.ejs') %><%-
-    include('./partials/meine_bestellungen.ejs') %><%-
-    include('./partials/kasse.ejs') %>
-    <!-- Daten -->
-    <%- include('./partials/daten_pizzen.ejs') %> <%-
-    include('./partials/daten_drinks.ejs') %>
-    <!-- Scripts -->
-    <script src="javascript/modals.js"></script>
-    <script src="javascript/warenkorb.js"></script>
-    <script src="javascript/kasse.js"></script>
   </header>
   <body>
-    <h1>Pizzen</h1>
-    <div class="pizzen_show_container" id="pizzen_show_container">
-      <% for(var i = 0; i < pizzen.length; i++){ %>
-      <a class="pizzen_open" id="pizzen_open"
-        ><img src="images/pizza.jpg" /><%= pizzen[i].name %>
-      </a>
-      <% } %>
-    </div>
-    <%- include('./partials/daten_pizzen.ejs') %>
-    <h1>Getränke</h1>
-    <br />
-    <div class="drinks_show_container" id="drinks_show_container">
-      <% for(var i = 0; i < drinks.length; i++){ %>
-      <a class="drinks_open" id="drinks_open">
-        <img src="images/drink.jpg" /><%= drinks[i].name %>
-      </a>
-      <% } %>
+    <div class = "menu-container">
+      <h1>Pizzen</h1>
+      <div class="pizzen_show_container" id="pizzen_show_container">
+        <% for(var i = 0; i < pizzen.length; i++){ %>
+        <a class="pizzen_open" id="pizzen_open"
+          ><img src="images/pizza.jpg" /><%= pizzen[i].name %>
+        </a>
+        <% } %>
+      </div>
+      <%- include('./partials/daten_pizzen.ejs') %>
+      <h1>Getränke</h1>
+      <br />
+      <div class="drinks_show_container" id="drinks_show_container">
+        <% for(var i = 0; i < drinks.length; i++){ %>
+          <div class = "pizzen-container">
+            <a class="drinks_open" id="drinks_open">
+            <img src="images/drink.jpg" /><%= drinks[i].name %>
+            </a>
+          </div>
+        <% } %>
+      </div>
     </div>
     <!-- Header -->
     <%- include('./partials/warenkorb.ejs') %><%-

@@ -1,6 +1,9 @@
-
-
 body h1{
     text-align: center;
     margin-top: 5%;
+}
+
+.pizzen-container{
+    background-color: rgb(0 0 0 / 0.2);
+
 }
