@@ -10,21 +10,44 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
+    <link rel="stylesheet" type="text/css" href="css/general_style.css" />
+    <link rel="stylesheet" type="text/css" href="css/speisekarte.css" />
   </head>
+  <header>
+    <svg class = "header-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill=#ff8000 fill-opacity="1" d="M0,64L48,90.7C96,117,192,171,288,181.3C384,192,480,160,576,138.7C672,117,768,107,864,101.3C960,96,1056,96,1152,106.7C1248,117,1344,139,1392,149.3L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+        <div class = "header-logo">
+            <a href="/">Pizzajando</a>
+        </div>
+        <div class = "header-nav">
+            <ul>
+                <li>
+                    <div class="cart">
+                    <i class="material-icons" id="warenkorb_open">shopping_cart</i>
+                    <div><span class="cart_items">0</span></div>
+                  </div>
+                </li>
+                <li
+                  <div class="account">
+                    <i class="material-icons" id="mein_account_open">dehaze</i>
+                  </div>
+                </li>
+            </ul> 
+        </div>
+      <!-- Header -->
+    <%- include('./partials/warenkorb.ejs') %><%-
+    include('./partials/mein_account.ejs') %><%-
+    include('./partials/register.ejs') %><%-
+    include('./partials/meine_bestellungen.ejs') %><%-
+    include('./partials/kasse.ejs') %>
+    <!-- Daten -->
+    <%- include('./partials/daten_pizzen.ejs') %> <%-
+    include('./partials/daten_drinks.ejs') %>
+    <!-- Scripts -->
+    <script src="javascript/modals.js"></script>
+    <script src="javascript/warenkorb.js"></script>
+    <script src="javascript/kasse.js"></script>
+  </header>
   <body>
-    <form action="/startseite" class="button" method="post">
-      <button>PIZZAJANDO</button>
-    </form>
-    <br />
-    <div class="cart">
-      <i class="material-icons" id="warenkorb_open">shopping_cart</i>
-      <div>
-        <span class="cart_items">0</span>
-      </div>
-    </div>
-    <br />
-    <i class="material-icons" id="mein_account_open"> dehaze </i>
-    <br />
     <h1>Pizzen</h1>
     <div class="pizzen_show_container" id="pizzen_show_container">
       <% for(var i = 0; i < pizzen.length; i++){ %>
