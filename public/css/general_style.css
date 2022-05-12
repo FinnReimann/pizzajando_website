@@ -115,5 +115,5 @@ header a{
 }
 
 .error-message{
-    z-index: 6;
+    z-index: 100;
 }
