@@ -11,6 +11,7 @@
     />
     <!--Design-->
     <link rel="stylesheet" type="text/css" href="css/general_style.css" />
+    <link rel="stylesheet" type="text/css" href="css/startseite.css" />
   </head>
   <body>
   <header>
@@ -33,23 +34,25 @@
                 </li>
             </ul> 
         </div>
-      <!-- Header -->
-    <%- include('./partials/warenkorb.ejs') %><%-
-    include('./partials/mein_account.ejs') %><%-
-    include('./partials/register.ejs') %><%-
-    include('./partials/meine_bestellungen.ejs') %><%-
-    include('./partials/kasse.ejs') %>
-    <!-- Daten -->
-    <%- include('./partials/daten_pizzen.ejs') %> <%-
-    include('./partials/daten_drinks.ejs') %>
-    <!-- Scripts -->
-    <script src="javascript/modals.js"></script>
-    <script src="javascript/warenkorb.js"></script>
-    <script src="javascript/kasse.js"></script>
   </header>
-    <p class = "error-message"><%= message %></p>
-    <form action="/speisekarte" class="button" method="post">
-      <button class = "bestell-button">Hier Bestellen</button>
-    </form>
+  <p class = "error-message"><%= message %></p>
+    <div class = "bestell-button-container">
+      <form action="/speisekarte" class="button" method="post">
+        <button class="bestell-button">Hier Bestellen</button>
+      </form> 
+    </div>
+      <!-- Header -->
+      <%- include('./partials/warenkorb.ejs') %><%-
+      include('./partials/mein_account.ejs') %><%-
+      include('./partials/register.ejs') %><%-
+      include('./partials/meine_bestellungen.ejs') %><%-
+      include('./partials/kasse.ejs') %>
+      <!-- Daten -->
+      <%- include('./partials/daten_pizzen.ejs') %> <%-
+      include('./partials/daten_drinks.ejs') %>
+      <!-- Scripts -->
+      <script src="javascript/modals.js"></script>
+      <script src="javascript/warenkorb.js"></script>
+      <script src="javascript/kasse.js"></script>
   </body>
 </html>

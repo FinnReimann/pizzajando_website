@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
-html {    
-    background: url("/images/banner.jpg") no-repeat center fixed;     
-    background-size: cover;
+header{
+    margin-bottom: 0;
+    padding-bottom: 7%;
 }
 
 body{
@@ -86,16 +86,13 @@ header a{
     cursor: pointer;
 }
 
-form button{
-    align-items: center;
-}
-
 .bestell-button{
     position: absolute;
-    display: block;
+    text-decoration: none;
     top: 50%;
-    text-align: center;
-    align-items: center;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     font-family: Roboto;
     font-weight: 300;
     font-size: 3vw;
@@ -112,6 +109,11 @@ form button{
 .bestell-button:hover{
     background-color: rgba(255, 255, 255, 0.2);
     cursor: pointer;
-    transform: scale(1.05);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1.05);
     transition: 0.3s;
+}
+
+.error-message{
+    z-index: 100;
 }
