@@ -1,9 +1,7 @@
 /* Express initialisieren */
 const express = require("express");
-const { use } = require("express/lib/application");
-const res = require("express/lib/response");
-const { get } = require("express/lib/response");
 const app = express();
+app.use(express.json());
 
 /* Validator Initialisieren */
 const validator = require("email-validator");
@@ -21,6 +19,7 @@ app.set("view engine", "ejs");
 
 /* Session initialisieren */
 const session = require("express-session");
+const { render } = require("express/lib/response");
 app.use(
   session({
     cookie: {
@@ -438,6 +437,63 @@ app.post("/delete_user", function (req, res) {
         });
       }
     }
+  }
+});
+
+/* Kasse */
+app.post("/products_ordered", function (req, res) {
+  let body = req.body;
+  let keys = Object.keys(body);
+  const param_pizzen = db.prepare("SELECT * FROM pizzen").all();
+  const param_drinks = db.prepare("SELECT * FROM drinks").all();
+
+  //console.log(body);
+
+  if (keys.length != 0) {
+    if (req.session.authenticated) {
+      for (index of keys) {
+        if (
+          db.prepare("SELECT * FROM pizzen WHERE name=?").all(body[index].name)
+            .length == 1 ||
+          db.prepare("SELECT * FROM drinks WHERE name=?").all(body[index].name)
+            .length == 1
+        ) {
+          console.log(body[index].name, "exists");
+
+          db.prepare(
+            "INSERT INTO bestellungen (product, quantity, price, status, user) VALUES (?, ?, ?, ?, ?)"
+          ).run(
+            body[index].name,
+            body[index].inCart,
+            body[index].price * body[index].inCart,
+            "Eingegangen",
+            req.session.user
+          );
+        } else {
+          console.log(body[index].name, "doesnt exists anymore");
+        }
+      }
+      res.render("startseite", {
+        message: "Vielen dank für Ihre Bestellung!",
+        session: req.session.authenticated,
+        pizzen: pizzen_params,
+        drinks: drinks_params,
+      });
+    } else {
+      res.render("startseite", {
+        message: "Bitte melden Sie sich an!",
+        session: req.session.authenticated,
+        pizzen: pizzen_params,
+        drinks: drinks_params,
+      });
+    }
+  } else {
+    res.render("startseite", {
+      message: "Ihr Warenkorb ist leer!",
+      session: req.session.authenticated,
+      pizzen: pizzen_params,
+      drinks: drinks_params,
+    });
   }
 });
 

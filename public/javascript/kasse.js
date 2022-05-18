@@ -34,3 +34,25 @@ function displayCheckout() {
       `;
   }
 }
+
+/* Produkte Bestellen */
+const products_order = document.querySelector(".products_order");
+
+products_order.addEventListener("click", () => {
+  let data = localStorage.getItem("productsInCart");
+  data = JSON.parse(data);
+
+  if (data != null && session) {
+    fetch("/products_ordered", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      console.log("Request complete! response:", res);
+      localStorage.clear();
+      displayCheckout();
+    });
+  } else {
+    console.log("Nix im Warenkorb");
+  }
+});
