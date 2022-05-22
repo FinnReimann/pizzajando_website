@@ -123,7 +123,7 @@ function displayCart() {
     productContainer.innerHTML += `
       <div class="basket_total_container">
         <h4 class="basket_total_title">
-          Basket Total
+          Gesamtsumme
         </h4>
         <h4 class="basket_total">
           €${(cartCost * 1).toFixed(2)}
