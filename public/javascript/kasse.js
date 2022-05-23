@@ -42,17 +42,24 @@ products_order.addEventListener("click", () => {
   let data = localStorage.getItem("productsInCart");
   data = JSON.parse(data);
 
-  if (data != null && session) {
-    fetch("/products_ordered", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    }).then((res) => {
-      console.log("Request complete! response:", res);
-      localStorage.clear();
-      displayCheckout();
-    });
+  let session = document.querySelector(".var_session").textContent;
+  session = session.toLowerCase() == "true";
+
+  if (session) {
+    if (data != null) {
+      fetch("/products_ordered", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      }).then((res) => {
+        console.log("Request complete! response:", res);
+        localStorage.clear();
+        displayCheckout();
+      });
+    } else {
+      console.log("Nix im Warenkorb");
+    }
   } else {
-    console.log("Nix im Warenkorb");
+    console.log("Nicht angemeldet");
   }
 });
