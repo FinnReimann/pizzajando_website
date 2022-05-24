@@ -1,4 +1,20 @@
 /* Warenkorb Styles */
+.warenkorb_container{
+  max-width: 100%;
+}
+.warenkorb h1{
+  margin-top: 5%;
+  font-weight: 400;
+  position: relative;
+  transform: translate(-190px, -120px);
+  font-size: 30px;
+  color: white;
+}
+
+.warenkorb-header{
+  position: relative;
+  margin: -8.4%;
+}
 
 .products_container {
   max-width: 650px;

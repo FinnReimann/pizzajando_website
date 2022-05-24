@@ -48,6 +48,7 @@
   <body>
     <div class="menu-container">
       <h1>Pizzen</h1>
+      <hr>
       <div class="pizzen_show_container" id="pizzen_show_container">
         <% for(var i = 0; i < pizzen.length; i++){ %>
         <div class="item_open pizzen_open" id="pizzen_open">
@@ -57,8 +58,10 @@
         </div>
         <% } %>
       </div>
+      <hr>
       <%- include('./partials/daten_pizzen.ejs') %>
       <h1>Getränke</h1>
+      <hr>
       <div class="drinks_show_container show_container" id="drinks_show_container">
         <% for(var i = 0; i < drinks.length; i++){ %>
         <div class="item_open drinks_open" id="drinks_open">
@@ -68,6 +71,7 @@
         </div>
         <% } %>
       </div>
+      <hr>
     </div>
     <!-- Header -->
     <%- include('./partials/warenkorb.ejs') %><%-

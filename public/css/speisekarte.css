@@ -7,11 +7,15 @@ body h1{
     text-align: center;
     font-weight: 400;
     margin-top: 5%;
-    margin-bottom: 2%;
+    margin-bottom: 1%;
     font-size: 3vw;
-    color: rgb(20, 20, 20);
+    color: rgb(0, 0, 0);
 }
 
+hr{
+    width: 50%;
+    border: 1px solid rgb(0, 0, 0);;
+}
 
 .item_open{
     transform: scale(0.9);
