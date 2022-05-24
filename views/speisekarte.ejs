@@ -51,18 +51,20 @@
       <div class="pizzen_show_container" id="pizzen_show_container">
         <% for(var i = 0; i < pizzen.length; i++){ %>
         <div class="item_open pizzen_open" id="pizzen_open">
-          <img src="images/pizza.jpg">
           <p><%= pizzen[i].name %></p>
+          <img src="images/pizza.jpg">
+          <p><%= pizzen[i].price %>€</p>
         </div>
         <% } %>
       </div>
       <%- include('./partials/daten_pizzen.ejs') %>
       <h1>Getränke</h1>
-      <div class="drinks_show_container" id="drinks_show_container">
+      <div class="drinks_show_container show_container" id="drinks_show_container">
         <% for(var i = 0; i < drinks.length; i++){ %>
         <div class="item_open drinks_open" id="drinks_open">
-          <img src="images/drink.jpg" />
           <p><%= drinks[i].name %></p>
+          <img src="images/drink.jpg" />
+          <p><%= drinks[i].price %>€</p>
         </div>
         <% } %>
       </div>

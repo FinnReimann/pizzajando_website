@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
-
 header{
     margin-bottom: 0;
     padding-bottom: 7%;
@@ -116,4 +115,9 @@ header a{
 
 .error-message{
     z-index: 100;
+    position: relative;
+    font-size: 40px;
+    text-align: center;
+    transform: translateY(-250%);
+    display: inline;
 }
