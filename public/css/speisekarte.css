@@ -1,5 +1,6 @@
 body{
     background-color: rgba(255, 255, 255, 0.05);
+    margin-bottom: 100px;
 }
 
 body h1{
@@ -12,27 +13,34 @@ body h1{
 }
 
 
-.drinks_open{
+.item_open{
     transform: scale(0.75);
     background-color: rgba(255, 255, 255);
     padding: 20px;
     padding-bottom: 0px;
     margin: 5px;
     border-radius: 5px;
-    
     box-shadow: 0px 5px 10px rgb(0 0 0 / 0.4);
-    
+    transition: 0.3s;
 }
 
-.drinks_open img{
+.item_open img{
     max-width: 100%;
     max-height: 100%;
     
 }
 
-.drinks_open p{
+.item_open p{
     font-size: 1.5vw;
     font-weight: 300;
     text-align: center;
 }
 
+.item_open:hover{
+    cursor: pointer;
+    transform: scale(0.82);
+    transition: 0.3s;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.item_open

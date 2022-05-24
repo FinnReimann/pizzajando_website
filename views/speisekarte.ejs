@@ -50,17 +50,17 @@
       <h1>Pizzen</h1>
       <div class="pizzen_show_container" id="pizzen_show_container">
         <% for(var i = 0; i < pizzen.length; i++){ %>
-        <a class="pizzen_open" id="pizzen_open"
-          ><img src="images/pizza.jpg" /><%= pizzen[i].name %>
-        </a>
+        <div class="item_open pizzen_open" id="pizzen_open">
+          <img src="images/pizza.jpg">
+          <p><%= pizzen[i].name %></p>
+        </div>
         <% } %>
       </div>
       <%- include('./partials/daten_pizzen.ejs') %>
       <h1>Getränke</h1>
-      <br />
       <div class="drinks_show_container" id="drinks_show_container">
         <% for(var i = 0; i < drinks.length; i++){ %>
-        <div class="drinks_open" id="drinks_open">
+        <div class="item_open drinks_open" id="drinks_open">
           <img src="images/drink.jpg" />
           <p><%= drinks[i].name %></p>
         </div>
