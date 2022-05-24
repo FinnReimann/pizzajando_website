@@ -12,6 +12,7 @@
     <!--Design-->
     <link rel="stylesheet" type="text/css" href="css/general_style.css" />
     <link rel="stylesheet" type="text/css" href="css/startseite.css" />
+    <link rel="stylesheet" type="text/css" href="css/variables.css" />
   </head>
   <body>
   <header>
@@ -48,8 +49,9 @@
       include('./partials/meine_bestellungen.ejs') %><%-
       include('./partials/kasse.ejs') %>
       <!-- Daten -->
-      <%- include('./partials/daten_pizzen.ejs') %> <%-
-      include('./partials/daten_drinks.ejs') %>
+      <%- include('./partials/daten_pizzen.ejs') %><%-
+      include('./partials/daten_drinks.ejs') %><%-
+      include('./partials/variables.ejs') %>
       <!-- Scripts -->
       <script src="javascript/modals.js"></script>
       <script src="javascript/warenkorb.js"></script>

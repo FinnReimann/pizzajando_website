@@ -8,10 +8,11 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
+    <link rel="stylesheet" type="text/css" href="css/variables.css" />
     <title>Accountdetails</title>
   </head>
   <body>
-    <form action="/startseite" class="button" method="post">
+    <form action="/" class="button" method="post">
       <button>PIZZAJANDO</button>
     </form>
     <br />
@@ -110,7 +111,8 @@
     include('./partials/kasse.ejs') %>
     <!-- Daten -->
     <%- include('./partials/daten_pizzen.ejs') %> <%-
-    include('./partials/daten_drinks.ejs') %>
+    include('./partials/daten_drinks.ejs') %><%-
+    include('./partials/variables.ejs') %>
     <!-- Scripts -->
     <script src="javascript/modals.js"></script>
     <script src="javascript/warenkorb.js"></script>

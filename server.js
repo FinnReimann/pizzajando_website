@@ -1,9 +1,7 @@
 /* Express initialisieren */
 const express = require("express");
-const { use } = require("express/lib/application");
-const res = require("express/lib/response");
-const { get } = require("express/lib/response");
 const app = express();
+app.use(express.json());
 
 /* Validator Initialisieren */
 const validator = require("email-validator");
@@ -24,7 +22,7 @@ const session = require("express-session");
 app.use(
   session({
     cookie: {
-      maxAge: 1000 * 60 * 60, // 1 Hour
+      maxAge: 1000 * 60, // 1 Hour
       sameSite: true,
     },
     secret: "p4ssw0rtv3rschlu3ssl3r",
@@ -47,24 +45,37 @@ app.listen(3000, function () {
 /* Variablen */
 const pizzen_params = db.prepare("SELECT * FROM pizzen").all();
 const drinks_params = db.prepare("SELECT * FROM drinks").all();
+let bestellungen_params = db
+  .prepare("SELECT * FROM bestellungen WHERE user=?")
+  .all("");
 
 /* getRequest startseite */
 app.get("/", function (req, res) {
+  bestellungen_params = db
+    .prepare("SELECT * FROM bestellungen WHERE user=?")
+    .all(req.session.user);
   res.render("startseite", {
     message: "",
     session: req.session.authenticated,
     pizzen: pizzen_params,
     drinks: drinks_params,
+    bestellungen: bestellungen_params,
   });
 });
 
 /* getRequest startseite */
 app.post("/", function (req, res) {
+  if (req.user.authenticated) {
+    bestellungen_params = db
+      .prepare("SELECT * FROM bestellungen WHERE user=?")
+      .all(req.session.user);
+  }
   res.render("startseite", {
     message: "",
     session: req.session.authenticated,
     pizzen: pizzen_params,
     drinks: drinks_params,
+    bestellungen: bestellungen_params,
   });
 });
 
@@ -99,10 +110,14 @@ app.get("/admin_bestellungen", function (req, res) {
 
 /* postRequest speisekarte */
 app.post("/speisekarte", function (req, res) {
+  bestellungen_params = db
+    .prepare("SELECT * FROM bestellungen WHERE user=?")
+    .all(req.session.user);
   res.render("speisekarte", {
     session: req.session.authenticated,
     pizzen: pizzen_params,
     drinks: drinks_params,
+    bestellungen: bestellungen_params,
   });
 });
 
@@ -110,15 +125,19 @@ app.post("/speisekarte", function (req, res) {
 app.post("/accountdetails", function (req, res) {
   if (req.session.authenticated) {
     param_email = req.session.user;
-    const rows = db
+    bestellungen_params = db
+      .prepare("SELECT * FROM bestellungen WHERE user=?")
+      .all(param_email);
+    const data_params = db
       .prepare("SELECT * FROM kontaktdaten WHERE email=?")
       .all(param_email);
     res.render("accountdetails", {
       message: "",
-      data: rows,
+      data: data_params,
       session: req.session.authenticated,
       pizzen: pizzen_params,
       drinks: drinks_params,
+      bestellungen: bestellungen_params,
     });
   } else {
     res.render("startseite", {
@@ -126,6 +145,7 @@ app.post("/accountdetails", function (req, res) {
       session: req.session.authenticated,
       pizzen: pizzen_params,
       drinks: drinks_params,
+      bestellungen: bestellungen_params,
     });
   }
 });
@@ -143,6 +163,7 @@ app.post("/login", function (req, res) {
       session: req.session.authenticated,
       pizzen: pizzen_params,
       drinks: drinks_params,
+      bestellungen: bestellungen_params,
     });
   } else {
     if (rows.length == 1) {
@@ -151,11 +172,15 @@ app.post("/login", function (req, res) {
       if (isValid == true) {
         req.session.authenticated = true;
         req.session.user = param_email;
+        bestellungen_params = db
+          .prepare("SELECT * FROM bestellungen WHERE user=?")
+          .all(param_email);
         res.render("startseite", {
           message: `Angemeldet mit ${param_email}`,
           session: req.session.authenticated,
           pizzen: pizzen_params,
           drinks: drinks_params,
+          bestellungen: bestellungen_params,
         });
       } else {
         res.render("startseite", {
@@ -163,6 +188,7 @@ app.post("/login", function (req, res) {
           session: req.session.authenticated,
           pizzen: pizzen_params,
           drinks: drinks_params,
+          bestellungen: bestellungen_params,
         });
       }
     } else {
@@ -171,6 +197,7 @@ app.post("/login", function (req, res) {
         session: req.session.authenticated,
         pizzen: pizzen_params,
         drinks: drinks_params,
+        bestellungen: bestellungen_params,
       });
     }
   }
@@ -200,6 +227,7 @@ app.post("/user_register", function (req, res) {
       session: req.session.authenticated,
       pizzen: pizzen_params,
       drinks: drinks_params,
+      bestellungen: bestellungen_params,
     });
   } else {
     if (validator.validate(param_email)) {
@@ -230,6 +258,7 @@ app.post("/user_register", function (req, res) {
             session: req.session.authenticated,
             pizzen: pizzen_params,
             drinks: drinks_params,
+            bestellungen: bestellungen_params,
           });
         } else {
           res.render("startseite", {
@@ -237,6 +266,7 @@ app.post("/user_register", function (req, res) {
             session: req.session.authenticated,
             pizzen: pizzen_params,
             drinks: drinks_params,
+            bestellungen: bestellungen_params,
           });
         }
       } else {
@@ -245,6 +275,7 @@ app.post("/user_register", function (req, res) {
           session: req.session.authenticated,
           pizzen: pizzen_params,
           drinks: drinks_params,
+          bestellungen: bestellungen_params,
         });
       }
     } else {
@@ -253,6 +284,7 @@ app.post("/user_register", function (req, res) {
         session: req.session.authenticated,
         pizzen: pizzen_params,
         drinks: drinks_params,
+        bestellungen: bestellungen_params,
       });
     }
   }
@@ -261,7 +293,10 @@ app.post("/user_register", function (req, res) {
 /* Logout */
 app.post("/logout", function (req, res) {
   req.session.destroy();
-  res.redirect("/startseite");
+  bestellungen_params = db
+    .prepare("SELECT * FROM bestellungen WHERE user=?")
+    .all("");
+  res.redirect("/");
 });
 
 /* Update User */
@@ -274,6 +309,9 @@ app.post("/update_user", function (req, res) {
   const param_user = req.session.user;
   const rows = db
     .prepare("SELECT * FROM kontaktdaten WHERE email=?")
+    .all(param_user);
+  bestellungen_params = db
+    .prepare("SELECT * FROM bestellungen WHERE user=?")
     .all(param_user);
   if (
     param_email == "" ||
@@ -288,6 +326,7 @@ app.post("/update_user", function (req, res) {
       session: req.session.authenticated,
       pizzen: pizzen_params,
       drinks: drinks_params,
+      bestellungen: bestellungen_params,
     });
   } else {
     if (validator.validate(param_email)) {
@@ -308,12 +347,14 @@ app.post("/update_user", function (req, res) {
           .prepare("SELECT * FROM kontaktdaten WHERE email=?")
           .all(param_email);
         req.session.user = param_email;
+
         res.render("accountdetails", {
           message: "Erfolgreich geupdatet!",
           data: rows,
           session: req.session.authenticated,
           pizzen: pizzen_params,
           drinks: drinks_params,
+          bestellungen: bestellungen_params,
         });
       } else {
         res.render("accountdetails", {
@@ -322,6 +363,7 @@ app.post("/update_user", function (req, res) {
           session: req.session.authenticated,
           pizzen: pizzen_params,
           drinks: drinks_params,
+          bestellungen: bestellungen_params,
         });
       }
     } else {
@@ -331,6 +373,7 @@ app.post("/update_user", function (req, res) {
         session: req.session.authenticated,
         pizzen: pizzen_params,
         drinks: drinks_params,
+        bestellungen: bestellungen_params,
       });
     }
   }
@@ -344,6 +387,9 @@ app.post("/update_password", function (req, res) {
   const rows = db
     .prepare("SELECT * FROM kontaktdaten WHERE email=?")
     .all(param_user);
+  bestellungen_params = db
+    .prepare("SELECT * FROM bestellungen WHERE user=?")
+    .all(param_user);
   if (param_password == "" || param_password_repeat == "") {
     res.render("accountdetails", {
       message: "Bitte alle Felder ausfüllen!",
@@ -351,6 +397,7 @@ app.post("/update_password", function (req, res) {
       session: req.session.authenticated,
       pizzen: pizzen_params,
       drinks: drinks_params,
+      bestellungen: bestellungen_params,
     });
   } else {
     if (param_password == param_password_repeat) {
@@ -368,6 +415,7 @@ app.post("/update_password", function (req, res) {
         session: req.session.authenticated,
         pizzen: pizzen_params,
         drinks: drinks_params,
+        bestellungen: bestellungen_params,
       });
     } else {
       res.render("accountdetails", {
@@ -376,6 +424,7 @@ app.post("/update_password", function (req, res) {
         session: req.session.authenticated,
         pizzen: pizzen_params,
         drinks: drinks_params,
+        bestellungen: bestellungen_params,
       });
     }
   }
@@ -405,6 +454,7 @@ app.post("/delete_user", function (req, res) {
         session: req.session.authenticated,
         pizzen: pizzen_params,
         drinks: drinks_params,
+        bestellungen: bestellungen_params,
       });
     } else {
       if (row.length == 1) {
@@ -412,12 +462,16 @@ app.post("/delete_user", function (req, res) {
         const isValid = bcrypt.compareSync(param_password, hash);
         if (isValid == true) {
           db.prepare("DELETE FROM kontaktdaten WHERE email=?").run(param_email);
+          bestellungen_params = db
+            .prepare("SELECT * FROM bestellungen WHERE user=?")
+            .all("");
           res.render("startseite", {
             message: `${param_email} erfolgreich gelöscht!`,
             data: row,
             session: req.session.authenticated,
             pizzen: pizzen_params,
             drinks: drinks_params,
+            bestellungen: bestellungen_params,
           });
         } else {
           res.render("accountdetails", {
@@ -426,6 +480,7 @@ app.post("/delete_user", function (req, res) {
             session: req.session.authenticated,
             pizzen: pizzen_params,
             drinks: drinks_params,
+            bestellungen: bestellungen_params,
           });
         }
       } else {
@@ -435,9 +490,72 @@ app.post("/delete_user", function (req, res) {
           session: req.session.authenticated,
           pizzen: pizzen_params,
           drinks: drinks_params,
+          bestellungen: bestellungen_params,
         });
       }
     }
+  }
+});
+
+/* Kasse */
+app.post("/products_ordered", function (req, res) {
+  let body = req.body;
+  let keys = Object.keys(body);
+  const param_pizzen = db.prepare("SELECT * FROM pizzen").all();
+  const param_drinks = db.prepare("SELECT * FROM drinks").all();
+  bestellungen_params = db
+    .prepare("SELECT * FROM bestellungen WHERE user=?")
+    .all(req.session.user);
+  //console.log(body);
+
+  if (keys.length != 0) {
+    if (req.session.authenticated) {
+      for (index of keys) {
+        if (
+          db.prepare("SELECT * FROM pizzen WHERE name=?").all(body[index].name)
+            .length == 1 ||
+          db.prepare("SELECT * FROM drinks WHERE name=?").all(body[index].name)
+            .length == 1
+        ) {
+          console.log(body[index].name, "exists");
+
+          db.prepare(
+            "INSERT INTO bestellungen (product, quantity, price, status, user) VALUES (?, ?, ?, ?, ?)"
+          ).run(
+            body[index].name,
+            body[index].inCart,
+            body[index].price * body[index].inCart,
+            "Eingegangen",
+            req.session.user
+          );
+        } else {
+          console.log(body[index].name, "doesnt exists anymore");
+        }
+      }
+      res.render("startseite", {
+        message: "Vielen dank für Ihre Bestellung!",
+        session: req.session.authenticated,
+        pizzen: pizzen_params,
+        drinks: drinks_params,
+        bestellungen: bestellungen_params,
+      });
+    } else {
+      res.render("startseite", {
+        message: "Bitte melden Sie sich an!",
+        session: req.session.authenticated,
+        pizzen: pizzen_params,
+        drinks: drinks_params,
+        bestellungen: bestellungen_params,
+      });
+    }
+  } else {
+    res.render("startseite", {
+      message: "Ihr Warenkorb ist leer!",
+      session: req.session.authenticated,
+      pizzen: pizzen_params,
+      drinks: drinks_params,
+      bestellungen: bestellungen_params,
+    });
   }
 });
 

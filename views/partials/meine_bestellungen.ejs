@@ -2,6 +2,22 @@
   <div class="meine_bestellungen" id="meine_bestellungen">
     <h1>Meine Bestellungen</h1>
     <br />
+    <table border="1">
+      <tr>
+        <td>Produkt</td>
+        <td>Menge</td>
+        <td>Preis</td>
+        <td>Status</td>
+      </tr>
+      <% for(var i = 0; i < bestellungen.length; i++){ %>
+      <tr>
+        <td><%= bestellungen[i].product %></td>
+        <td><%= bestellungen[i].quantity %></td>
+        <td><%= bestellungen[i].price %></td>
+        <td><%= bestellungen[i].status %></td>
+      </tr>
+      <% } %>
+    </table>
     <i class="material-icons" id="meine_bestellungen_close">close</i>
   </div>
 </div>

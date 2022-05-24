@@ -32,8 +32,7 @@ CREATE TABLE IF NOT EXISTS bestellungen (
     quantity INTEGER NOT NULL,
     price INTEGER NOT NULL,
     status TEXT NOT NULL,
-    user INTEGER NOT NULL,
-    FOREIGN KEY(user) REFERENCES kontaktdaten(id)
+    user TEXT NOT NULL
 );
 
 /* 
@@ -44,6 +43,8 @@ INSERT INTO pizzen ( name, price, ingredients ) VALUES ( "Schinken", 9.99, "Schi
 INSERT INTO drinks (name, price) VALUES ("Cola", 5.99);
 INSERT INTO drinks (name, price) VALUES ("Fanta", 5.99);
 INSERT INTO drinks (name, price) VALUES ("Sprite", 5.99);
+
+INSERT INTO bestellungen (product, quantity, price, status, user) VALUES ("Produkt", 42.42, 4, "Status", "finn@web.de");
 */
 
 --.read private/initialize_db.sql
