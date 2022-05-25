@@ -46,6 +46,7 @@ body{
 }
 
 .header-nav{
+    
     display: inline-flex;
     color: white;
     position: fixed;
@@ -82,11 +83,24 @@ header a{
     text-shadow: 0 0 5px #fff;
 }
 
-.material-icons:hover{
-    cursor: pointer;
+/*Icons*/
+.material-icons{
+    transition: 0.3s;
 }
 
-.bestell-button{
+.material-icons:hover{
+    cursor: pointer;
+    color: #ff8000;
+    transition: 0.3s;
+}
+
+.header-nav.material-icons:hover{
+    cursor: pointer;
+    color: white;
+    transition: 0.3s;
+}
+
+button.bestell-button{
     position: absolute;
     text-decoration: none;
     top: 50%;
@@ -106,7 +120,7 @@ header a{
     transition: 0.4s;
 }
 
-.bestell-button:hover{
+button.bestell-button:hover{
     background-color: rgba(255, 255, 255, 0.2);
     cursor: pointer;
     -ms-transform: translate(-50%, -50%);
@@ -118,7 +132,10 @@ header a{
     z-index: 100;
     position: relative;
     font-size: 40px;
+    border-radius: 5px;
+    padding: 1%;
+    display: inline-flex;
     text-align: center;
-    transform: translateY(-250%);
-    display: inline;
+    margin-left: auto;
+    margin-right: auto;
 }
