@@ -37,11 +37,13 @@
     </div>
   </header>
   <p class = "error-message"><%= message %></p>
+
     <div class = "bestell-button-container">
       <form action="/speisekarte" class="button" method="post">
         <button class="bestell-button">Hier Bestellen</button>
       </form> 
     </div>
+    
       <!-- Header -->
       <%- include('./partials/warenkorb.ejs') %><%-
       include('./partials/mein_account.ejs') %><%-
