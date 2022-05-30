@@ -35,6 +35,7 @@
         </ul>
     </nav>
   </header>
+
   <body>
     <div class="menu-container">
       <h1>Pizzen</h1>
@@ -43,7 +44,7 @@
         <% for(var i = 0; i < pizzen.length; i++){ %>
         <div class="item_open pizzen_open" id="pizzen_open">
           <p><%= pizzen[i].name %></p>
-          <img src="images/pizza.jpg">
+          <img src="images/items/pizzen/pizza_<%= pizzen[i].id %>.png">
           <p><%= pizzen[i].price %>€</p>
         </div>
         <% } %>
@@ -56,7 +57,7 @@
         <% for(var i = 0; i < drinks.length; i++){ %>
         <div class="item_open drinks_open" id="drinks_open">
           <p><%= drinks[i].name %></p>
-          <img src="images/drink.jpg" />
+          <img src="images/items/drinks/drink_<%= drinks[i].id %>.png" />
           <p><%= drinks[i].price %>€</p>
         </div>
         <% } %>

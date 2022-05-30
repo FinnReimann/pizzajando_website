@@ -3,6 +3,7 @@
 body{
     font-family: Roboto;
     margin: 2% 10%;
+    
 }
 
 /*Header*/
@@ -61,7 +62,7 @@ svg{
     border-radius: 10px;
 }
 
-.error-message:empty{
+#error:first-child:empty{
     display: none;
 }
 

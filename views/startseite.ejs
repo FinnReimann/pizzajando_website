@@ -42,6 +42,12 @@
     <i class="material-icons" id="error_close">close</i>
   </div>
   <script>
+    /*Wenn Error-Message leer, dann Error Div hidden*/
+    if($(".error-message").html().length ==0)
+      {
+        $("#error").hide();
+      }
+      /*Wenn Error Hide geklickt wird, dann Error Div hidden*/
     $(document).ready(function(){
       $("#error_close").click(function(){
         $("#error").hide();
