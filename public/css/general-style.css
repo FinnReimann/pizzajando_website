@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+body{
+    font-family: Roboto;
+    margin: 2% 10%;
+}
+
+/*Header*/
+header{
+    z-index: 1;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+svg{
+    z-index: 0;
+    position: absolute;
+    margin: -4.4% -12.5%;
+    transform: scaleY(0.92);
+    transform-origin: center top;
+    filter: drop-shadow(0 0 30px rgb(0 0 0 / 0.4));
+}
+
+.logo{
+    z-index: 2;
+    font-size: 4.3vw;
+    font-weight: 500;
+    font-family: Roboto;
+    text-decoration: none;
+    
+}
+
+.nav-list li{
+    z-index: 2;
+    display: inline-flex;
+    padding: 30px 50px;
+    transform: scale(1.8);
+}
+
+.colorchange{
+    color: rgb(255, 255, 255);
+    transition: 0.3s;
+}
+
+.colorchange:hover{
+    cursor: pointer;
+    transition: 0.3s;
+    text-shadow: 0 0 5px white;
+}
+
+/*Error-Message*/
+.error-message{
+    display: inline-block;
+    font-size: 20px;
+    z-index: 5;
+    color: white;
+    background-color: #ff2e2e;
+    padding: 4px;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+.error-message:empty{
+    display: none;
+}
+
+#error .material-icons{
+    color: white;
+    display: inline;
+}
+
+#error{
+    position: absolute;
+    top:0px;
+    right: 2%;
+    z-index: 5;
+    overflow:hidden;
+    margin-top: 0%;
+    text-shadow: 0 0 30px rgb(0 0 0);
+    transition: 0.3s;
+}
+
+#error:hover{
+    cursor: pointer;
+    text-shadow: 0 0 30px rgb(255, 255, 255);
+    transition: 0.3s;
+}
+
+
+
+.material-icons:hover{
+    cursor: pointer;
+    color: #ff8000;
+}
+
+header .material-icons:hover{
+    color: white;
+}

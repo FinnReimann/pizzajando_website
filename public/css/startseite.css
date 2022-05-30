@@ -2,3 +2,26 @@ html {
     background: url("/images/banner.jpg") no-repeat center fixed;     
     background-size: cover;
 }
+
+.home-content button{
+    color: white;
+    background-color: rgb(255, 255, 255, 0);
+    border: 2px solid white;
+    border-radius: 20px;
+    font-size: 4.3vw;
+    padding: 1% 2%;
+    position: absolute;
+    margin-left: -10%;
+    transform-origin: center;
+    top: 45%;
+    left: 45%;
+    text-shadow: 0 0 30px rgb(0 0 0);
+    box-shadow: 0 0 30px rgb(0 0 0 / 0.4);
+    transition: 0.3s;
+}
+
+.home-content button:hover{   
+    transform: scale(1.05);
+    transition: 0.3s;
+    box-shadow: 0 0 80px rgb(0 0 0 / 0.8);
+}

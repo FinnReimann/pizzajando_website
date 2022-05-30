@@ -1,34 +1,52 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Speisekarte | Pizzajando</title>
     <link rel="stylesheet" type="text/css" href="css/modals.css" />
     <link rel="stylesheet" type="text/css" href="css/warenkorb.css" />
+    <link rel="stylesheet" type="text/css" href="css/images.css" />
     <link rel="stylesheet" type="text/css" href="css/kasse.css" />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
+      rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" type="text/css" href="css/general-style.css" />
+    <link rel="stylesheet" type="text/css" href="css/speisekarte.css" />
     <link rel="stylesheet" type="text/css" href="css/variables.css" />
-    <title>Accountdetails</title>
   </head>
+  <!--Header-->
+  <header>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#ff8000" fill-opacity="0.9" d="M0,160L120,176C240,192,480,224,720,224C960,224,1200,192,1320,176L1440,160L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
+    </svg>
+    <a class="logo colorchange" href="/">Pizzajando</a>
+    <nav>
+        <ul class="nav-list">
+            <li>
+                <div class="cart colorchange">
+                    <i class="material-icons" id="warenkorb_open">shopping_cart</i>
+                    <div><span class="cart_items">0</span></div>
+                  </div>
+            </li>
+            <li>
+                <div class="account colorchange">
+                    <i class="material-icons" id="mein_account_open">dehaze</i>
+                  </div>
+            </li>
+        </ul>
+    </nav>
+  </header>
+  <!--Error Message-->
+  <div id="error">
+    <p class="error-message"><%= message %></p>
+    <i class="material-icons" id="error_close">close</i>
+  </div>
+  <script>
+    $(document).ready(function(){
+      $("#error_close").click(function(){
+        $("#error").hide();
+      });
+    });
+  </script>
   <body>
-    <form action="/" class="button" method="post">
-      <button>PIZZAJANDO</button>
-    </form>
-    <br />
-    <form action="/speisekarte" class="button" method="post">
-      <button>Speisekarte</button>
-    </form>
-    <br />
-    <div class="cart">
-      <i class="material-icons" id="warenkorb_open">shopping_cart</i>
-      <div>
-        <span class="cart_items">0</span>
-      </div>
-    </div>
-    <br />
-    <i class="material-icons" id="mein_account_open"> dehaze </i>
-    <br />
     <form action="/update_user" class="button" method="post">
       <p>Persönliche Daten</p>
       <label for="update_email">E-Mail:</label><br />
@@ -102,7 +120,6 @@
       /><br /><br />
       <input type="submit" value="Löschen" />
     </form>
-    <p><%= message %></p>
     <!-- Header -->
     <%- include('./partials/warenkorb.ejs') %><%-
     include('./partials/mein_account.ejs') %><%-

@@ -79,6 +79,12 @@ app.post("/", function (req, res) {
   });
 });
 
+
+/*Test*/ 
+app.get("/test", function (req, res) {
+  res.render("test", { message: "" });
+});
+
 /* getRequest admin_main */
 app.get("/admin", function (req, res) {
   res.render("admin/admain", { message: "" });
@@ -940,7 +946,4 @@ app.post("/bestellungen_status_update", function (req, res) {
 
 /* Gillis Test Station */
 
-//Layout
-app.get("/layout", function (req, res) {
-  res.render("layout");
-});
+
