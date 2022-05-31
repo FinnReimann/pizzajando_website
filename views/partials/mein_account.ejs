@@ -4,6 +4,7 @@
 
       <!--Accountdetails-->
     <h1>Mein Account</h1>
+    <hr>
     <br>
     <button class="meine_bestellungen_open" id="meine_bestellungen_open">
       Meine Bestellungen</button>
@@ -13,11 +14,14 @@
     <form action="/logout" class="button" method="post">
       <button class="logout" value="logout">Ausloggen</button>
     </form>
+    <br>
+    <hr>
 
     <% } else { %>
 
       <!--Login-->
     <h1>Login</h1>
+    <hr>
     <br>
     <form action="/login" class="login_button" id="login_button" method="post">
       <label for="login_email">E-Mail</label><br />
@@ -30,6 +34,8 @@
       /><br /><br />
       <input type="submit" value="Login" />
     </form>
+    <br>
+    <hr>
     <p>
       Noch nicht Registriert?<br />
       <button class="register_open" id="register_open">

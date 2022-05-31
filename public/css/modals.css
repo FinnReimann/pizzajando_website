@@ -108,7 +108,7 @@ button.logout:hover{
   border: #7e3030 solid 2px;
 }
 
-#drinks_close, #pizzen_close, #warenkorb_close, #kasse_close, #mein_account_close, #register_close{
+#drinks_close, #pizzen_close, #warenkorb_close, #kasse_close, #mein_account_close, #register_close, #meine_bestellungen_close{
   position: absolute;
   top: 0;
   right: 0;
@@ -117,8 +117,13 @@ button.logout:hover{
 }
 
 h1{
-  display: inline-block;
-  border: 3px solid #ff8000;
-  border-radius: 20px;
-  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 40px;
+}
+
+hr{
+  position: relative;
+  width: 75%;
+  border: 1px solid #000000;
+  border-radius: 15px;
 }

@@ -56,7 +56,8 @@
   </script>
 
   <body>
-      <form action="/update_user" class="button" method="post">
+      <br><br><br><br><br><br>
+      <form class="kontaktinformationen"action="/update_user" class="button" method="post">
         <p>Persönliche Daten</p>
         <label for="update_email">E-Mail:</label><br />
         <input
@@ -96,7 +97,8 @@
         /><br /><br />
         <input type="submit" value="Kontaktinformationen anpassen" />
       </form>
-      <form action="/update_password" class="button" method="post">
+
+      <form class="pw-change" action="/update_password" class="button" method="post">
         <p>Passwort</p>
         <label for="update_password">Neues Passwort:</label><br />
         <input
@@ -112,7 +114,9 @@
         /><br /><br />
         <input type="submit" value="Passwort ändern" />
       </form>
-      <form action="/user_delete" class="button" method="post">
+
+      <form class="account-delete" action="/user_delete" class="button" method="post">
+        <p>Account löschen</p>
         <label for="delete_email">Email:</label><br />
         <input type="email" class="delete_email" id="delete_email" /><br />
         <label for="delete_password">Passwort:</label><br />
@@ -129,6 +133,10 @@
         /><br /><br />
         <input type="submit" value="Löschen" />
       </form>
+    
+      
+ 
+      
     
     <!-- Header -->
     <%- include('./partials/warenkorb.ejs') %><%-
