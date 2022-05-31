@@ -1,23 +1,23 @@
-form{
+main h1 {
+  margin-top: 10%;
+  font-size: 50px;
+  text-align: center;
+}
+main form{
     text-align: center;
-    margin-left: 4%;
+    margin: 2% 30px;
 }
 
-form p{
+main form p{
     font-size: 30px;
 }
 
-form input[type=submit]{
-    font-size: 20px;
-    padding: 10px 18px;
-}
-
-input[value=Löschen]{
+main input[value=Löschen]{
     color: #ff2e2e;
     border: #ff2e2e solid 2px;
   }
 
-  input[value=Löschen]:hover{
+  main input[value=Löschen]:hover{
     color: #7e3030;
     border: #7e3030 solid 2px;
   }
@@ -25,18 +25,13 @@ input[value=Löschen]{
   .kontaktinformationen, .pw-change, .account-delete{
       display: inline-block;
       position: relative;
+      vertical-align: top;
+      align-items: center;
   }
 
-  .kontaktinformationen{
-      margin-left: 20%;
+  main{
+    text-align: center;
   }
 
-  .pw-change, .account-delete{
-    vertical-align: top;
-  }
-
-  .account-delete{
-    margin-right: 20%;
-  }
   
   

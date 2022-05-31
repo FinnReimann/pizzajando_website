@@ -36,7 +36,10 @@
     </nav>
   </header>
 
-  <!--Error Message-->
+  
+
+  <body>
+    <!--Error Message-->
   <div id="error">
     <p class="error-message"><%= message %></p>
     <i class="material-icons" id="error_close">close</i>
@@ -54,9 +57,8 @@
       });
     });
   </script>
-
-  <body>
-      <br><br><br><br><br><br>
+    <main>  
+      <h1 class="account-h1">Accountdetails</h1>
       <form class="kontaktinformationen"action="/update_user" class="button" method="post">
         <p>Persönliche Daten</p>
         <label for="update_email">E-Mail:</label><br />
@@ -133,7 +135,7 @@
         /><br /><br />
         <input type="submit" value="Löschen" />
       </form>
-    
+    </main>   
       
  
       
