@@ -15,7 +15,7 @@ for (let i = 0; i < pizzen.length; i++) {
   products[i] = {
     id: i,
     name: pizzen_name[i].textContent,
-    ingredients: pizzen_zutaten[i].textContent,
+    ingredients: "",
     price: parseFloat(pizzen_preis[i].textContent),
     inCart: 0,
   };

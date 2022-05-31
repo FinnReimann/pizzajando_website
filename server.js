@@ -22,7 +22,7 @@ const session = require("express-session");
 app.use(
   session({
     cookie: {
-      maxAge: 1000 * 60, // 1 Hour
+      maxAge: 1000 * 60 * 60, // 1 Hour
       sameSite: true,
     },
     secret: "p4ssw0rtv3rschlu3ssl3r",
@@ -63,7 +63,7 @@ app.get("/", function (req, res) {
   });
 });
 
-/* getRequest startseite */
+/* postRequest startseite */
 app.post("/", function (req, res) {
   if (req.user.authenticated) {
     bestellungen_params = db
@@ -79,8 +79,7 @@ app.post("/", function (req, res) {
   });
 });
 
-
-/*Test*/ 
+/*Test*/
 app.get("/test", function (req, res) {
   res.render("test", { message: "" });
 });
@@ -258,6 +257,8 @@ app.post("/user_register", function (req, res) {
               param_postcode,
               hash
             );
+          req.session.authenticated = true;
+          req.session.user = param_email;
           // Weiterleiten auf Startseite
           res.render("startseite", {
             message: "Du bist erfolgreich registriert!",
@@ -313,7 +314,7 @@ app.post("/update_user", function (req, res) {
   const param_adress = req.body.update_adress;
   const param_postcode = req.body.update_postcode;
   const param_user = req.session.user;
-  const rows = db
+  let rows = db
     .prepare("SELECT * FROM kontaktdaten WHERE email=?")
     .all(param_user);
   bestellungen_params = db
@@ -390,7 +391,7 @@ app.post("/update_password", function (req, res) {
   const param_password = req.body.update_password;
   const param_password_repeat = req.body.update_password_repeat;
   const param_user = req.session.user;
-  const rows = db
+  let rows = db
     .prepare("SELECT * FROM kontaktdaten WHERE email=?")
     .all(param_user);
   bestellungen_params = db
@@ -416,7 +417,7 @@ app.post("/update_password", function (req, res) {
         .prepare("SELECT * FROM kontaktdaten WHERE email=?")
         .all(param_email);
       res.render("accountdetails", {
-        message: "Du bist erfolgreich registriert!",
+        message: "Passwort erfolgreich geändert!",
         data: rows,
         session: req.session.authenticated,
         pizzen: pizzen_params,
@@ -441,7 +442,8 @@ app.post("/delete_user", function (req, res) {
   const param_email = req.body.delete_email;
   const param_password = req.body.delete_password;
   const param_password_repeat = req.body.delete_password_repeat;
-  const row = db
+
+  let row = db
     .prepare("SELECT * FROM kontaktdaten WHERE email=?")
     .all(param_email);
   if (
@@ -451,6 +453,11 @@ app.post("/delete_user", function (req, res) {
   ) {
     res.render("accountdetails", {
       message: "Bitte alle Felder ausfüllen!",
+      data: row,
+      session: req.session.authenticated,
+      pizzen: pizzen_params,
+      drinks: drinks_params,
+      bestellungen: bestellungen_params,
     });
   } else {
     if (param_password != param_password_repeat) {
@@ -471,6 +478,7 @@ app.post("/delete_user", function (req, res) {
           bestellungen_params = db
             .prepare("SELECT * FROM bestellungen WHERE user=?")
             .all("");
+          req.session.destroy();
           res.render("startseite", {
             message: `${param_email} erfolgreich gelöscht!`,
             data: row,
@@ -945,5 +953,3 @@ app.post("/bestellungen_status_update", function (req, res) {
 });
 
 /* Gillis Test Station */
-
-

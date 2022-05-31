@@ -7,100 +7,95 @@
     <link rel="stylesheet" type="text/css" href="css/images.css" />
     <link rel="stylesheet" type="text/css" href="css/kasse.css" />
     <link
-      rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
     <link rel="stylesheet" type="text/css" href="css/general-style.css" />
     <link rel="stylesheet" type="text/css" href="css/accountdetails.css" />
     <link rel="stylesheet" type="text/css" href="css/variables.css" />
   </head>
-  
-  <!--Header-->
-  <header>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#ff8000" fill-opacity="0.9" d="M0,160L120,176C240,192,480,224,720,224C960,224,1200,192,1320,176L1440,160L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
-    </svg>
-    <a class="logo colorchange" href="/">Pizzajando</a>
-    <nav>
-        <ul class="nav-list">
-            <li>
-                <div class="cart colorchange">
-                    <i class="material-icons" id="warenkorb_open">shopping_cart</i>
-                    <div><span class="cart_items">0</span></div>
-                  </div>
-            </li>
-            <li>
-                <div class="account colorchange">
-                    <i class="material-icons" id="mein_account_open">dehaze</i>
-                  </div>
-            </li>
-        </ul>
-    </nav>
-  </header>
-
-  
 
   <body>
+    <!--Header-->
+    <header>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path
+          fill="#ff8000"
+          fill-opacity="0.9"
+          d="M0,160L120,176C240,192,480,224,720,224C960,224,1200,192,1320,176L1440,160L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"
+        ></path>
+      </svg>
+      <a class="logo colorchange" href="/">Pizzajando</a>
+      <nav>
+        <ul class="nav-list">
+          <li>
+            <div class="cart colorchange">
+              <i class="material-icons" id="warenkorb_open">shopping_cart</i>
+              <div><span class="cart_items">0</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="account colorchange">
+              <i class="material-icons" id="mein_account_open">dehaze</i>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
     <!--Error Message-->
-  <div id="error">
-    <p class="error-message"><%= message %></p>
-    <i class="material-icons" id="error_close">close</i>
-  </div>
-  <script>
-    /*Wenn Error-Message leer, dann Error Div hidden*/
-    if($(".error-message").html().length ==0)
-      {
+    <div id="error">
+      <p class="error-message"><%= message %></p>
+      <i class="material-icons" id="error_close">close</i>
+    </div>
+    <script>
+      /*Wenn Error-Message leer, dann Error Div hidden*/
+      if ($(".error-message").html().length == 0) {
         $("#error").hide();
       }
-    /*Wenn Error Hide geklickt wird, dann Error Div hidden*/
-    $(document).ready(function(){
-      $("#error_close").click(function(){
-        $("#error").hide();
+      /*Wenn Error Hide geklickt wird, dann Error Div hidden*/
+      $(document).ready(function () {
+        $("#error_close").click(function () {
+          $("#error").hide();
+        });
       });
-    });
-  </script>
-    <main>  
+    </script>
+    <main>
       <h1 class="account-h1">Accountdetails</h1>
-      <form class="kontaktinformationen"action="/update_user" class="button" method="post">
+      <form
+        class="kontaktinformationen"
+        action="/update_user"
+        class="button"
+        method="post"
+      >
         <p>Persönliche Daten</p>
         <label for="update_email">E-Mail:</label><br />
-        <input
-          type="email"
-          id="update_email"
-          name="update_email"
-          value="<%= data[0].email %>"
-        /><br />
+        <input type="email" id="update_email" name="update_email" /><br />
         <label for="update_firstname">Vorname:</label><br />
         <input
           type="text"
           id="update_firstname"
           name="update_firstname"
-          value="<%= data[0].firstname %>"
         /><br />
         <label for="update_lastname">Nachname:</label><br />
-        <input
-          type="text"
-          id="update_lastname"
-          name="update_lastname"
-          value="<%= data[0].lastname %>"
-        /><br />
+        <input type="text" id="update_lastname" name="update_lastname" /><br />
         <p>Adresse</p>
         <label for="update_adress">Straße, Hausnummer:</label><br />
-        <input
-          type="text"
-          id="update_adress"
-          name="update_adress"
-          value="<%= data[0].adress %>"
-        /><br />
+        <input type="text" id="update_adress" name="update_adress" /><br />
         <label for="update_postcode">PLZ, Stadt</label><br />
         <input
           type="text"
           id="update_postcode"
           name="update_postcode"
-          value="<%= data[0].postcode %>"
         /><br /><br />
         <input type="submit" value="Kontaktinformationen anpassen" />
       </form>
 
-      <form class="pw-change" action="/update_password" class="button" method="post">
+      <form
+        class="pw-change"
+        action="/update_password"
+        class="button"
+        method="post"
+      >
         <p>Passwort</p>
         <label for="update_password">Neues Passwort:</label><br />
         <input
@@ -117,29 +112,31 @@
         <input type="submit" value="Passwort ändern" />
       </form>
 
-      <form class="account-delete" action="/user_delete" class="button" method="post">
+      <form
+        class="account-delete"
+        action="/delete_user"
+        class="button"
+        method="post"
+      >
         <p>Account löschen</p>
         <label for="delete_email">Email:</label><br />
-        <input type="email" class="delete_email" id="delete_email" /><br />
+        <input type="email" name="delete_email" id="delete_email" /><br />
         <label for="delete_password">Passwort:</label><br />
         <input
           type="password"
-          class="delete_password"
+          name="delete_password"
           id="delete_password"
         /><br />
         <label for="delete_password_repeat">Wiederholen:</label><br />
         <input
           type="password"
-          class="delete_password_repeat"
+          name="delete_password_repeat"
           id="delete_password_repeat"
         /><br /><br />
         <input type="submit" value="Löschen" />
       </form>
-    </main>   
-      
- 
-      
-    
+    </main>
+
     <!-- Header -->
     <%- include('./partials/warenkorb.ejs') %><%-
     include('./partials/mein_account.ejs') %><%-
