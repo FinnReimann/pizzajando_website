@@ -39,9 +39,10 @@ body{
 }
 
 /* Warenkorb Modal */
-.warenkorb {
-  background-color: #fff;
-  border-radius: 5px;
+.warenkorb, .meine_bestellungen, .kasse, .pizzen, .drinks{
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 30px 50px;
   max-width: 600px;
@@ -49,70 +50,21 @@ body{
   text-align: center;
 }
 
-/* MeinAccount Modal */
-.mein_account {
-  background-color: #fff;
-  border-radius: 5px;
+.mein_account, .register{
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 30px 50px;
-  max-width: 600px;
-  text-align: center;
-  position: fixed;
-}
-
-/* Register Modal */
-.register {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
+  max-width: 80%;
+  min-width: 20%;
   text-align: center;
 }
 
-/* Meine Bestellungen Modal */
-.meine_bestellungen {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
-  text-align: center;
-}
 
-/* Bestellinformationen Modal */
-.kasse {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
-  min-width: 600px;
-  text-align: center;
-}
-
-/* Pizzen Modal */
-.pizzen {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
-  text-align: center;
-}
-
-/* Drinks Modal */
-.drinks {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 30px 50px;
-  max-width: 600px;
-  text-align: center;
-}
 
 button, input[type=submit]{
-  font-size: 1vw;
+  font-size: 22px;
   padding: 2%;
   padding-left: 5%;
   padding-right: 5%;
@@ -122,6 +74,19 @@ button, input[type=submit]{
   background-color: white;
   color: rgb(0, 0, 0);
   transition: 0.3s;
+  margin-top: 15px;
+}
+
+input[type=text], input[type=password], input[type=email]{
+  padding: 5px;
+  margin: 5px;
+  border: 2px solid #1c1c1c;
+  border-radius: 15px;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus{
+  background-color: #f0f0f0;
+  border-color: #ff8000;
 }
 
 button:hover, input[type=submit]:hover{
@@ -131,5 +96,29 @@ button:hover, input[type=submit]:hover{
 }
 
 button.register_open{
-  font-size: 0.8vw;
+  font-size: 12px;
+}
+
+button.logout{
+  color: #ff2e2e;
+  border: #ff2e2e solid 2px;
+}
+button.logout:hover{
+  color: #7e3030;
+  border: #7e3030 solid 2px;
+}
+
+#drinks_close, #pizzen_close, #warenkorb_close, #kasse_close, #mein_account_close, #register_close{
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: scale(1.3);
+  margin: 15px;
+}
+
+h1{
+  display: inline-block;
+  border: 3px solid #ff8000;
+  border-radius: 20px;
+  margin-bottom: 20px;
 }

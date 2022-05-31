@@ -13,7 +13,6 @@ header{
     display: flex;
     justify-content: space-between;
 }
-
 svg{
     z-index: 0;
     position: absolute;
@@ -22,7 +21,6 @@ svg{
     transform-origin: center top;
     filter: drop-shadow(0 0 30px rgb(0 0 0 / 0.4));
 }
-
 .logo{
     z-index: 2;
     font-size: 4.3vw;
@@ -31,19 +29,16 @@ svg{
     text-decoration: none;
     
 }
-
 .nav-list li{
     z-index: 2;
     display: inline-flex;
     padding: 30px 50px;
     transform: scale(1.8);
 }
-
 .colorchange{
     color: rgb(255, 255, 255);
     transition: 0.3s;
 }
-
 .colorchange:hover{
     cursor: pointer;
     transition: 0.3s;
@@ -61,16 +56,13 @@ svg{
     border: 2px solid white;
     border-radius: 10px;
 }
-
 #error:first-child:empty{
     display: none;
 }
-
 #error .material-icons{
     color: white;
     display: inline;
 }
-
 #error{
     position: absolute;
     top:0px;
@@ -81,7 +73,6 @@ svg{
     text-shadow: 0 0 30px rgb(0 0 0);
     transition: 0.3s;
 }
-
 #error:hover{
     cursor: pointer;
     text-shadow: 0 0 30px rgb(255, 255, 255);
@@ -89,10 +80,14 @@ svg{
 }
 
 
+.material-icons{
+    transition: 0.3s;
+}
 
 .material-icons:hover{
     cursor: pointer;
     color: #ff8000;
+    transition: 0.3s;
 }
 
 header .material-icons:hover{

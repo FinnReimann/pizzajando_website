@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Speisekarte | Pizzajando</title>
+    <title>Accountdetails | Pizzajando</title>
     <link rel="stylesheet" type="text/css" href="css/modals.css" />
     <link rel="stylesheet" type="text/css" href="css/warenkorb.css" />
     <link rel="stylesheet" type="text/css" href="css/images.css" />
@@ -9,9 +9,10 @@
     <link
       rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <link rel="stylesheet" type="text/css" href="css/general-style.css" />
-    <link rel="stylesheet" type="text/css" href="css/speisekarte.css" />
+    <link rel="stylesheet" type="text/css" href="css/accountdetails.css" />
     <link rel="stylesheet" type="text/css" href="css/variables.css" />
   </head>
+  
   <!--Header-->
   <header>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -34,92 +35,101 @@
         </ul>
     </nav>
   </header>
+
   <!--Error Message-->
   <div id="error">
     <p class="error-message"><%= message %></p>
     <i class="material-icons" id="error_close">close</i>
   </div>
   <script>
+    /*Wenn Error-Message leer, dann Error Div hidden*/
+    if($(".error-message").html().length ==0)
+      {
+        $("#error").hide();
+      }
+    /*Wenn Error Hide geklickt wird, dann Error Div hidden*/
     $(document).ready(function(){
       $("#error_close").click(function(){
         $("#error").hide();
       });
     });
   </script>
+
   <body>
-    <form action="/update_user" class="button" method="post">
-      <p>Persönliche Daten</p>
-      <label for="update_email">E-Mail:</label><br />
-      <input
-        type="email"
-        id="update_email"
-        name="update_email"
-        value="<%= data[0].email %>"
-      /><br />
-      <label for="update_firstname">Vorname:</label><br />
-      <input
-        type="text"
-        id="update_firstname"
-        name="update_firstname"
-        value="<%= data[0].firstname %>"
-      /><br />
-      <label for="update_lastname">Nachname:</label><br />
-      <input
-        type="text"
-        id="update_lastname"
-        name="update_lastname"
-        value="<%= data[0].lastname %>"
-      /><br />
-      <p>Adresse</p>
-      <label for="update_adress">Straße, Hausnummer:</label><br />
-      <input
-        type="text"
-        id="update_adress"
-        name="update_adress"
-        value="<%= data[0].adress %>"
-      /><br />
-      <label for="update_postcode">PLZ, Stadt</label><br />
-      <input
-        type="text"
-        id="update_postcode"
-        name="update_postcode"
-        value="<%= data[0].postcode %>"
-      /><br /><br />
-      <input type="submit" value="Kontaktinformationen anpassen" />
-    </form>
-    <form action="/update_password" class="button" method="post">
-      <p>Passwort</p>
-      <label for="update_password">Neues Passwort:</label><br />
-      <input
-        type="password"
-        id="update_password"
-        name="update_password"
-      /><br />
-      <label for="update_password_repeat">Wiederholen:</label><br />
-      <input
-        type="password"
-        id="update_password_repeat"
-        name="update_password_repeat"
-      /><br /><br />
-      <input type="submit" value="Passwort ändern" />
-    </form>
-    <form action="/user_delete" class="button" method="post">
-      <label for="delete_email">Email:</label><br />
-      <input type="email" class="delete_email" id="delete_email" /><br />
-      <label for="delete_password">Passwort:</label><br />
-      <input
-        type="password"
-        class="delete_password"
-        id="delete_password"
-      /><br />
-      <label for="delete_password_repeat">Wiederholen:</label><br />
-      <input
-        type="password"
-        class="delete_password_repeat"
-        id="delete_password_repeat"
-      /><br /><br />
-      <input type="submit" value="Löschen" />
-    </form>
+      <form action="/update_user" class="button" method="post">
+        <p>Persönliche Daten</p>
+        <label for="update_email">E-Mail:</label><br />
+        <input
+          type="email"
+          id="update_email"
+          name="update_email"
+          value="<%= data[0].email %>"
+        /><br />
+        <label for="update_firstname">Vorname:</label><br />
+        <input
+          type="text"
+          id="update_firstname"
+          name="update_firstname"
+          value="<%= data[0].firstname %>"
+        /><br />
+        <label for="update_lastname">Nachname:</label><br />
+        <input
+          type="text"
+          id="update_lastname"
+          name="update_lastname"
+          value="<%= data[0].lastname %>"
+        /><br />
+        <p>Adresse</p>
+        <label for="update_adress">Straße, Hausnummer:</label><br />
+        <input
+          type="text"
+          id="update_adress"
+          name="update_adress"
+          value="<%= data[0].adress %>"
+        /><br />
+        <label for="update_postcode">PLZ, Stadt</label><br />
+        <input
+          type="text"
+          id="update_postcode"
+          name="update_postcode"
+          value="<%= data[0].postcode %>"
+        /><br /><br />
+        <input type="submit" value="Kontaktinformationen anpassen" />
+      </form>
+      <form action="/update_password" class="button" method="post">
+        <p>Passwort</p>
+        <label for="update_password">Neues Passwort:</label><br />
+        <input
+          type="password"
+          id="update_password"
+          name="update_password"
+        /><br />
+        <label for="update_password_repeat">Wiederholen:</label><br />
+        <input
+          type="password"
+          id="update_password_repeat"
+          name="update_password_repeat"
+        /><br /><br />
+        <input type="submit" value="Passwort ändern" />
+      </form>
+      <form action="/user_delete" class="button" method="post">
+        <label for="delete_email">Email:</label><br />
+        <input type="email" class="delete_email" id="delete_email" /><br />
+        <label for="delete_password">Passwort:</label><br />
+        <input
+          type="password"
+          class="delete_password"
+          id="delete_password"
+        /><br />
+        <label for="delete_password_repeat">Wiederholen:</label><br />
+        <input
+          type="password"
+          class="delete_password_repeat"
+          id="delete_password_repeat"
+        /><br /><br />
+        <input type="submit" value="Löschen" />
+      </form>
+    
     <!-- Header -->
     <%- include('./partials/warenkorb.ejs') %><%-
     include('./partials/mein_account.ejs') %><%-
